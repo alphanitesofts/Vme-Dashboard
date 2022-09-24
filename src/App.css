@@ -1,0 +1,128 @@
+.colorsbutton {
+  border: none;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 50%;
+
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  margin-left: 100px;
+}
+
+.backgroundblur {
+  backdrop-filter: blur(10px);
+}
+
+/* waning modal */
+.modalBackground {
+  width: 80vw;
+  height: 90vh;
+  position: fixed;
+  backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* modalf */
+.modalContainer {
+  width: 590px;
+  height: 450px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.modalContainer .title {
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.titleCloseBtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.titleCloseBtn button {
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+
+.modalContainer .footer {
+  flex: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer .footer button {
+  width: 150px;
+  height: 45px;
+  margin: 10px;
+  border: none;
+  background-color: crimson;
+  color: white;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#cancelBtn {
+  background-color: cornflowerblue;
+}
+
+.textColor {
+  color: grey;
+}
+
+.formStyle {
+  flex-direction: "row";
+  display: "flex";
+  align-items: "center";
+}
+
+.placeHolderStyle {
+  flex: 1;
+  border: 0;
+  outline: none;
+}
+
+.borderRadiuscard {
+  border-radius: 7px;
+}
+
+.centerCard {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.borderColor {
+  border-style: solid;
+  border-color: #33c1eccb;
+  border-width: 7px;
+  border-radius: 30px;
+  box-shadow: 53px 37px 19px -8px rgba(0, 0, 0, 0.27);
+  -webkit-box-shadow: 53px 37px 19px -8px rgba(0, 0, 0, 0.27);
+  -moz-box-shadow: 53px 37px 19px -8px rgba(0, 0, 0, 0.27);
+}
