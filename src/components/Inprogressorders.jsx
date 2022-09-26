@@ -58,7 +58,6 @@ const Inprogressorders = () => {
   }
 
   const deletedOrders = (id) => {
-
     const pendingObj = {
       order_status: "deleted",
       payment_status: "deleted",
@@ -67,7 +66,7 @@ const Inprogressorders = () => {
 
     axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
       .then((res) => {
-        sendToInprogress()
+        progressOrders()
         setWarningModal(false)
         toast.warning('Order Sended to deleted Table')
         console.log(res.data)

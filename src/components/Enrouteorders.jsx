@@ -51,7 +51,6 @@ const Enrouteorders = () => {
       .catch((error) => {
         console.log(error)
       })
-
   }
 
   const returnOrders = (id) => {
@@ -65,7 +64,7 @@ const Enrouteorders = () => {
     axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
       .then((res) => {
         recieveData()
-        toast.warning('Order Sended to deleted Table')
+        toast.warning('Order sended to return table')
         console.log(res.data)
       })
       .catch((error) => {

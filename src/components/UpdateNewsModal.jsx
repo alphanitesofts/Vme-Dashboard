@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import axios, { Axios, AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 import Baseurl from '../url'
 import Modal from 'react-modal'
 import { useQuill } from 'react-quilljs';
 import 'quill/dist/quill.snow.css';
-import { useLocation } from 'react-router-dom'
 
-const UpdateNewsModal = ({ shouldShow, closeModal, userData, updata }) => {
+const UpdateNewsModal = ({ shouldShow, closeModal, userData }) => {
 
-    const { quill, quillRef } = useQuill('');
+    const { quill, quillRef } = useQuill();
     const [value, setValue] = useState('')
-    const [updateTitle, setUpdateTitle] = useState('')
+    const [updateTitle, setUpdateTitle] = useState(userData.title)
     const [fieldStatus, setFieldStatus] = useState(false)
 
-    const location = useLocation();
-
     const UpdatePublishNews = () => {
+
         setFieldStatus(true)
         if (!updateTitle || !value) {
             toast.warn("Please fill all Fields")
@@ -31,6 +29,10 @@ const UpdateNewsModal = ({ shouldShow, closeModal, userData, updata }) => {
                 .then(res => {
                     console.log(res)
                     toast.info("News updated successfully")
+                    closeModal()
+                    setInterval(() => {
+                        window.location.reload(true)
+                    }, 500);
                 })
                 .catch((err) => {
                     console.log(err)
@@ -38,16 +40,23 @@ const UpdateNewsModal = ({ shouldShow, closeModal, userData, updata }) => {
                 })
         }
     }
-    React.useEffect(() => {
+    // React.useEffect(() => {
+    //     if (quill) {
+    //         quill.on('text-change', (delta, oldDelta, source) => {
+    //             setValue(quill.getContents()); // Get text only
+    //             // console.log(quill.getContents()); // Get delta contents
+    //             // console.log(quill.root.innerHTML); // Get innerHTML using quill
+    //             console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
+    //             setValue(quillRef.current.firstChild.innerHTML);
+    //         });
+    //     }
+    // }, [quill]);
+
+    useEffect(() => {
         if (quill) {
-            quill.on('text-change', (delta, oldDelta, source) => {
-                console.log('Text change!');
-                // console.log(quill.getText()); // Get text only
-                // console.log(quill.getContents()); // Get delta contents
-                // console.log(quill.root.innerHTML); // Get innerHTML using quill
-                console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
-                setValue(quillRef.current.firstChild.innerHTML)
-            });
+            quill.clipboard.dangerouslyPasteHTML(`${userData.body}`);
+            console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
+            setValue(quillRef.current.firstChild.innerHTML);
         }
     }, [quill]);
 
@@ -56,7 +65,7 @@ const UpdateNewsModal = ({ shouldShow, closeModal, userData, updata }) => {
             isOpen={shouldShow}
             contentLabel="Example Modal" >
             <div className='content-wrapper'>
-                <section className="content">
+                <section className="">
                     <div className="container-fluid">
                         <div className="">
                             <div className="">
@@ -69,7 +78,7 @@ const UpdateNewsModal = ({ shouldShow, closeModal, userData, updata }) => {
                                         <h4> Title for News</h4>
                                         <p >{updateTitle === "" && fieldStatus === true ? <span className='text-danger'> Please Add Title for your news</span> : console.log(".-.")}</p>
                                         <div style={{ borderColor: updateTitle === "" && fieldStatus === true ? "red" : 'black', border: "1px solid", padding: '2px', minHeight: '80px' }}>
-                                            <input placeholder={userData.title} type="email" className="form-control form-control-lg" onChange={(e) => setUpdateTitle(e.target.value)} style={{ borderColor: "white" }} name='titleNews' id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                            <input value={updateTitle} type="email" className="form-control form-control-lg" onChange={(e) => setUpdateTitle(e.target.value)} style={{ borderColor: "white" }} name='titleNews' id="exampleInputEmail1" aria-describedby="emailHelp" />
                                         </div>
                                     </div>
 
@@ -77,7 +86,7 @@ const UpdateNewsModal = ({ shouldShow, closeModal, userData, updata }) => {
                                     <p>{value === "" && fieldStatus === true ? <span className='text-danger'>Please Add body to your news!</span> : console.log(".-.")}</p>
                                     <div className="" style={{ borderColor: value === "" && fieldStatus === true ? "red" : 'black', border: "1px solid", padding: '2px', minHeight: '400px' }}>
 
-                                        <div >
+                                        <div>
                                             <div ref={quillRef} />
                                         </div>
                                     </div>

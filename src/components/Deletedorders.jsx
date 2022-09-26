@@ -16,8 +16,6 @@ const Deletedorders = () => {
   const [shouldShow, setShouldShow] = useState(false)
   const [userID, setUserID] = useState()
 
-
-
   const recieveData = () => {
 
     setLoader(true)

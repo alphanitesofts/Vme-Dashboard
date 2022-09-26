@@ -325,12 +325,10 @@ const Content = () => {
                   </div>
                   {/* /.col */}
                 </div>
-                {/* /.row */}
-              </div>
-              {/* /.container-fluid */}
-            </section>
-            {/* /.content */}
 
+              </div>
+
+            </section>
             {
               userID ?
                 <Infoform

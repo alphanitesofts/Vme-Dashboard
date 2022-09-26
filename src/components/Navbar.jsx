@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { AsyncStorage } from 'AsyncStorage';
 import { useNavigate } from 'react-router-dom';
-import Getitem from './Getitem';
 const Navbar = () => {
     const navigate = useNavigate()
+
     const logOut = async () => {
         AsyncStorage.setItem('logIN', JSON.stringify(false));
         let login = await AsyncStorage.getItem("logIN")
@@ -15,10 +15,8 @@ const Navbar = () => {
 
             setInterval(() => {
                 window.location.reload()
-
             }, 1000);
         }
-
     }
 
     return (
@@ -30,10 +28,10 @@ const Navbar = () => {
                         <a className="nav-link" data-widget="pushmenu" href="#" role="button"><i className="fas fa-bars" /></a>
                     </li>
                     <li className="nav-item d-none d-sm-inline-block">
-                        <Link href="index3.html" to="/Content" className="nav-link">Home</Link>
+                        <Link to="/" className="nav-link">Home</Link>
                     </li>
                     <li className="nav-item d-none d-sm-inline-block">
-                        <Link href="#" to="/Contact" className="nav-link">Contact</Link>
+                        <Link to="/Contact" className="nav-link">Contact</Link>
                     </li>
                 </ul>
                 {/* Right navbar links */}
@@ -144,15 +142,38 @@ const Navbar = () => {
                             <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
                         </div>
                     </li>
+
+                    <li className="nav-item dropdown">
+                        <a className="nav-link" data-toggle="dropdown" href="#">
+                            <i className="fa-solid fa-gears" />
+                            <span className="badge badge-warning navbar-badge">2</span>
+                        </a>
+                        <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+                            <a href="#" className="dropdown-item">
+                                <i className="fas fa-envelope mr-2" />Account Setting
+
+                            </a>
+                            <div className="dropdown-divider" />
+                            <a href="#" className="dropdown-item">
+                                <i className="fas fa-users mr-2" /> Switch User
+
+                            </a>
+                            <div className="dropdown-divider" />
+                            <a href="#" className="dropdown-item" onClick={logOut}>
+                                <i className="fa-solid fa-user mr-2" /> Logout
+
+                            </a>
+                            <div className="dropdown-divider" />
+                            <a href="#" className="dropdown-item dropdown-footer">See All setting</a>
+                        </div>
+                    </li>
                     <li className="nav-item">
                         <a className="nav-link" data-widget="fullscreen" href="#" role="button">
                             <i className="fas fa-expand-arrows-alt" />
                         </a>
                     </li>
-                    <li className='Nav-item mt-2' onClick={logOut}>
-                        <i className=" fa-solid fa-lock" style={{ cursor: "pointer" }} />
-                    </li>
-                    {/* &nbsp;&nbsp;<a href="#" >Sign out</a> */}
+
                 </ul>
             </nav>
         </div>

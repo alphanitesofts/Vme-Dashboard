@@ -12,10 +12,14 @@ const UpdateNews = () => {
     const [warningModal, setWarningModal] = useState(false)
     const [userID, setUserID] = useState()
     const [shouldShow, setShouldShow] = useState(false)
-
+    const [loader, setLoader] = useState(false)
+    const [searchTitle, setSearchTitle] = useState('')
+    const [searchDate, setSearchDate] = useState('')
     const recieveData = () => {
+        setLoader(true)
         axios.get(`${Baseurl}fetchNews`)
             .then((res) => {
+                setLoader(false)
                 setData(res.data)
                 console.log(res)
             })
@@ -30,6 +34,7 @@ const UpdateNews = () => {
                 recieveData()
                 console.log(res)
                 toast.success("News delete successfully")
+                setWarningModal(false)
             })
             .catch((err) => {
                 console.log(err)
@@ -37,22 +42,107 @@ const UpdateNews = () => {
             })
     }
 
-    const updateData = (id) => {
-        axios.post(`${Baseurl}updateNews/${id}`)
-        recieveData()
-            .then((res) => {
-                console.log(res)
-                toast.success("News updated successfully")
-            })
-            .catch((err) => {
-                console.log(err)
-                toast.warn(("Error while updating news"))
-            })
+    const dataRender = () => {
+        if (!searchTitle && !searchDate) {
+            return (
+                data.map((items) => {
+                    return (
+                        <>
+                            <div className='col-12'>
+                                <div className='d-flex'>
+                                    <div className='card w-100' style={{ borderRadius: "10px" }}>
+                                        <div className='card-body'>
+                                            <div>
+                                                <h3>{items.title}</h3>
+                                                <h6 className='form-text'>{items.Idate}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button className='btn btn-outline-primary mt-4 ms-2 mb-4' onClick={() => {
+                                        setUserID(items)
+                                        oncloseModal()
+                                    }}><i className="fa-solid fa-marker" />
+                                    </button>
+                                    <button className='btn btn-outline-danger mt-4 ms-2 mb-4' onClick={() => {
+                                        setWarningModal(true)
+                                        setUserID(items.id)
+                                    }}><i className="fa-solid fa-trash" />
+                                    </button>
+                                </div>
+                            </div>
+                        </>
+                    )
+                })
+            )
+        }
+        else if (!searchDate && searchTitle) {
+            return (
+                data.filter((objects) => objects.title === searchTitle).map((items) => {
+                    return (
+                        <>
+                            <div className='col-12'>
+                                <div className='d-flex'>
+                                    <div className='card w-100' style={{ borderRadius: "10px" }}>
+                                        <div className='card-body'>
+                                            <div>
+                                                <h3>{items.title}</h3>
+                                                <h6 className='form-text'>{items.Idate}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button className='btn btn-outline-primary mt-4 ms-2 mb-4' onClick={() => {
+                                        setUserID(items)
+                                        oncloseModal()
+                                    }}><i className="fa-solid fa-marker" />
+                                    </button>
+                                    <button className='btn btn-outline-danger mt-4 ms-2 mb-4' onClick={() => {
+                                        setWarningModal(true)
+                                        setUserID(items.id)
+                                    }}><i className="fa-solid fa-trash" />
+                                    </button>
+                                </div>
+                            </div>
+                        </>
+                    )
+                })
+            )
+        }
+        else if (!searchTitle && searchDate) {
+            return (
+                data.filter((objects) => objects.Idate === searchDate).map((items) => {
+                    return (
+                        <>
+                            <div className='col-12'>
+                                <div className='d-flex'>
+                                    <div className='card w-100' style={{ borderRadius: "10px" }}>
+                                        <div className='card-body'>
+                                            <div>
+                                                <h3>{items.title}</h3>
+                                                <h6 className='form-text'>{items.Idate}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button className='btn btn-outline-primary mt-4 ms-2 mb-4' onClick={() => {
+                                        setUserID(items)
+                                        oncloseModal()
+                                    }}><i className="fa-solid fa-marker" />
+                                    </button>
+                                    <button className='btn btn-outline-danger mt-4 ms-2 mb-4' onClick={() => {
+                                        setWarningModal(true)
+                                        setUserID(items.id)
+                                    }}><i className="fa-solid fa-trash" />
+                                    </button>
+                                </div>
+                            </div>
+                        </>
+                    )
+                })
+            )
+        }
     }
-
     function oncloseModal() {
         setShouldShow((prev) => !prev)
-      }
+    }
     useEffect(() => { recieveData() }, [])
 
     return (
@@ -98,60 +188,45 @@ const UpdateNews = () => {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-12">
-                                <div className="card">
 
-                                    <div className="card-header">
-                                        <h3 className="card-title">Pusblished news can be updated here</h3>
-                                    </div>
+                                {
+                                    loader === true ?
+                                        <>
+                                            <div className='content-wrapper'>
+                                                <div className="loader">
+                                                    <div className="spinner-border" style={{ height: "5rem", width: "5rem" }} role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                        :
+                                        <>
+                                            <div className="card">
 
-                                    {/* /.card-header */}
+                                                <div className="card-header">
+                                                    <h3 className="card-title">Pusblished news can be updated here</h3>
+                                                </div>
+                                                <div className="card-body">
+                                                    <div className="form-group d-flex" >
+                                                        {/* <input className="form-control" type="number" placeholder="Search with id" aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp; */}
+                                                        <input className="form-control" type="text" onChange={(e) => setSearchTitle(e.target.value)} placeholder="Search with title" aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp;
+                                                        <input className="form-control" type="text" onChange={(e) => setSearchDate(e.target.value)} placeholder="Enter date in YYYY-MM-DD" aria-label="Search" style={{ borderRadius: "10em" }} />
+                                                    </div>
 
-                                    <div className="card-body">
-                                        <div className="form-group d-flex" >
-                                            {/* <input className="form-control" type="number" placeholder="Search with id" aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp; */}
-                                            <input className="form-control" type="text" placeholder="Search with title" aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp;
-                                            <input className="form-control" type="text" placeholder="Enter date in YYYY-MM-DD" aria-label="Search" style={{ borderRadius: "10em" }} />
-                                        </div>
+                                                    {
+                                                        dataRender()
+                                                    }
+                                                </div>
+                                            </div>
+                                        </>
+                                }
 
-                                        {
-                                            data.map((items) => {
-                                                return (
-                                                    <>
-                                                        <div className='col-12'>
-                                                            <div className='d-flex'>
-                                                                <div className='card w-100'>
-                                                                    <div className='card-body'>
-                                                                        <div>
-                                                                            <h3>{items.title}</h3>
-                                                                            <h6 className='form-text'>{items.Idate}</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <button className='btn btn-outline-primary mt-4 ms-2 mb-4' onClick={() => {
-                                                                    setUserID(items)
-                                                                    oncloseModal()
-                                                                }}><i className="fa-solid fa-marker" />
-                                                                </button>
-                                                                <button className='btn btn-outline-danger mt-4 ms-2 mb-4' onClick={() => {
-                                                                    setWarningModal(true)
-                                                                    setUserID(items.id)
-                                                                }}><i className="fa-solid fa-trash" />
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                )
-                                            })
-                                        }
-
-                                    </div>
-                                </div>
                                 {
                                     userID ?
                                         <UpdateNewsModal
                                             shouldShow={shouldShow}
                                             closeModal={oncloseModal}
-                                            updata={updateData}
                                             userData={userID} /> : null
                                 }
                             </div>

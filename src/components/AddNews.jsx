@@ -19,6 +19,12 @@ const AddNews = () => {
         if (!title || !value) {
             toast.warn("Please fill all Fields")
         }
+        else if (!title && value) {
+            toast.warning("Please enter Title of your news")
+        }
+        else if (!value && title) {
+            toast.warn("Please add body to your news")
+        }
         else {
             const userObj = {
                 title: title,
@@ -28,6 +34,9 @@ const AddNews = () => {
                 .then((res) => {
                     console.log(res)
                     toast.info("News publised successfully")
+                    setInterval(() => {
+                        window.location.reload(true)
+                    }, 2000)
                 })
                 .catch((err) => {
                     console.log(err)
@@ -36,7 +45,7 @@ const AddNews = () => {
         }
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (quill) {
             quill.on('text-change', () => {
                 console.log('Text change!');
@@ -71,14 +80,14 @@ const AddNews = () => {
                                     <div>
                                         <h4> Title for News</h4>
                                         <p >{title === "" && fieldStatus === true ? <span className='text-danger'> Please Add Title for your news</span> : console.log(".-.")}</p>
-                                        <div style={{ borderColor: title === "" && fieldStatus === true ? "red" : 'black', border: "1px solid", padding: '2px', minHeight: '80px' }}>
+                                        <div style={{ borderColor: title === "" && fieldStatus === true ? "red" : 'black', border: "1px solid", borderRadius: "5px", padding: '2px', minHeight: '80px' }}>
                                             <input type="email" className="form-control form-control-lg" onChange={(e) => setTitle(e.target.value)} style={{ borderColor: "white", fontSize: "30px" }} name='titleNews' id="exampleInputEmail1" aria-describedby="emailHelp" />
                                         </div>
                                     </div>
 
                                     <h4 className='mt-3'> Body for News</h4>
                                     <p>{value === "" && fieldStatus === true ? <span className='text-danger'>Please Add body to your news!</span> : console.log(".-.")}</p>
-                                    <div className="" style={{ borderColor: value === "" && fieldStatus === true ? "red" : 'black', border: "1px solid", padding: '2px', minHeight: '400px' }}>
+                                    <div className="" style={{ borderColor: value === "" && fieldStatus === true ? "red" : 'black', border: "1px solid", borderRadius: "5px", padding: '2px', minHeight: '400px' }}>
 
 
                                         <div >
