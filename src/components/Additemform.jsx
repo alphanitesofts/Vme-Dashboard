@@ -10,7 +10,6 @@ toast.configure()
 const Additemform = () => {
     // for counter
     const [addCount, setAddCount] = useState(0);
-
     const [name, setName] = useState('')
     const [picture, setPicture] = useState('')
     const [getColor, setColor] = useState('black')
@@ -18,9 +17,11 @@ const Additemform = () => {
     const [price, setPrice] = useState('')
     const [ava, setAva] = useState('')
     const [description, setDescription] = useState('')
+    const [fieldstatus, setFieldStatus] = useState(false)
 
     const incrementCount = () => {
         setAddCount(addCount + 1);
+
     }
     const decrementCount = () => {
         setAddCount(addCount - 1)
@@ -57,7 +58,6 @@ const Additemform = () => {
             })
             .then(result => console.log(result))
             .catch(error => console.log('error', error).toast.warn("Error while submitting data"));
-
 
         setInterval(() => {
             window.location.reload(true)
@@ -119,9 +119,12 @@ const Additemform = () => {
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Quantity</label>
                                     <div>
-                                        <button className='btn btn-secondary me-2 btn-sm' onClick={decrementCount}>-1</button>
+                                        {
+                                            addCount > 0 ?
+                                                <button className='btn btn-secondary me-2 btn-sm' onClick={decrementCount}><i className="fa-solid fa-angle-left" /></button> : console.log(".-.")
+                                        }
                                         <label htmlFor="exampleInputPassword1">{addCount}</label>
-                                        <button className='btn btn-secondary ms-2 btn-sm' onClick={incrementCount}>+1</button>
+                                        <button className='btn btn-secondary ms-2 btn-sm' onClick={incrementCount}><i className="fa-solid fa-angle-right" /></button>
                                     </div>
                                 </div>
 

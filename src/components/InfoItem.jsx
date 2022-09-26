@@ -14,7 +14,7 @@ const InfoItem = ({ closeModal, userData, shouldShow }) => {
             isOpen={shouldShow}
         >
             <div>
-                <div className='content-wrapper '>
+                <div className=' content-wrapper'>
                     <div className='centerCard m-3 ' >
                         <div className='card col-lg-6 borderColor  container-fluid'>
                             <div className="card-body ">

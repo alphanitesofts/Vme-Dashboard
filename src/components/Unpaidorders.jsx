@@ -34,11 +34,12 @@ const Unpaidorders = () => {
       body: formdata,
       redirect: 'follow'
     };
-
+setLoader(true)
     fetch(`${Baseurl}getinfowithpaymentstatus`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setUserData(result)
+        setLoader(false)
         console.log(result)
       })
       .catch(error => console.log('error', error));

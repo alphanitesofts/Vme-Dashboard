@@ -47,7 +47,7 @@ const Deletedorders = () => {
         <td>{items.ldate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
-          setUserID(items.id)
+          setUserID(items)
         }}>Info</button></td>
       </tr>
     )
@@ -237,7 +237,7 @@ const Deletedorders = () => {
                 <Infoform
                   shouldShow={shouldShow}
                   closeModal={oncloseModal}
-                  userId={userID}
+                  userData={userID}
                 />
                 : null}
             {/* /.content */}

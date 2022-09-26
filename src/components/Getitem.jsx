@@ -89,7 +89,7 @@ const Getitem = () => {
                                                             <tr>
                                                                 <td>{items.item_name}</td>
                                                                 <td>{items.item_price}</td>
-                                                                <td>{items.item_color}</td>
+                                                               <td> <button className="colorsbutton" style={{ backgroundColor: `${items.item_color}` }}></button></td>
 
                                                                 <td>{items.item_type}</td>
                                                                 <td>{items.item_type}</td>

@@ -4,9 +4,42 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Modal from 'react-modal'
 import Baseurl from '../url';
+import fileDownload from 'js-file-download'
+import { saveAs } from "file-saver";
 
 const Infoform = ({ shouldShow, closeModal, userData }) => {
   const location = useLocation();
+
+  const [input, setInput] = useState("");
+
+  const saveFile = () => {
+    saveAs(`${baseUrlforImages}${userData.cv}`);
+  };
+
+
+  // const onButtonClick = () => {
+  //   // using Java Script method to get PDF file
+  //   fetch('SamplePDF.pdf').then(response => {
+  //     response.blob().then(blob => {
+  //       // Creating new object of PDF file
+  //       const fileURL = window.URL.createObjectURL(blob);
+  //       // Setting various property values
+  //       let alink = document.createElement('a');
+  //       alink.href = fileURL;
+  //       alink.download = 'SamplePDF.pdf';
+  //       alink.click();
+  //     })
+  //   })
+  // }
+
+  const handleDownload = (url, filename) => {
+    axios.get(url, {
+      responseType: 'blob',
+    })
+      .then((res) => {
+        fileDownload(res.data, filename)
+      })
+  }
 
   return (
     <Modal
@@ -39,11 +72,14 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
                     {/* <li class="list-group-item">
                       <b>Followers</b> <a class="float-right">1,322</a>
                       </li> */}
-                    <li className="nav-item">
+                    <li className='nav-item'>
                       <a href="#" className="nav-link">
-                        Address: <b className="float-right text-secondary">{userData.address}</b>
+                        CV: <button className='btn btn-outline-secondary float-right mb-1' onClick={saveFile}>
+                          Download
+                        </button>
                       </a>
                     </li>
+
                     <h4 className='mt-2 text-dark'><b> Socials</b></h4>
                     <li className="nav-item">
                       <a href="#" className="nav-link">
@@ -94,6 +130,11 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
 
                     <li className="nav-item">
                       <a href="#" className="nav-link">
+                        Address: <b className="float-right text-secondary">{userData.address}</b>
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a href="#" className="nav-link">
                         Short Description: <b className="float-right text-secondary">{userData.gmail}</b>
                       </a>
                     </li>
@@ -140,8 +181,13 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
                       </a>
                     </li>
                     <li className="nav-item">
-                      <a href="#" className="nav-link">
+                      {/* <a href="#" className="nav-link">
                         CV: <b className="float-right text-secondary">{userData.cv}</b>
+                      </a> */}
+                      <a href="#" className="nav-link">
+                        CV: <button className='btn btn-outline-secondary float-right ' onClick={saveFile}>
+                          Download
+                        </button>
                       </a>
                     </li>
                   </ul>
