@@ -119,7 +119,7 @@ const Content = () => {
   const DataRender = () => {
     if (!orderID && !phoneNo & !orderDate) {
       return (
-       userData.map((items) => {
+        userData.map((items) => {
           return (
             <Content items={items} />
           )

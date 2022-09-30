@@ -4,6 +4,7 @@ import 'quill/dist/quill.snow.css';
 import axios from 'axios';
 import Baseurl from '../url';
 import { toast } from 'react-toastify';
+import { StrictMode } from 'react';
 
 const AddNews = () => {
     const { quill, quillRef } = useQuill('');
@@ -80,18 +81,20 @@ const AddNews = () => {
                                     <div>
                                         <h4> Title for News</h4>
                                         <p >{title === "" && fieldStatus === true ? <span className='text-danger'> Please Add Title for your news</span> : console.log(".-.")}</p>
-                                        <div style={{ borderColor: title === "" && fieldStatus === true ? "red" : 'black', border: "1px solid", borderRadius: "5px", padding: '2px', minHeight: '80px' }}>
+                                        <div style={{ borderColor: title === "" && fieldStatus === true ? "red" : '#ced4da', border: "1px solid #ced4da", borderRadius: "5px", padding: '2px', minHeight: '80px' }}>
                                             <input type="email" className="form-control form-control-lg" onChange={(e) => setTitle(e.target.value)} style={{ borderColor: "white", fontSize: "30px" }} name='titleNews' id="exampleInputEmail1" aria-describedby="emailHelp" />
                                         </div>
                                     </div>
 
                                     <h4 className='mt-3'> Body for News</h4>
                                     <p>{value === "" && fieldStatus === true ? <span className='text-danger'>Please Add body to your news!</span> : console.log(".-.")}</p>
-                                    <div className="" style={{ borderColor: value === "" && fieldStatus === true ? "red" : 'black', border: "1px solid", borderRadius: "5px", padding: '2px', minHeight: '400px' }}>
+                                    <div className="" style={{ borderColor: value === "" && fieldStatus === true ? "red" : '#ced4da', border: "1px solid #ced4da", borderRadius: "5px", padding: '2px', minHeight: '400px' }}>
 
 
                                         <div >
-                                            <div ref={quillRef} />
+                                            <StrictMode>
+                                                <div ref={quillRef} />
+                                            </StrictMode>
                                         </div>
                                     </div>
                                     <button onClick={publishNews} className="btn w-25 mt-2 btn-outline-secondary mx-auto">Publish</button>

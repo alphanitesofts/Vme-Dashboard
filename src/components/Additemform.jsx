@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import 'moment-timezone';
-import { AsyncStorage } from 'AsyncStorage';
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import 'moment-timezone';
@@ -9,7 +8,7 @@ import Baseurl from '../url';
 toast.configure()
 const Additemform = () => {
     // for counter
-    const [addCount, setAddCount] = useState(0);
+    const [addCount, setAddCount] = useState(1);
     const [name, setName] = useState('')
     const [picture, setPicture] = useState('')
     const [getColor, setColor] = useState('black')
@@ -17,7 +16,7 @@ const Additemform = () => {
     const [price, setPrice] = useState('')
     const [ava, setAva] = useState('')
     const [description, setDescription] = useState('')
-    const [fieldstatus, setFieldStatus] = useState(false)
+    const [fieldStatus, setFieldStatus] = useState(false)
 
     const incrementCount = () => {
         setAddCount(addCount + 1);
@@ -29,39 +28,45 @@ const Additemform = () => {
 
     // javascript fetch
     const sendData = () => {
+        setFieldStatus(true)
 
-        var formdata = new FormData();
-        formdata.append("item_name", name);
-        formdata.append("item_type", type);
-        formdata.append("item_price", price);
-        formdata.append("availability", ava);
-        formdata.append("describtion", description);
-        formdata.append("quantity", addCount);
-        formdata.append("item_color", getColor);
-        formdata.append("item_pic", picture, "[PROXY]");
+        if (!name || !picture || !price) {
+            toast.warning("Please fill all fields")
+        }
+        else {
 
-        var requestOptions = {
-            method: 'POST',
-            body: formdata,
-            redirect: 'follow'
-        };
+            var formdata = new FormData();
+            formdata.append("item_name", name);
+            formdata.append("item_type", type);
+            formdata.append("item_price", price);
+            formdata.append("availability", ava);
+            formdata.append("describtion", description);
+            formdata.append("quantity", addCount);
+            formdata.append("item_color", getColor);
+            formdata.append("item_pic", picture, "[PROXY]");
 
-        fetch(`${Baseurl}additem`, requestOptions)
-            // .then(response => response.text())
-            // .then(result => console.log(result))
-            // .catch(error => console.log('error', error));
+            var requestOptions = {
+                method: 'POST',
+                body: formdata,
+                redirect: 'follow'
+            };
+            fetch(`${Baseurl}additem`, requestOptions)
+                // .then(response => response.text())
+                // .then(result => console.log(result))
+                // .catch(error => console.log('error', error));
 
-            .then(response => response.text())
-            .then(result => {
-                console.log(result)
-                toast.success("Item added successfully")
-            })
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error).toast.warn("Error while submitting data"));
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result)
+                    toast.success("Item added successfully")
+                })
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error).toast.warn("Error while submitting data"));
 
-        setInterval(() => {
-            window.location.reload(true)
-        }, 2000)
+            setInterval(() => {
+                window.location.reload(true)
+            }, 2000)
+        }
     }
 
 
@@ -87,23 +92,24 @@ const Additemform = () => {
                             <div className='row'>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputEmail1">Item Name</label>
-                                    <input onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter product name" />
+                                    <input style={{ borderColor: name === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter product name" />
+                                    <p >{name === "" && fieldStatus === true ? <span className='text-danger'> Please Add name for the item</span> : console.log(".-.")}</p>
                                 </div>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputFile">Item Picture</label>
                                     <div className="input-group">
                                         <div className="custom-file">
                                             <input onChange={(e) => setPicture(e.target.files[0])} type="file" className="custom-file-input" id="exampleInputFile" />
-                                            <label className="custom-file-label" htmlFor="exampleInputFile">Choose file</label>
+                                            <label style={{ borderColor: picture === "" && fieldStatus === true ? "red" : '#ced4da' }} className="custom-file-label" htmlFor="exampleInputFile">Choose file</label>
                                         </div>
-
                                     </div>
+                                    <p >{picture === "" && fieldStatus === true ? <span className='text-danger'> Please Add picture for the item</span> : console.log(".-.")}</p>
                                 </div>
                             </div>
                             <div className='row'>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Item Type</label>
-                                    <select onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
+                                    <select style={{ borderColor: "#ced4da"}} onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
                                         <option >Card</option>
                                         <option >Tattos</option>
                                         <option >Jewellery</option>
@@ -113,14 +119,16 @@ const Additemform = () => {
                                 </div>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Item Price</label>
-                                    <input onChange={(e) => setPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
+                                    <input style={{ borderColor: price === "" && fieldStatus === true ? "red" : '#ced4da'}} onChange={(e) => setPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
+                                    <p >{price === "" && fieldStatus === true ? <span className='text-danger'> Please Add price for the item</span> : console.log(".-.")}</p>
+
                                 </div>
 
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Quantity</label>
                                     <div>
                                         {
-                                            addCount > 0 ?
+                                            addCount > 1 ?
                                                 <button className='btn btn-secondary me-2 btn-sm' onClick={decrementCount}><i className="fa-solid fa-angle-left" /></button> : console.log(".-.")
                                         }
                                         <label htmlFor="exampleInputPassword1">{addCount}</label>
@@ -138,7 +146,7 @@ const Additemform = () => {
 
                                 <div className="col-12 pt-3 pb-3">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label"><b>Description:</b></label>
-                                    <textarea className="form-control" onChange={(e) => setDescription(e.target.value)} id="exampleFormControlTextarea1" rows={5} placeholder="Write short describtion about the product ..." defaultValue={""} />
+                                    <textarea  className="form-control" onChange={(e) => setDescription(e.target.value)} id="exampleFormControlTextarea1" rows={5} placeholder="Write short describtion about the product ..." defaultValue={""} />
                                 </div>
 
                             </div>
