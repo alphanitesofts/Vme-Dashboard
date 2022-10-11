@@ -40,7 +40,7 @@ const Login = () => {
                     AsyncStorage.setItem('password', JSON.stringify(password));
 
                     AsyncStorage.setItem('roleID', (res.data.role_id));
-                    
+
                     console.log(res)
                     toast.info("Successfully Logged In")
                     setInterval(() => {
