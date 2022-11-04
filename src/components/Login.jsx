@@ -20,10 +20,10 @@ const Login = () => {
         if (!email || !password) {
             toast.warning("Please fill all fields")
         }
-        else if (!email && password != "") {
+        else if (!email && password) {
             toast.warning("Please Enter your Email")
         }
-        else if (email != "" && !password) {
+        else if (email && !password) {
             toast.warning("Please Enter your Password")
         }
         else {

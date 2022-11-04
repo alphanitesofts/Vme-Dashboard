@@ -109,7 +109,7 @@ const Additemform = () => {
                             <div className='row'>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Item Type</label>
-                                    <select style={{ borderColor: "#ced4da"}} onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
+                                    <select style={{ borderColor: "#ced4da" }} onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
                                         <option >Card</option>
                                         <option >Tattos</option>
                                         <option >Jewellery</option>
@@ -119,7 +119,7 @@ const Additemform = () => {
                                 </div>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Item Price</label>
-                                    <input style={{ borderColor: price === "" && fieldStatus === true ? "red" : '#ced4da'}} onChange={(e) => setPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
+                                    <input style={{ borderColor: price === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
                                     <p >{price === "" && fieldStatus === true ? <span className='text-danger'> Please Add price for the item</span> : console.log(".-.")}</p>
 
                                 </div>
@@ -146,7 +146,7 @@ const Additemform = () => {
 
                                 <div className="col-12 pt-3 pb-3">
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label"><b>Description:</b></label>
-                                    <textarea  className="form-control" onChange={(e) => setDescription(e.target.value)} id="exampleFormControlTextarea1" rows={5} placeholder="Write short describtion about the product ..." defaultValue={""} />
+                                    <textarea className="form-control" onChange={(e) => setDescription(e.target.value)} id="exampleFormControlTextarea1" rows={5} placeholder="Write short describtion about the product ..." defaultValue={""} />
                                 </div>
 
                             </div>
