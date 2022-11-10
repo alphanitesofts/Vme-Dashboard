@@ -25,7 +25,6 @@ const Undermakingorders = () => {
   const [warningModal, setWarningModal] = useState(false)
   const [roleID, setoleID] = useState()
 
-
   const showData = () => {
 
     setLoader(true)
@@ -97,7 +96,7 @@ const Undermakingorders = () => {
         <td>
           <button onClick={() => sendtoUndermaking(items.id)} className='btn btn-outline-primary m-1'>Enroute</button>&nbsp;&nbsp;
           {
-            roleID === "2" || roleID === "0" || roleID === "3"?
+            roleID === "2" || roleID === "0" || roleID === "3" ?
               <button className='btn btn-outline-danger m-1' onClick={() => {
                 setWarningModal(true)
                 setUserID(items.id)

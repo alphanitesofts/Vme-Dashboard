@@ -58,14 +58,13 @@ const Navbar = () => {
                         </div>
                     </li>
                     {/* Messages Dropdown Menu */}
-                    <li className="nav-item dropdown">
+                    {/* <li className="nav-item dropdown">
                         <a className="nav-link" data-toggle="dropdown" href="#">
                             <i className="far fa-comments" />
                             <span className="badge badge-danger navbar-badge">3</span>
                         </a>
                         <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <a href="#" className="dropdown-item">
-                                {/* Message Start */}
                                 <div className="media">
                                     <img src="dist/img/user1-128x128.jpg" alt="User Avatar" className="img-size-50 mr-3 img-circle" />
                                     <div className="media-body">
@@ -77,11 +76,9 @@ const Navbar = () => {
                                         <p className="text-sm text-muted"><i className="far fa-clock mr-1" /> 4 Hours Ago</p>
                                     </div>
                                 </div>
-                                {/* Message End */}
                             </a>
                             <div className="dropdown-divider" />
                             <a href="#" className="dropdown-item">
-                                {/* Message Start */}
                                 <div className="media">
                                     <img src="dist/img/user8-128x128.jpg" alt="User Avatar" className="img-size-50 img-circle mr-3" />
                                     <div className="media-body">
@@ -93,11 +90,9 @@ const Navbar = () => {
                                         <p className="text-sm text-muted"><i className="far fa-clock mr-1" /> 4 Hours Ago</p>
                                     </div>
                                 </div>
-                                {/* Message End */}
                             </a>
                             <div className="dropdown-divider" />
                             <a href="#" className="dropdown-item">
-                                {/* Message Start */}
                                 <div className="media">
                                     <img src="dist/img/user3-128x128.jpg" alt="User Avatar" className="img-size-50 img-circle mr-3" />
                                     <div className="media-body">
@@ -109,14 +104,12 @@ const Navbar = () => {
                                         <p className="text-sm text-muted"><i className="far fa-clock mr-1" /> 4 Hours Ago</p>
                                     </div>
                                 </div>
-                                {/* Message End */}
                             </a>
                             <div className="dropdown-divider" />
                             <a href="#" className="dropdown-item dropdown-footer">See All Messages</a>
                         </div>
-                    </li>
-                    {/* Notifications Dropdown Menu */}
-                    <li className="nav-item dropdown">
+                    </li> */}
+                    {/* <li className="nav-item dropdown">
                         <a className="nav-link" data-toggle="dropdown" href="#">
                             <i className="far fa-bell" />
                             <span className="badge badge-warning navbar-badge">15</span>
@@ -141,7 +134,7 @@ const Navbar = () => {
                             <div className="dropdown-divider" />
                             <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
                         </div>
-                    </li>
+                    </li> */}
 
                     <li className="nav-item dropdown">
                         <a className="nav-link" data-toggle="dropdown" href="#">
@@ -150,22 +143,19 @@ const Navbar = () => {
                         </a>
                         <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
-                            <a href="#" className="dropdown-item">
+                            {/* <a href="#" className="dropdown-item">
                                 <i className="fas fa-envelope mr-2" />Account Setting
-
-                            </a>
+                            </a> */}
                             <div className="dropdown-divider" />
-                            <a href="#" className="dropdown-item">
+                            <a className="dropdown-item" onClick={logOut}>
                                 <i className="fas fa-users mr-2" /> Switch User
-
                             </a>
                             <div className="dropdown-divider" />
-                            <a href="#" className="dropdown-item" onClick={logOut}>
+                            <a className="dropdown-item" onClick={logOut}>
                                 <i className="fa-solid fa-user mr-2" /> Logout
-
                             </a>
                             <div className="dropdown-divider" />
-                            <a href="#" className="dropdown-item dropdown-footer">See All setting</a>
+                            {/* <a href="#" className="dropdown-item dropdown-footer">See All setting</a> */}
                         </div>
                     </li>
                     <li className="nav-item">

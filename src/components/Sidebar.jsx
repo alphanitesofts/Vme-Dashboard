@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import { AsyncStorage } from 'AsyncStorage';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -235,10 +234,10 @@ const Sidebar = () => {
                 <div className="sidebar">
                     <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div className="image">
-                            <img src="dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User Image" />
+                            <img src="dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User profile" />
                         </div>
                         <div className="info">
-                            <a href="#" className="d-block">Welcome back, <b>Faraz</b></a>
+                            <a href="" className="d-block">Welcome back, <b>Faraz</b></a>
                         </div>
                     </div>
                     <div className="form-inline">
@@ -263,7 +262,7 @@ const Sidebar = () => {
                     </nav>
 
 
-{/* <nav className="mt-2">
+                    {/* <nav className="mt-2">
   <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <li className="nav-item menu-open">
       <a href="#" className="nav-link active">
