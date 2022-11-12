@@ -219,6 +219,37 @@ const Sidebar = () => {
                             <p >Scam Orders</p>
                         </Link>
                     </li>
+                    <li className="nav-item completed">
+                        <Link to="/Additemform" className="nav-link">
+                            <i className="fa-solid fa-plus" />&nbsp;&nbsp;
+                            <p >Add item</p>
+                        </Link>
+                    </li>
+                    <li className="nav-item completed">
+                        <Link to="/Getitem" className="nav-link">
+                            <i className="fa-solid fa-display" />&nbsp;&nbsp;
+                            <p >Get item</p>
+                        </Link>
+                    </li>
+
+                    <li className="nav-item completed">
+                        <Link to="/AddNews" className="nav-link">
+                            <i className="fa-solid fa-newspaper" />&nbsp;&nbsp;
+                            <p >Add News</p>
+                        </Link>
+                    </li>
+                    <li className="nav-item completed">
+                        <Link to="/UpdateNews" className="nav-link">
+                            <i className="fa-solid fa-pencil" />&nbsp;&nbsp;
+                            <p >Update News</p>
+                        </Link>
+                    </li>
+                    <li className="nav-item completed">
+                        <Link to="/HotCollection" className="nav-link">
+                            <i className="fa-brands fa-hotjar" />&nbsp;&nbsp;
+                            <p >Add Hot Collection</p>
+                        </Link>
+                    </li>
                 </ul>
             )
         }

@@ -35,6 +35,7 @@ import React, { useState, useEffect } from 'react';
 import { AsyncStorage } from 'AsyncStorage';
 
 import ReactModal from 'react-modal';
+import HotCollection from './components/HotCollection';
 
 
 ReactModal.setAppElement('#root')
@@ -94,9 +95,10 @@ function App() {
               < Route path='/Getitem' element={<Getitem />} />
               < Route path='/Scamorders' element={<Scamorders />} />
               < Route path='/ReturnOrders' element={<ReturnOrders />} />
-              < Route path='InfoItem' element={<InfoItem />} />
-              < Route path='AddNews' element={<AddNews />} />
-              < Route path='UpdateNews' element={<UpdateNews />} />
+              < Route path='/InfoItem' element={<InfoItem />} />
+              < Route path='/AddNews' element={<AddNews />} />
+              < Route path='/UpdateNews' element={<UpdateNews />} />
+              < Route path='/HotCollection' element={<HotCollection/>} />
 
               < Route path='*' element={<Error />} />
             </Routes>
