@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios'
 import Baseurl from '../url';
-import Sidebar from './Sidebar';
 
 toast.configure()
 const Login = () => {
