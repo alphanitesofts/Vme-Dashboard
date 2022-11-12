@@ -2,13 +2,10 @@ import React from 'react';
 
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from 'react';
-import { AsyncStorage } from 'AsyncStorage';
 import { toast } from "react-toastify";
-import { Link } from 'react-router-dom'
 import Baseurl from '../url';
 import axios from 'axios';
 import Infoform from './Infoform';
-import { useLocation } from 'react-router-dom';
 import Modal from 'react-modal'
 
 toast.configure()
