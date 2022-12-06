@@ -14,7 +14,7 @@ const Additemform = () => {
     const [getColor, setColor] = useState('black')
     const [type, setType] = useState('Card')
     const [price, setPrice] = useState('')
-    const [ava, setAva] = useState('')
+    const [hot, setHot] = useState('')
     const [description, setDescription] = useState('')
     const [fieldStatus, setFieldStatus] = useState(false)
 
@@ -39,7 +39,7 @@ const Additemform = () => {
             formdata.append("item_name", name);
             formdata.append("item_type", type);
             formdata.append("item_price", price);
-            formdata.append("availability", ava);
+            formdata.append("availability", hot);
             formdata.append("describtion", description);
             formdata.append("quantity", addCount);
             formdata.append("item_color", getColor);
@@ -51,9 +51,6 @@ const Additemform = () => {
                 redirect: 'follow'
             };
             fetch(`${Baseurl}additem`, requestOptions)
-                // .then(response => response.text())
-                // .then(result => console.log(result))
-                // .catch(error => console.log('error', error));
 
                 .then(response => response.text())
                 .then(result => {
@@ -68,7 +65,6 @@ const Additemform = () => {
             }, 2000)
         }
     }
-
 
     return (
         <div className='content-wrapper '>
@@ -93,7 +89,7 @@ const Additemform = () => {
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputEmail1">Item Name</label>
                                     <input style={{ borderColor: name === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter product name" />
-                                    <p >{name === "" && fieldStatus === true ? <span className='text-danger'> Please Add name for the item</span> : console.log(".-.")}</p>
+                                    <p >{name === "" && fieldStatus === true ? <span className='text-danger'> Please Add name for the item</span> : null}</p>
                                 </div>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputFile">Item Picture</label>
@@ -103,7 +99,7 @@ const Additemform = () => {
                                             <label style={{ borderColor: picture === "" && fieldStatus === true ? "red" : '#ced4da' }} className="custom-file-label" htmlFor="exampleInputFile">Choose file</label>
                                         </div>
                                     </div>
-                                    <p >{picture === "" && fieldStatus === true ? <span className='text-danger'> Please Add picture for the item</span> : console.log(".-.")}</p>
+                                    <p >{picture === "" && fieldStatus === true ? <span className='text-danger'> Please Add picture for the item</span> : null}</p>
                                 </div>
                             </div>
                             <div className='row'>
@@ -112,15 +108,15 @@ const Additemform = () => {
                                     <select style={{ borderColor: "#ced4da" }} onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
                                         <option >Card</option>
                                         <option >Tattos</option>
-                                        <option >Jewellery</option>
-                                        <option >Other</option>
+                                        {/* <option >Jewellery</option> */}
+                                        {/* <option >Other</option> */}
                                     </select>
 
                                 </div>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Item Price</label>
                                     <input style={{ borderColor: price === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
-                                    <p >{price === "" && fieldStatus === true ? <span className='text-danger'> Please Add price for the item</span> : console.log(".-.")}</p>
+                                    <p >{price === "" && fieldStatus === true ? <span className='text-danger'> Please Add price for the item</span> : null}</p>
 
                                 </div>
 
@@ -129,7 +125,7 @@ const Additemform = () => {
                                     <div>
                                         {
                                             addCount > 1 ?
-                                                <button className='btn btn-secondary me-2 btn-sm' onClick={decrementCount}><i className="fa-solid fa-angle-left" /></button> : console.log(".-.")
+                                                <button className='btn btn-secondary me-2 btn-sm' onClick={decrementCount}><i className="fa-solid fa-angle-left" /></button> : null
                                         }
                                         <label htmlFor="exampleInputPassword1">{addCount}</label>
                                         <button className='btn btn-secondary ms-2 btn-sm' onClick={incrementCount}><i className="fa-solid fa-angle-right" /></button>
@@ -137,11 +133,11 @@ const Additemform = () => {
                                 </div>
 
                                 <div className="form-check col-6">
-                                    <label htmlFor="exampleInputPassword1">Availability</label>
-                                    <div className="form-check form-switch">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input className="form-check-input mt-2 btn-lg" onChange={(e) => setAva(e.target.value)} type="checkbox" id="flexSwitchCheckDefault" />
-                                        &nbsp;&nbsp;&nbsp;<label className="form-check-label mt-1" htmlFor="flexSwitchCheckDefault">Item Available</label>
-                                    </div>
+                                    <label htmlFor="exampleInputPassword1">Hot Collection</label>
+                                    <select style={{ borderColor: "#ced4da" }} onChange={(e) => setHot(e.target.value)} className="form-select" aria-label="Default select example">
+                                        <option >Normal Product</option>
+                                        <option >Hot Product</option>
+                                    </select>
                                 </div>
 
                                 <div className="col-12 pt-3 pb-3">

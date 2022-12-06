@@ -13,6 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [fieldStatus, setFieldStatus] = useState(false)
 
+
     const submitData = () => {
 
         setFieldStatus(true)
@@ -38,9 +39,8 @@ const Login = () => {
                     AsyncStorage.setItem('email', JSON.stringify(email));
                     AsyncStorage.setItem('password', JSON.stringify(password));
 
-                    AsyncStorage.setItem('roleID', (res.data.role_id));
+                    AsyncStorage.setItem('user', JSON.stringify(res.data.user));
 
-                    console.log(res)
                     toast.info("Successfully Logged In")
                     setInterval(() => {
                         window.location.reload(true)

@@ -252,7 +252,7 @@ const Pendingorders = () => {
                   <div className="col-sm-6">
                     <h1 className="m-0">Pending Orders</h1>
                   </div>{/* /.col */}
-                 
+
                 </div>{/* /.row */}
               </div>{/* /.container-fluid */}
             </div>

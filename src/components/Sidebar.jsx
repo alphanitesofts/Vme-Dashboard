@@ -7,19 +7,18 @@ import { useEffect } from 'react';
 
 const Sidebar = () => {
 
-    // const employdata = await AsyncStorage.getItem('roleID')
-    // return adminData = JSON.parse(roleID) 
     const [roleID, setoleID] = useState()
+    console.log(roleID)
     const SetLocalLogin = async () => {
         try {
-            let roleID = await AsyncStorage.getItem('roleID');
-            if (roleID !== null) {
-                setoleID(roleID)
+            let user = await AsyncStorage.getItem('user');
+            let parsed_user = JSON.parse(user)
+            if (parsed_user) {
+                setoleID(parsed_user.role_id)
             }
         } catch {
             return null;
         }
-        console.log(roleID)
     }
     useEffect(() => { SetLocalLogin() }, [])
 
@@ -244,12 +243,7 @@ const Sidebar = () => {
                             <p >Update News</p>
                         </Link>
                     </li>
-                    <li className="nav-item completed">
-                        <Link to="/HotCollection" className="nav-link">
-                            <i className="fa-brands fa-hotjar" />&nbsp;&nbsp;
-                            <p >Add Hot Collection</p>
-                        </Link>
-                    </li>
+
                 </ul>
             )
         }

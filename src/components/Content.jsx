@@ -86,8 +86,8 @@ const Content = () => {
         <td>{items.id}</td>
         <td>{items.name}</td>
         <td>{items.address}</td>
-        <td>{items.phone}</td>
-        <td>{items.gmail}</td>
+        <td>{items.phone_number}</td>
+        <td>{items.email}</td>
         <td>{items.ldate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
@@ -282,12 +282,9 @@ const Content = () => {
                 <div className="row">
                   <div className="col-12">
                     <div className="card">
-
                       <div className="card-header">
                         <h3 className="card-title"><b> Current Orders</b></h3>
                       </div>
-
-                      {/* /.card-header */}
 
                       <div className="card-body table-responsive">
                         <div className="form-group d-flex" >

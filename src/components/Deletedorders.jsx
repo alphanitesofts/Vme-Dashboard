@@ -177,8 +177,7 @@ const Deletedorders = () => {
                   </div>{/* /.col */}
                   <div className="col-sm-6">
                     <ol className="breadcrumb float-sm-right">
-                      <li className="breadcrumb-item"><a onClick={logOut} href="#">Sign out</a>&nbsp;&nbsp;<i className=" fa-solid fa-user-lock" />
-                      </li>
+
                     </ol>
                   </div>{/* /.col */}
                 </div>{/* /.row */}
