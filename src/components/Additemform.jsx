@@ -135,8 +135,8 @@ const Additemform = () => {
                                 <div className="form-check col-6">
                                     <label htmlFor="exampleInputPassword1">Hot Collection</label>
                                     <select style={{ borderColor: "#ced4da" }} onChange={(e) => setHot(e.target.value)} className="form-select" aria-label="Default select example">
-                                        <option >Normal Product</option>
-                                        <option >Hot Product</option>
+                                        <option value={false} >Normal Product</option>
+                                        <option value={true}>Hot Product</option>
                                     </select>
                                 </div>
 

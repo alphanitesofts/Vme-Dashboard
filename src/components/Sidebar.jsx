@@ -48,7 +48,7 @@ const Sidebar = () => {
                 <ul className="nav nav-treeview ">
                     <li className="nav-item current">
                         <Link to="/" className="nav-link">
-                            <i class="fa-solid fa-user active"></i>&nbsp;&nbsp;
+                            <i class="fa-solid fa-box-open"></i>&nbsp;&nbsp;
                             <p>Current Orders</p>
                         </Link>
                     </li>
@@ -150,7 +150,7 @@ const Sidebar = () => {
                 <ul className="nav nav-treeview ">
                     <li className="nav-item current">
                         <Link to="/" className="nav-link">
-                            <i class="fa-solid fa-user active"></i>&nbsp;&nbsp;
+                            <i class="fa-solid fa-bring-forward"></i>&nbsp;&nbsp;
                             <p>Current Orders</p>
                         </Link>
                     </li>
@@ -259,10 +259,12 @@ const Sidebar = () => {
                 <div className="sidebar">
                     <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div className="image">
-                            <img src="dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User profile" />
+                        <i className="fa-solid fa-user text-white mt-2" style={{fontSize:'20px'}} />
+
+                            {/* <img src="dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User profile" /> */}
                         </div>
                         <div className="info">
-                            <a href="" className="d-block">Welcome back, <b>Faraz</b></a>
+                            <a href="" className="d-block">Welcome back,</a>
                         </div>
                     </div>
                     <div className="form-inline">
