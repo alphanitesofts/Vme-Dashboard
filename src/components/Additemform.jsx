@@ -14,7 +14,7 @@ const Additemform = () => {
     const [getColor, setColor] = useState('black')
     const [type, setType] = useState('Card')
     const [price, setPrice] = useState('')
-    const [hot, setHot] = useState('')
+    const [hot, setHot] = useState(false)
     const [description, setDescription] = useState('')
     const [fieldStatus, setFieldStatus] = useState(false)
 

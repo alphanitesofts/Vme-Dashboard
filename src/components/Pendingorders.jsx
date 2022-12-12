@@ -21,7 +21,6 @@ const Pendingorders = () => {
   const [userID, setUserID] = useState()
   const [warningModal, setWarningModal] = useState(false)
 
-
   const getPendingOrders = () => {
     setLoader(true)
     const pendObj = {
@@ -43,8 +42,8 @@ const Pendingorders = () => {
       order_status: "in_progress",
       payment_status: "unpaid",
       ready_to_review: 0
-
     }
+    
     axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
       .then((res) => {
         toast.success('Order Sended to Inprogress Table')
@@ -73,7 +72,6 @@ const Pendingorders = () => {
       .catch((error) => {
         console.log(error)
       })
-
   }
 
   const Content = ({ items }) => {
@@ -197,6 +195,7 @@ const Pendingorders = () => {
   useEffect(() => {
     getPendingOrders()
   }, [])
+
   return (
     <div>
       <Modal
@@ -244,6 +243,7 @@ const Pendingorders = () => {
               </div>
             </div>
           </> :
+
           <div className="content-wrapper">
             {/* Content Header (Page header) */}
             <div className="content-header">
@@ -294,16 +294,11 @@ const Pendingorders = () => {
                           </tbody>
                         </table>
                       </div>
-                      {/* /.card-body */}
                     </div>
                   </div>
-                  {/* /.col */}
                 </div>
-                {/* /.row */}
               </div>
-              {/* /.container-fluid */}
             </section>
-            {/* /.content */}
             {
               userID ?
                 <Infoform
@@ -311,7 +306,8 @@ const Pendingorders = () => {
                   closeModal={oncloseModal}
                   userData={userID}
                 />
-                : null}
+                : null
+            }
           </div>
 
       }
