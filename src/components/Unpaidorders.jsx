@@ -51,9 +51,8 @@ setLoader(true)
         <td>{items.id}</td>
         <td>{items.name}</td>
         <td>{items.address}</td>
-        <td>{items.phone}</td>
-        <td>{items.gmail}</td>
-        <td>{items.ldate}</td>
+        <td>{items.phone_number}</td>
+        <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
           setUserID(items)

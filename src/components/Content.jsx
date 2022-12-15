@@ -87,8 +87,7 @@ const Content = () => {
         <td>{items.name}</td>
         <td>{items.address}</td>
         <td>{items.phone_number}</td>
-        <td>{items.email}</td>
-        <td>{items.ldate}</td>
+        <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
           setUserID(items)
@@ -300,7 +299,6 @@ const Content = () => {
                               <th>Name</th>
                               <th>Address</th>
                               <th>Phone No.</th>
-                              <th>Email</th>
                               <th>Date</th>
                               <th>Info</th>
                               <th>Status</th>

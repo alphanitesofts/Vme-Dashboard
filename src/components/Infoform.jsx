@@ -70,6 +70,11 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
                     </li>
                     <li className="nav-item">
                       <a href="#" className="nav-link">
+                        Date: <b className="float-right text-secondary">{userData.Idate}</b>
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a href="#" className="nav-link">
                         Quantity: <b className="float-right text-secondary">{userData.quantity}</b>
                       </a>
                     </li>

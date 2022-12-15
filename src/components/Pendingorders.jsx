@@ -43,7 +43,7 @@ const Pendingorders = () => {
       payment_status: "unpaid",
       ready_to_review: 0
     }
-    
+
     axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
       .then((res) => {
         toast.success('Order Sended to Inprogress Table')
@@ -80,8 +80,8 @@ const Pendingorders = () => {
         <td>{items.id}</td>
         <td>{items.name}</td>
         <td>{items.address}</td>
-        <td>{items.phone}</td>
-        <td>{items.ldate}</td>
+        <td>{items.phone_number}</td>
+        <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
           setUserID(items)

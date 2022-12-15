@@ -144,8 +144,8 @@ const Additemform = () => {
                                     <label htmlFor="exampleFormControlTextarea1" className="form-label"><b>Description:</b></label>
                                     <textarea className="form-control" onChange={(e) => setDescription(e.target.value)} id="exampleFormControlTextarea1" rows={5} placeholder="Write short describtion about the product ..." defaultValue={""} />
                                 </div>
-
                             </div>
+
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Item Color</label>
                                 <div className='d-flex justify-content-start'>
@@ -158,6 +158,7 @@ const Additemform = () => {
                                     <button className={getColor === "grey" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('grey')} style={{ backgroundColor: 'grey' }}></button>
                                 </div>
                             </div>
+
                         </div>
                         <div className="card-footer">
                             <button type="submit" onClick={sendData} className="btn btn-outline-secondary">Submit</button>
