@@ -150,7 +150,7 @@ const Sidebar = () => {
                 <ul className="nav nav-treeview ">
                     <li className="nav-item current">
                         <Link to="/" className="nav-link">
-                            <i class="fa-solid fa-bring-forward"></i>&nbsp;&nbsp;
+                            <i class="fa-solid fa-box-open"></i>&nbsp;&nbsp;
                             <p>Current Orders</p>
                         </Link>
                     </li>

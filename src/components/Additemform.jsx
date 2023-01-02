@@ -50,19 +50,24 @@ const Additemform = () => {
                 body: formdata,
                 redirect: 'follow'
             };
-            fetch(`${Baseurl}additem`, requestOptions)
 
-                .then(response => response.text())
+
+            fetch(`${Baseurl}additem`, requestOptions)
+                .then(response => response.json())
                 .then(result => {
                     console.log(result)
                     toast.success("Item added successfully")
-                })
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error).toast.warn("Error while submitting data"));
+                    //         // setInterval(() => {
+                    //         //     window.location.reload(true)
+                    //         // }, 2000)
 
-            setInterval(() => {
-                window.location.reload(true)
-            }, 2000)
+                })
+
+                .catch(error => {
+                    console.log('error', error)
+                    toast.warn("Error while submitting data")
+
+                });
         }
     }
 

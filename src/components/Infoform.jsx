@@ -14,6 +14,8 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
     saveAs(`${baseUrlforImages}${userData.profile_pic}`);
   };
 
+  console.log(`${baseUrlforImages}${userData.profile_pic}`)
+  
   return (
     <Modal
       isOpen={shouldShow}
