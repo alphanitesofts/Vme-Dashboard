@@ -6,8 +6,7 @@ import 'moment-timezone';
 import Baseurl from '../url';
 import Select from 'react-select';
 import CreatableSelect from "react-select/creatable";
-
-
+import colorOptions from './color'
 
 toast.configure()
 const Additemform = () => {
@@ -24,21 +23,11 @@ const Additemform = () => {
 
     const incrementCount = () => {
         setAddCount(addCount + 1);
-
     }
     const decrementCount = () => {
         setAddCount(addCount - 1)
     }
 
-    const options = [
-        { value: "pink", label: "pink" },
-        { value: "red", label: "red" },
-        { value: "yellow", label: "yellow" },
-        { value: "blue", label: "blue" },
-        { value: "violet", label: "violet" },
-        { value: "grey", label: "grey" },
-
-    ];
     const colorStyles = {
         control: (styles) => ({ ...styles, backgroundColor: "white" }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -222,7 +211,7 @@ const Additemform = () => {
                                 </div> */}
 
                                 <CreatableSelect
-                                    options={options}
+                                    options={colorOptions}
                                     onChange={handleChange}
                                     // onInputChange={handleInputChange}
                                     isMulti
