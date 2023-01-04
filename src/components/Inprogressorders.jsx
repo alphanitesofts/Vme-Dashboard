@@ -44,7 +44,7 @@ const Inprogressorders = () => {
     const pendingObj = {
       order_status: "under_making",
       payment_status: "unpaid",
-      ready_to_review: 1
+      ready_to_review: 0
     }
     axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
       .then((res) => {

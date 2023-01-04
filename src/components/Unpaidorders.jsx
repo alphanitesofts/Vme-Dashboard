@@ -34,7 +34,7 @@ const Unpaidorders = () => {
       body: formdata,
       redirect: 'follow'
     };
-setLoader(true)
+    setLoader(true)
     fetch(`${Baseurl}getinfowithpaymentstatus`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -57,7 +57,7 @@ setLoader(true)
           oncloseModal()
           setUserID(items)
         }}>Info</button></td>
-        </tr>
+      </tr>
     )
   }
 
@@ -177,7 +177,7 @@ setLoader(true)
                   <div className="col-sm-6">
                     <h1 className="m-0">Unpaid Orders</h1>
                   </div>{/* /.col */}
-                
+
                 </div>{/* /.row */}
               </div>{/* /.container-fluid */}
             </div>

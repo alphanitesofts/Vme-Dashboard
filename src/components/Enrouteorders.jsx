@@ -58,7 +58,7 @@ const Enrouteorders = () => {
     const pendingObj = {
       order_status: "return",
       payment_status: "return",
-      ready_to_review: 0
+      ready_to_review: 1
     }
 
     axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
@@ -103,12 +103,13 @@ const Enrouteorders = () => {
         <td>
           <button className='btn btn-outline-primary m-1' onClick={() => sendToCompleted(items.id)}>Deleivered</button>
           <button className='btn btn-outline-secondary m-1' onClick={() => returnOrders(items.id)}>Return</button>
-          {
+          {/* {
             roleID === "2" || roleID === "0" ?
               <button className='btn btn-outline-danger m-1' onClick={() => scamOrders(items.id)}>Scam</button>
               :
               console.log("Some Fields are missing")
-          }
+          } */}
+          <button className='btn btn-outline-danger m-1' onClick={() => scamOrders(items.id)}>Scam</button>
         </td>
       </tr>
     )

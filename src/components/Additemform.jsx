@@ -4,6 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import 'moment-timezone';
 import Baseurl from '../url';
+import Select from 'react-select';
+import CreatableSelect from "react-select/creatable";
+
+
 
 toast.configure()
 const Additemform = () => {
@@ -11,7 +15,7 @@ const Additemform = () => {
     const [addCount, setAddCount] = useState(1);
     const [name, setName] = useState('')
     const [picture, setPicture] = useState('')
-    const [getColor, setColor] = useState('black')
+    const [getColor, setColor] = useState('')
     const [type, setType] = useState('Card')
     const [price, setPrice] = useState('')
     const [hot, setHot] = useState(false)
@@ -26,6 +30,60 @@ const Additemform = () => {
         setAddCount(addCount - 1)
     }
 
+    const options = [
+        { value: "pink", label: "pink" },
+        { value: "red", label: "red" },
+        { value: "yellow", label: "yellow" },
+        { value: "blue", label: "blue" },
+        { value: "violet", label: "violet" },
+        { value: "grey", label: "grey" },
+
+    ];
+    const colorStyles = {
+        control: (styles) => ({ ...styles, backgroundColor: "white" }),
+        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+            return { ...styles, color: data.color };
+        },
+        multiValue: (styles, { data }) => {
+            return {
+                ...styles,
+                backgroundColor: data.color,
+                color: "#fff",
+            };
+        },
+        multiValueLabel: (styles, { data }) => {
+            return {
+                ...styles,
+                color: "#fff",
+            };
+        },
+        multiValueRemove: (styles, { data }) => {
+            return {
+                ...styles,
+                color: "#fff",
+                cursor: "pointer",
+                ":hover": {
+                    color: "#fff",
+                },
+            };
+        },
+    };
+    const handleChange = (selectedOption, actionMeta) => {
+        setColor(selectedOption)
+        console.log("handleChange", selectedOption, actionMeta);
+    };
+    const handleInputChange = (inputValue, actionMeta) => {
+        console.log("handleInputChange", inputValue, actionMeta);
+    };
+
+    // const options = [
+    //     { label: 'black', value: 'black' },
+    //     { label: 'red', value: 'red' },
+    //     { label: 'blue', value: 'blue' },
+    //     { label: 'pink', value: 'pink' },
+    //     { label: 'green', value: 'green' },
+    // ]
+
     // javascript fetch
     const sendData = () => {
         setFieldStatus(true)
@@ -39,7 +97,7 @@ const Additemform = () => {
             formdata.append("item_name", name);
             formdata.append("item_type", type);
             formdata.append("item_price", price);
-            formdata.append("availability", hot);
+            formdata.append("is_hot", hot);
             formdata.append("describtion", description);
             formdata.append("quantity", addCount);
             formdata.append("item_color", getColor);
@@ -57,9 +115,9 @@ const Additemform = () => {
                 .then(result => {
                     console.log(result)
                     toast.success("Item added successfully")
-                    //         // setInterval(() => {
-                    //         //     window.location.reload(true)
-                    //         // }, 2000)
+                    // setInterval(() => {
+                    //     window.location.reload(true)
+                    // }, 2000)
 
                 })
 
@@ -153,7 +211,7 @@ const Additemform = () => {
 
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Item Color</label>
-                                <div className='d-flex justify-content-start'>
+                                {/* <div className='d-flex justify-content-start'>
                                     <button className={getColor === "black" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('black')} style={{ backgroundColor: 'black' }}></button>
                                     <button className={getColor === "red" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('red')} style={{ backgroundColor: 'red' }}></button>
                                     <button className={getColor === "blue" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('blue')} style={{ backgroundColor: 'blue' }}></button>
@@ -161,7 +219,15 @@ const Additemform = () => {
                                     <button className={getColor === "yellow" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('yellow')} style={{ backgroundColor: 'yellow' }}></button>
                                     <button className={getColor === "green" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('green')} style={{ backgroundColor: 'green' }}></button>
                                     <button className={getColor === "grey" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('grey')} style={{ backgroundColor: 'grey' }}></button>
-                                </div>
+                                </div> */}
+
+                                <CreatableSelect
+                                    options={options}
+                                    onChange={handleChange}
+                                    // onInputChange={handleInputChange}
+                                    isMulti
+                                // styles={colorStyles}
+                                />
                             </div>
 
                         </div>
