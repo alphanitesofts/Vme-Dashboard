@@ -17,10 +17,10 @@ import Getitem from "./components/Products/Getitem";
 import Scamorders from "./components/Orders/Scamorders";
 import ReturnOrders from "./components/Orders/ReturnOrders";
 import UpdateNews from "./components/News/UpdateNews";
-import AddNews from './components/News/AddNews'
+import AddNews from "./components/News/AddNews";
 //Structure
 import Navbar from "./components/Body/Navbar";
-import Sidebar from './components/Body/Sidebar'
+import Sidebar from "./components/Body/Sidebar";
 import Footer from "./components/Body/Footer";
 //Authentication
 import Login from "./components/Auth/Login";
@@ -58,7 +58,6 @@ function App() {
   return (
     <div className="wrapper">
       {login === false ? (
-
         <Router>
           <Routes>
             <Route path="/" exact element={<Login />} />
@@ -67,9 +66,7 @@ function App() {
             <Route path="/Forgotpassword" element={<Forgotpassword />} />
           </Routes>
         </Router>
-
       ) : (
-
         <Router>
           <Navbar />
           <Sidebar />
@@ -96,7 +93,6 @@ function App() {
           </Routes>
           <Footer />
         </Router>
-        
       )}
     </div>
   );
