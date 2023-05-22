@@ -1,34 +1,33 @@
 import "./App.css";
 
 // Tables and infoforms
-import Content from "./components/Content";
-import Pendingorders from "./components/Pendingorders";
-import Inprogressorders from "./components/Inprogressorders";
-import Undermakingorders from "./components/Undermakingorders";
-import Enrouteorders from "./components/Enrouteorders";
-import Completedorders from "./components/Completedorders";
-import Deletedorders from "./components/Deletedorders";
-import Paidorders from "./components/Paidorders";
-import Unpaidorders from "./components/Unpaidorders";
-import Infoform from "./components/Infoform";
-import InfoItem from "./components/InfoItem";
-import Additemform from "./components/Additemform";
-import Getitem from "./components/Getitem";
-import Scamorders from "./components/Scamorders";
-import ReturnOrders from "./components/ReturnOrders";
-import AddNews from "./components/AddNews";
-import UpdateNews from "./components/UpdateNews";
-
+import Content from "./components/Orders/Content";
+import Pendingorders from "./components/Orders/Pendingorders";
+import Inprogressorders from "./components/Orders/Inprogressorders";
+import Undermakingorders from "./components/Orders/Undermakingorders";
+import Enrouteorders from "./components/Orders/Enrouteorders";
+import Completedorders from "./components/Orders/Completedorders";
+import Deletedorders from "./components/Orders/Deletedorders";
+import Paidorders from "./components/Orders/Paidorders";
+import Unpaidorders from "./components/Orders/Unpaidorders";
+import Infoform from "./components/Modals/Infoform";
+import InfoItem from "./components/Modals/InfoItem";
+import Additemform from "./components/Products/Additemform";
+import Getitem from "./components/Products/Getitem";
+import Scamorders from "./components/Orders/Scamorders";
+import ReturnOrders from "./components/Orders/ReturnOrders";
+import UpdateNews from "./components/News/UpdateNews";
+import AddNews from './components/News/AddNews'
 //Structure
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import Footer from "./components/Footer";
+import Navbar from "./components/Body/Navbar";
+import Sidebar from './components/Body/Sidebar'
+import Footer from "./components/Body/Footer";
 //Authentication
-import Login from "./components/Login";
-import Recoverpassword from "./components/Recoverpassword";
-import Register from "./components/Register";
-import Forgotpassword from "./components/Forgotpassword";
-import Error from "./components/Error";
+import Login from "./components/Auth/Login";
+import Recoverpassword from "./components/Auth/Recoverpassword";
+import Register from "./components/Auth/Register";
+import Forgotpassword from "./components/Auth/Forgotpassword";
+import Error from "./components/Body/Error";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState, useEffect } from "react";
