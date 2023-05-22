@@ -1,21 +1,16 @@
 import baseUrlforImages from '../Sourcefiles/baseUrlforImages';
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
 import Modal from 'react-modal'
-import Baseurl from '../Sourcefiles/url';
-import fileDownload from 'js-file-download'
 import { saveAs } from "file-saver";
 
 const Infoform = ({ shouldShow, closeModal, userData }) => {
-  const location = useLocation();
 
   const saveFile = () => {
     saveAs(`${baseUrlforImages}${userData.profile_pic}`);
   };
 
   console.log(`${baseUrlforImages}${userData.profile_pic}`)
-  
+
   return (
     <Modal
       isOpen={shouldShow}
@@ -25,7 +20,7 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
         <div className="row">
           <div className="col-md-12">
             <div className="card card-widget widget-user" >
-              <div class="widget-user-header text-white bg-secondary" >
+              <div className="widget-user-header text-white bg-secondary" >
                 <button className='btn btn-outline-danger backgroundblur' style={{ float: "left" }} onClick={() => closeModal()}><i className="fa-solid fa-xmark"></i></button>
                 <h3 className="widget-user-username text-right text-white"><b>{userData.name}</b></h3>
                 <h5 className="widget-user-desc text-right text-white"><b>{userData.phone_number}</b></h5>

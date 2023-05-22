@@ -1,13 +1,16 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 import Modal from 'react-modal'
-import Baseurl from '../Sourcefiles/url';
 import baseUrlforImages from '../Sourcefiles/baseUrlforImages';
-
+import ErrorImage from '../Sourcefiles/Images/error-image.jpg'
 
 const InfoItem = ({ closeModal, userData, shouldShow }) => {
-    const location = useLocation();
+
+    const isSupportedImage = (url) => {
+        const supportedFormats = ['jpg', 'jpeg', 'png'];
+        const extension = url.split('.').pop().toLowerCase();
+        return supportedFormats.includes(extension);
+    };
+
 
     return (
         <Modal
@@ -20,7 +23,11 @@ const InfoItem = ({ closeModal, userData, shouldShow }) => {
                             <div className="card-body ">
                                 <div className="row ">
                                     <div className="col-lg-6">
-                                        <img className="img-fluid borderRadiuscard" src={`${baseUrlforImages}${userData.item_pic}`} style={{ height: "200px", width: "55em" }} alt="Photo" />
+                                        {userData.profile_pic && isSupportedImage(userData.profile_pic) ? (
+                                            <img className="img-fluid borderRadiuscard" src={ErrorImage} style={{ height: "200px", width: "55em" }} alt="Photo" />
+                                        ) : (
+                                            <img className="img-fluid borderRadiuscard" src={`${baseUrlforImages}${userData.item_pic}`} style={{ height: "200px", width: "55em" }} alt="Photo" />
+                                        )}
                                     </div>
                                     <div className="col-6">
                                         <button className=' m-1 btn btn-outline-danger btn-sm float-end' onClick={() => closeModal()}><i className="fa-solid fa-xmark" /></button>

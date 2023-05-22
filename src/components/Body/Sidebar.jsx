@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 const Sidebar = () => {
   const [roleID, setoleID] = useState();
+  const [userName, setUserName] = useState("")
   // console.log(roleID);
   const SetLocalLogin = async () => {
     try {
@@ -13,6 +14,7 @@ const Sidebar = () => {
       let parsed_user = JSON.parse(user);
       if (parsed_user) {
         setoleID(parsed_user.role_id);
+        setUserName(parsed_user.firstname)
       }
     } catch {
       return null;
@@ -268,7 +270,7 @@ const Sidebar = () => {
   return (
     <div>
       <aside className="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="index3.html" className="brand-link">
+        <a className="brand-link">
           <img
             src="dist/img/AdminLTELogo.png"
             alt="AdminLTE Logo"
@@ -291,25 +293,11 @@ const Sidebar = () => {
             </div>
             <div className="info">
               <a href="" className="d-block">
-                Welcome back,
+                Welcome {userName}
               </a>
             </div>
           </div>
-          <div className="form-inline">
-            <div className="input-group" data-widget="sidebar-search">
-              <input
-                className="form-control form-control-sidebar"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <div className="input-group-append">
-                <button className="btn btn-sidebar">
-                  <i className="fas fa-search fa-fw" />
-                </button>
-              </div>
-            </div>
-          </div>
+
           <nav className="mt-2">
             <ul
               className="nav nav-pills nav-sidebar flex-column"
@@ -320,90 +308,6 @@ const Sidebar = () => {
               <li className="nav-item menu-open">{userData()}</li>
             </ul>
           </nav>
-
-          {/* <nav className="mt-2">
-  <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-    <li className="nav-item menu-open">
-      <a href="#" className="nav-link active">
-        <i className="nav-icon fas fa-tachometer-alt" />
-        <p>
-          Starter Pages
-          <i className="right fas fa-angle-left" />
-        </p>
-      </a>
-      <ul className="nav nav-treeview">
-        <li className="nav-item">
-          <a href="#" className="nav-link active">
-            <i className="far fa-circle nav-icon" />
-            <p>Active Page</p>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link">
-            <i className="far fa-circle nav-icon" />
-            <p>Inactive Page</p>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li className="nav-item menu-open">
-      <a href="#" className="nav-link ">
-        <i className="nav-icon fas fa-tachometer-alt" />
-        <p>
-          News
-          <i className="right fas fa-angle-left" />
-        </p>
-      </a>
-      <ul className="nav nav-treeview">
-        <li className="nav-item">
-          <a href="#" className="nav-link ">
-            <i className="far fa-circle nav-icon" />
-            <p>Add news</p>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link">
-            <i className="far fa-circle nav-icon" />
-            <p>Edit news</p>
-          </a>
-        </li>
-      </ul>
-    </li>
-
-    <li className="nav-item menu-open">
-      <a href="#" className="nav-link ">
-        <i className="nav-icon fas fa-tachometer-alt" />
-        <p>
-          Item
-          <i className="right fas fa-angle-left" />
-        </p>
-      </a>
-      <ul className="nav nav-treeview">
-        <li className="nav-item">
-          <a href="#" className="nav-link ">
-            <i className="far fa-circle nav-icon" />
-            <p>Add item</p>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="#" className="nav-link">
-            <i className="far fa-circle nav-icon" />
-            <p>Edit item</p>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li className="nav-item">
-      <a href="#" className="nav-link">
-        <i className="nav-icon fas fa-th" />
-        <p>
-          Simple Link
-          <span className="right badge badge-danger">New</span>
-        </p>
-      </a>
-    </li>
-  </ul>
-</nav> */}
         </div>
       </aside>
     </div>
