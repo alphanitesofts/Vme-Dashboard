@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { AsyncStorage } from 'AsyncStorage';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import Baseurl from '../Sourcefiles/url';
@@ -118,7 +117,7 @@ const Enrouteorders = () => {
   const [roleID, setoleID] = useState()
   const SetLocalLogin = async () => {
     try {
-      let roleID = await AsyncStorage.getItem('roleID');
+      let roleID = await localStorage.getItem('roleID');
       if (roleID !== null) {
         setoleID(roleID)
       }

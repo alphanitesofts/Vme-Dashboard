@@ -2,7 +2,6 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import 'moment-timezone';
 import axios from 'axios';
-import { AsyncStorage } from 'AsyncStorage';
 import { Link } from 'react-router-dom'
 import Baseurl from '../Sourcefiles/url';
 import { toast } from 'react-toastify';
@@ -114,7 +113,7 @@ const Undermakingorders = () => {
   // Importing RoleID from Async Storage to apply admin employe conditions
   const SetLocalLogin = async () => {
     try {
-      let roleID = await AsyncStorage.getItem('roleID');
+      let roleID = await localStorage.getItem('roleID');
       if (roleID !== null) {
         setoleID(roleID)
       }

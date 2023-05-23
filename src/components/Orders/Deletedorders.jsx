@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { AsyncStorage } from 'AsyncStorage';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import Baseurl from '../Sourcefiles/url';
@@ -150,10 +149,6 @@ const Deletedorders = () => {
     recieveData()
   }, [])
 
-  const logOut = () => {
-    AsyncStorage.setItem('logIN', JSON.stringify(false));
-    window.location.reload(true)
-  }
   return (
     <div>
       {

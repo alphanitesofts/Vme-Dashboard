@@ -10,7 +10,7 @@ const Sidebar = () => {
   // console.log(roleID);
   const SetLocalLogin = async () => {
     try {
-      let user = await AsyncStorage.getItem("user");
+      let user = await localStorage.getItem("user");
       let parsed_user = JSON.parse(user);
       if (parsed_user) {
         setoleID(parsed_user.role_id);

@@ -11,8 +11,6 @@ import { toast } from "react-toastify";
 import Infoform from '../Modals/Infoform';
 import Modal from 'react-modal'
 
-
-
 const Inprogressorders = () => {
 
   const [getProgressOrder, setProgressOrder] = useState([])
@@ -79,7 +77,7 @@ const Inprogressorders = () => {
 
   const SetLocalLogin = async () => {
     try {
-      let roleID = await AsyncStorage.getItem('roleID');
+      let roleID = await localStorage.getItem('roleID');
       if (roleID !== null) {
         setoleID(roleID)
       }

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { AsyncStorage } from 'AsyncStorage'
 import axios from 'axios'
 import { useState } from 'react'
 import 'moment-timezone';

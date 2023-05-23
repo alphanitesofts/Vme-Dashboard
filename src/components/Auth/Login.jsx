@@ -34,11 +34,11 @@ const Login = () => {
 
             axios.post(`${Baseurl}login`, userObj)
                 .then((res) => {
-                    AsyncStorage.setItem('logIN', JSON.stringify(true));
-                    AsyncStorage.setItem('email', JSON.stringify(email));
-                    AsyncStorage.setItem('password', JSON.stringify(password));
+                    localStorage.setItem('logIN', JSON.stringify(true));
+                    localStorage.setItem('email', JSON.stringify(email));
+                    localStorage.setItem('password', JSON.stringify(password));
 
-                    AsyncStorage.setItem('user', JSON.stringify(res.data.user));
+                    localStorage.setItem('user', JSON.stringify(res.data.user));
 
                     toast.info("Successfully Logged In")
                     setInterval(() => {
