@@ -2,7 +2,6 @@ import React from 'react'
 
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from 'react';
-import { AsyncStorage } from 'AsyncStorage';
 import { toast } from "react-toastify";
 import { Link } from 'react-router-dom'
 import Baseurl from '../Sourcefiles/url';

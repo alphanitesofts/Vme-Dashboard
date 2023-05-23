@@ -2,7 +2,6 @@ import React from 'react';
 import 'moment-timezone';
 import axios from 'axios';
 import Moment from 'react-moment';
-import { AsyncStorage } from 'AsyncStorage';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';

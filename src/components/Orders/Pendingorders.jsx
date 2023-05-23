@@ -1,5 +1,4 @@
 import React from 'react';
-import { AsyncStorage } from 'AsyncStorage';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
