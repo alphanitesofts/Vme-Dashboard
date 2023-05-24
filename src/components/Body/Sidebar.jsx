@@ -47,6 +47,7 @@ const Sidebar = () => {
     } else if (roleID === "0") {
       return (
         <ul className="nav nav-treeview ">
+          
           <li className="nav-item current">
             <Link to="/" className="nav-link">
               <i class="fa-solid fa-box-open"></i>&nbsp;&nbsp;
@@ -157,6 +158,13 @@ const Sidebar = () => {
     } else {
       return (
         <ul className="nav nav-treeview ">
+          <li className="nav-item completed">
+            <Link to="/GenerateOrder" className="nav-link">
+              <i className="fa-solid fa-plus" />
+              &nbsp;&nbsp;
+              <p>Generate Order</p>
+            </Link>
+          </li>
           <li className="nav-item current">
             <Link to="/" className="nav-link">
               <i class="fa-solid fa-box-open"></i>&nbsp;&nbsp;

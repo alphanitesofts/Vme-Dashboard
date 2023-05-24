@@ -35,6 +35,7 @@ import { AsyncStorage } from "AsyncStorage";
 
 import ReactModal from "react-modal";
 import AddCategory from "./components/Products/AddCategory";
+import GenerateOrder from "./components/Orders/GenerateOrder";
 
 ReactModal.setAppElement("#root");
 function App() {
@@ -89,7 +90,8 @@ function App() {
             <Route path="/InfoItem" element={<InfoItem />} />
             <Route path="/AddNews" element={<AddNews />} />
             <Route path="/UpdateNews" element={<UpdateNews />} />
-            <Route path='/AddCategory' element={<AddCategory/>}/>
+            <Route path="/AddCategory" element={<AddCategory />} />
+            <Route path="/GenerateOrder" element={<GenerateOrder/>} />
 
             <Route path="*" element={<Error />} />
           </Routes>

@@ -20,6 +20,10 @@ const Pendingorders = () => {
   const [userID, setUserID] = useState()
   const [warningModal, setWarningModal] = useState(false)
 
+  useEffect(() => {
+    getPendingOrders()
+  }, [])
+
   const getPendingOrders = () => {
     setLoader(true)
     const pendObj = {
@@ -33,17 +37,19 @@ const Pendingorders = () => {
       .catch((error) => {
         console.log(error)
       })
+
+   
+
   }
 
 
   const sendToInprogress = (id) => {
     const pendingObj = {
-      order_status: "in_progress",
-      payment_status: "unpaid",
-      ready_to_review: 0
+      status: "in_progress",
+      // payment_status: "unpaid",
     }
 
-    axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
+    axios.post(`${Baseurl}update_orderstatus/${id}`, pendingObj)
       .then((res) => {
         toast.success('Order Sended to Inprogress Table')
         getPendingOrders()
@@ -76,7 +82,7 @@ const Pendingorders = () => {
   const Content = ({ items }) => {
     return (
       <tr>
-        <td>{items.id}</td>
+        <td>{items.user_id}</td>
         <td>{items.name}</td>
         <td>{items.address}</td>
         <td>{items.phone_number}</td>
@@ -191,9 +197,7 @@ const Pendingorders = () => {
     setShouldShow((prev) => !prev)
   }
 
-  useEffect(() => {
-    getPendingOrders()
-  }, [])
+
 
   return (
     <div>

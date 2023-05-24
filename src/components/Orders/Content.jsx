@@ -27,19 +27,16 @@ const Content = () => {
 
   const recieveData = () => {
     setLoader(true)
-    const orderObj = {
-      order_status: "new"
-    }
-
-    axios.post(`${Baseurl}getinfo`, orderObj)
-      .then(res => {
+    axios.get(`${Baseurl}fetch_all_orders`)
+      .then((res) => {
         setLoader(false)
-        setUserData(res.data)
-        console.log(res.data)
+        console.log(res.data.Orders)
+        setUserData(res.data.Orders)
       })
-      .catch(error => {
-        console.log(error)
+      .catch((err) => {
+        console.log(err)
       })
+
   }
 
   const sendToPending = (id) => {
@@ -47,7 +44,6 @@ const Content = () => {
     const pendingObj = {
       order_status: "pending",
       payment_status: "unpaid",
-      ready_to_review: 0
     }
     axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
       .then((res) => {
@@ -84,9 +80,9 @@ const Content = () => {
     return (
       <tr>
         <td>{items.id}</td>
-        <td>{items.name}</td>
         <td>{items.address}</td>
-        <td>{items.phone_number}</td>
+        <td>{items.contact_address}</td>
+        <td>{items.quantity}</td>
         <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
@@ -272,8 +268,8 @@ const Content = () => {
                     <h4 className="m-0"><i class="fa-thin fa-clock-desk"></i>&nbsp;{time} {date}</h4>
                   </div>{/* /.col */}
 
-                </div>{/* /.row */}
-              </div>{/* /.container-fluid */}
+                </div>
+              </div>
             </div>
             {/* /.content-header */}
             <section className="content">
@@ -282,7 +278,7 @@ const Content = () => {
                   <div className="col-12">
                     <div className="card">
                       <div className="card-header">
-                        <h3 className="card-title"><b> Current Orders</b></h3>
+                        <h3 className="card-title"><b>All Orders</b></h3>
                       </div>
 
                       <div className="card-body table-responsive">
@@ -295,10 +291,10 @@ const Content = () => {
                           <thead>
                             <tr>
                               {/* <th>Sr. No.</th>  */}
-                              <th>Orders ID</th>
-                              <th>Name</th>
+                              <th>User ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
+                              <th>Quantity</th>
                               <th>Date</th>
                               <th>Info</th>
                               <th>Status</th>
