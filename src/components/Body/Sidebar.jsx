@@ -234,6 +234,13 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="nav-item completed">
+            <Link to="/AddCategory" className="nav-link">
+              <i className="fa-solid fa-plus" />
+              &nbsp;&nbsp;
+              <p>Add Category</p>
+            </Link>
+          </li>
+          <li className="nav-item completed">
             <Link to="/Additemform" className="nav-link">
               <i className="fa-solid fa-plus" />
               &nbsp;&nbsp;

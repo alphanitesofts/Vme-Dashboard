@@ -18,9 +18,10 @@ const Getitem = () => {
 
     const showData = () => {
         setLoader(true)
-        axios.get(`${Baseurl}getallitems`)
+        axios.get(`${Baseurl}fetchAllcategory`)
             .then(res => {
-                setGetItems(res.data.items)
+                setGetItems(res.data.data)
+                console.log(res)
                 setLoader(false)
             })
             .catch(error => {
@@ -62,10 +63,7 @@ const Getitem = () => {
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Price</th>
-                                                <th>Item Color</th>
-                                                <th>Item Type</th>
-                                                <th>Info</th>
+                                                <th>Category Description</th>
                                                 <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
@@ -83,21 +81,18 @@ const Getitem = () => {
                                                         </div>
                                                     </>
                                                     :
+                                                    // getItems.map((items) => {
                                                     getItems.sort((a, b) => new Date(...b.created_at.split("/").reverse()) - new Date(...a.created_at.split("/").reverse())).map((items) => {
                                                         return (
                                                             <tr>
-                                                                <td>{items.item_name}</td>
-                                                                <td>{items.item_price}</td>
-                                                                <td> <button className="colorsbutton" style={{ backgroundColor: `${items.item_color}` }}></button></td>
-
-                                                                <td>{items.item_type}</td>
-                                                                <td>{items.item_type}</td>
-                                                                <td><Moment format='DD/MM/YYYY' >{items.updated_at}</Moment></td>
+                                                                <td>{items.category_name}</td>
+                                                                <td>{items.category_description}</td>
+                                                                <td><Moment format='DD/MM/YYYY' >{items.created_at}</Moment></td>
                                                                 <td>
                                                                     <button className='btn btn-outline-primary m-1' onClick={() => {
                                                                         oncloseModal()
                                                                         setUserID(items)
-                                                                    }}>Info</button>
+                                                                    }}>Edit</button>
                                                                 </td>
                                                             </tr>
                                                         )

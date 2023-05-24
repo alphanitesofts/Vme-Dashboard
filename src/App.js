@@ -34,6 +34,7 @@ import React, { useState, useEffect } from "react";
 import { AsyncStorage } from "AsyncStorage";
 
 import ReactModal from "react-modal";
+import AddCategory from "./components/Products/AddCategory";
 
 ReactModal.setAppElement("#root");
 function App() {
@@ -88,6 +89,7 @@ function App() {
             <Route path="/InfoItem" element={<InfoItem />} />
             <Route path="/AddNews" element={<AddNews />} />
             <Route path="/UpdateNews" element={<UpdateNews />} />
+            <Route path='/AddCategory' element={<AddCategory/>}/>
 
             <Route path="*" element={<Error />} />
           </Routes>

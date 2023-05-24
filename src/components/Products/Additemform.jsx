@@ -7,22 +7,129 @@ import Baseurl from '../Sourcefiles/url';
 import Select from 'react-select';
 import CreatableSelect from "react-select/creatable";
 import colorOptions from '../Sourcefiles/color'
+import axios from 'axios';
 
 toast.configure()
 const Additemform = () => {
     // for counter
-
     const [addCount, setAddCount] = useState(1);
-    const [name, setName] = useState('')
-    const [picture, setPicture] = useState([])
+    // for getting id of the product
+    const [data, setData] = useState([])
+    const [productId, setProductId] = useState()
+ 
+    // products
+    const [picture, setPicture] = useState('')
+    const [actualPrice, setActualPrice] = useState('')
+    const [previousPrice, setPreviousPrice] = useState('')
+    const [productDes, setProductDesc] = useState('')
     const [getColor, setColor] = useState('')
-    const [type, setType] = useState('Card')
-    const [price, setPrice] = useState('')
+    const [available, setAvailable] = useState('Card')
     const [hot, setHot] = useState(false)
-    const [description, setDescription] = useState('')
     const [fieldStatus, setFieldStatus] = useState(false)
 
-    console.log(picture)
+    useEffect(() => {
+        fetchCategory()
+    }, [])
+
+    const fetchCategory = () => {
+        axios.get(`${Baseurl}fetchAllcategory`)
+            .then((res) => {
+                console.log(res)
+                setData(res.data.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+  
+
+    // add product
+    const addProduct = () => {
+        setFieldStatus(true)
+
+        if (!actualPrice || !picture || !productDes) {
+            toast.warning("Please fill all fields")
+        }
+        else {
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "item_price": previousPrice,
+                "actual_price": actualPrice,
+                "description": productDes,
+                "is_hot": hot,
+                "category_id": productId,
+                "availability": available,
+                "item_images": picture,
+                "item_colour": getColor
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch(`${Baseurl}Addproducts`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    setFieldStatus(false)
+                    console.log(result)
+                    toast.success("Item added successfully")
+                    setActualPrice('')
+                    // setInterval(() => {
+                    //     window.location.reload(true)
+                    // }, 2000)
+                })
+                .catch(error => {
+                    console.log('error', error)
+                    toast.warn("Error while submitting data")
+
+                });
+
+
+
+
+
+
+
+
+            // var formdata = new FormData();
+            // formdata.append("item_name", itemName);
+            // formdata.append("item_price", actualPrice);
+            // formdata.append("is_hot", hot);
+            // formdata.append("describtion", productDes);
+            // formdata.append("quantity", addCount);
+            // formdata.append("item_color", getColor);
+            // formdata.append("item_pic", picture);
+
+            // var requestOptions = {
+            //     method: 'POST',
+            //     body: formdata,
+            //     redirect: 'follow'
+            // };
+
+            // fetch(`${Baseurl}additem`, requestOptions)
+            //     .then(response => response.json())
+            //     .then(result => {
+            //         console.log(result)
+            //         toast.success("Item added successfully")
+            //         setInterval(() => {
+            //             window.location.reload(true)
+            //         }, 2000)
+            //     })
+            //     .catch(error => {
+            //         console.log('error', error)
+            //         toast.warn("Error while submitting data")
+
+            //     });
+        }
+    }
+
     const incrementCount = () => {
         setAddCount(addCount + 1);
     }
@@ -76,52 +183,6 @@ const Additemform = () => {
     //     { label: 'green', value: 'green' },
     // ]
 
-    // javascript fetch
-    const sendData = () => {
-        setFieldStatus(true)
-
-        if (!name || !picture || !price) {
-            toast.warning("Please fill all fields")
-        }
-        else {
-
-            var formdata = new FormData();
-            formdata.append("item_name", name);
-            formdata.append("item_type", type);
-            formdata.append("item_price", price);
-            formdata.append("is_hot", hot);
-            formdata.append("describtion", description);
-            formdata.append("quantity", addCount);
-            formdata.append("item_color", getColor);
-            formdata.append("item_pic", picture);
-
-
-            var requestOptions = {
-                method: 'POST',
-                body: formdata,
-                redirect: 'follow'
-            };
-
-
-            fetch(`${Baseurl}additem`, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    console.log(result)
-                    toast.success("Item added successfully")
-                    // setInterval(() => {
-                    //     window.location.reload(true)
-                    // }, 2000)
-
-                })
-
-                .catch(error => {
-                    console.log('error', error)
-                    toast.warn("Error while submitting data")
-
-                });
-        }
-    }
-
     return (
         <div className='content-wrapper '>
             <div className="content-header">
@@ -137,14 +198,23 @@ const Additemform = () => {
                 <div className='container'>
                     <div className="card card-secondary">
                         <div className="card-header">
-                            <h3 className="card-title">Add Item:</h3>
+                            <h3 className="card-title">Add Product:</h3>
                         </div>
                         <div className="card-body">
                             <div className='row'>
-                                <div className="form-group col-6">
-                                    <label htmlFor="exampleInputEmail1">Item Name</label>
-                                    <input style={{ borderColor: name === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setName(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter product name" />
-                                    <p >{name === "" && fieldStatus === true ? <span className='text-danger'> Please Add name for the item</span> : null}</p>
+                                <div className='form-group col-6'>
+                                    <label htmlFor="exampleInputFile">Category</label>
+                                    <select onChange={(e) => setProductId(e.target.value)} className="form-select" aria-label="Default select example">
+                                        {
+                                            data.map((items) => {
+                                                return (
+                                                    <>
+                                                        <option value={items.id}>{items.category_name}</option>
+                                                    </>
+                                                )
+                                            })
+                                        }
+                                    </select>
                                 </div>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputFile">Item Picture</label>
@@ -153,7 +223,7 @@ const Additemform = () => {
 
                                             <input onChange={(e) => setPicture(e.target.files[0])} className="form-control" type="file" id="formFileMultiple" multiple />
                                             {/* <div>
-                                                <input type="file" onChange={handleFileChange} id="files" name="files" multiple />
+                                                <input type="file" onChange={handleFileChange} id="files" itemName="files" multiple />
                                             </div> */}
                                             {/* <input onChange={(e) => setPicture(e.target.files[0])} type="file" className="custom-file-input" id="exampleInputFile" /> */}
                                             {/* <label style={{ borderColor: picture === "" && fieldStatus === true ? "red" : '#ced4da' }} className="custom-file-label" htmlFor="exampleInputFile">Choose file</label> */}
@@ -163,24 +233,26 @@ const Additemform = () => {
                                 </div>
                             </div>
                             <div className='row'>
-                                <div className="form-group col-6">
-                                    <label htmlFor="exampleInputPassword1">Item Type</label>
-                                    <select style={{ borderColor: "#ced4da" }} onChange={(e) => setType(e.target.value)} className="form-select" aria-label="Default select example">
-                                        <option >Card</option>
-                                        <option >Tattos</option>
-                                        {/* <option >Jewellery</option> */}
-                                        {/* <option >Other</option> */}
-                                    </select>
 
-                                </div>
                                 <div className="form-group col-6">
-                                    <label htmlFor="exampleInputPassword1">Item Price</label>
-                                    <input style={{ borderColor: price === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
-                                    <p >{price === "" && fieldStatus === true ? <span className='text-danger'> Please Add price for the item</span> : null}</p>
-
+                                    <label htmlFor="exampleInputPassword1">Actual Price</label>
+                                    <input value={actualPrice} style={{ borderColor: actualPrice === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setActualPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
+                                    <p >{actualPrice === "" && fieldStatus === true ? <span className='text-danger'> Please Add actualPrice for the item</span> : null}</p>
                                 </div>
 
                                 <div className="form-group col-6">
+                                    <label htmlFor="exampleInputPassword1">Previous Price</label>
+                                    <input style={{ borderColor: previousPrice === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setPreviousPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
+                                    <p >{previousPrice === "" && fieldStatus === true ? <span className='text-danger'> Please Add Previous for the item</span> : null}</p>
+
+                                </div>
+
+                                <div className="col-12 pb-3">
+                                    <label htmlFor="exampleFormControlTextarea1" className="form-label"><b>Description:</b></label>
+                                    <textarea className="form-control" style={{ borderColor: productDes === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setProductDesc(e.target.value)} id="exampleFormControlTextarea1" rows={5} placeholder="Write short describtion about the product ..." defaultValue={""} />
+                                </div>
+
+                                {/* <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Quantity</label>
                                     <div>
                                         {
@@ -190,20 +262,25 @@ const Additemform = () => {
                                         <label htmlFor="exampleInputPassword1">{addCount}</label>
                                         <button className='btn btn-secondary ms-2 btn-sm' onClick={incrementCount}><i className="fa-solid fa-angle-right" /></button>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="form-check col-6">
-                                    <label htmlFor="exampleInputPassword1">Hot Collection</label>
+                                    <label >Hot Collection</label>
                                     <select style={{ borderColor: "#ced4da" }} onChange={(e) => setHot(e.target.value)} className="form-select" aria-label="Default select example">
                                         <option value={false} >Normal Product</option>
                                         <option value={true}>Hot Product</option>
                                     </select>
                                 </div>
 
-                                <div className="col-12 pt-3 pb-3">
-                                    <label htmlFor="exampleFormControlTextarea1" className="form-label"><b>Description:</b></label>
-                                    <textarea className="form-control" onChange={(e) => setDescription(e.target.value)} id="exampleFormControlTextarea1" rows={5} placeholder="Write short describtion about the product ..." defaultValue={""} />
+                                <div className="form-check col-6">
+                                    <label htmlFor="exampleInputPassword1">Available</label>
+                                    <select style={{ borderColor: "#ced4da" }} onChange={(e) => setAvailable(e.target.value)} className="form-select" aria-label="Default select example">
+                                        <option value={true} >Available</option>
+                                        <option value={false}>Not Available</option>
+                                    </select>
                                 </div>
+
+
                             </div>
 
                             <div className="form-group">
@@ -229,7 +306,7 @@ const Additemform = () => {
 
                         </div>
                         <div className="card-footer">
-                            <button type="submit" onClick={sendData} className="btn btn-outline-secondary">Submit</button>
+                            <button type="submit" onClick={addProduct} className="btn btn-outline-secondary">Submit</button>
                         </div>
                     </div>
                 </div>
