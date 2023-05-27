@@ -50,7 +50,7 @@ const Sidebar = () => {
           
           <li className="nav-item current">
             <Link to="/" className="nav-link">
-              <i class="fa-solid fa-box-open"></i>&nbsp;&nbsp;
+              <i className="fa-solid fa-box-open"/>&nbsp;&nbsp;
               <p>Current Orders</p>
             </Link>
           </li>
@@ -71,7 +71,7 @@ const Sidebar = () => {
 
           <li className="nav-item completed">
             <Link to="/Undermakingorders" className="nav-link ">
-              <i class="fa-solid fa-scissors"></i>&nbsp;&nbsp;
+              <i className="fa-solid fa-scissors"/>&nbsp;&nbsp;
               <p>Under Making Orders</p>
             </Link>
           </li>
@@ -113,14 +113,14 @@ const Sidebar = () => {
 
           <li className="nav-item completed">
             <Link to="/Returnorders" className="nav-link">
-              <i class="fa-solid fa-arrow-rotate-left"></i>&nbsp;&nbsp;
+              <i className="fa-solid fa-arrow-rotate-left"/>&nbsp;&nbsp;
               <p>Return Orders</p>
             </Link>
           </li>
 
           <li className="nav-item completed">
             <Link to="/Scamorders" className="nav-link">
-              <i class="fa-solid fa-people-robbery"></i>&nbsp;&nbsp;
+              <i className="fa-solid fa-people-robbery"/>&nbsp;&nbsp;
               <p>Scam Orders</p>
             </Link>
           </li>
@@ -159,6 +159,13 @@ const Sidebar = () => {
       return (
         <ul className="nav nav-treeview ">
           <li className="nav-item completed">
+            <Link to="/SearchOrders" className="nav-link">
+              <i className="fa-solid fa-magnifying-glass" />
+              &nbsp;&nbsp;
+              <p>Search Order</p>
+            </Link>
+          </li>
+          <li className="nav-item completed">
             <Link to="/GenerateOrder" className="nav-link">
               <i className="fa-solid fa-plus" />
               &nbsp;&nbsp;
@@ -167,7 +174,7 @@ const Sidebar = () => {
           </li>
           <li className="nav-item current">
             <Link to="/" className="nav-link">
-              <i class="fa-solid fa-box-open"></i>&nbsp;&nbsp;
+              <i className="fa-solid fa-box-open"/>&nbsp;&nbsp;
               <p>All Orders</p>
             </Link>
           </li>
@@ -188,7 +195,7 @@ const Sidebar = () => {
 
           <li className="nav-item completed">
             <Link to="/Undermakingorders" className="nav-link ">
-              <i class="fa-solid fa-scissors"></i>&nbsp;&nbsp;
+              <i className="fa-solid fa-scissors"/>&nbsp;&nbsp;
               <p>Under Making Orders</p>
             </Link>
           </li>
@@ -230,14 +237,14 @@ const Sidebar = () => {
 
           <li className="nav-item completed">
             <Link to="/Returnorders" className="nav-link">
-              <i class="fa-solid fa-arrow-rotate-left"></i>&nbsp;&nbsp;
+              <i className="fa-solid fa-arrow-rotate-left"/>&nbsp;&nbsp;
               <p>Return Orders</p>
             </Link>
           </li>
 
           <li className="nav-item completed">
             <Link to="/Scamorders" className="nav-link">
-              <i class="fa-solid fa-people-robbery"></i>&nbsp;&nbsp;
+              <i className="fa-solid fa-people-robbery"/>&nbsp;&nbsp;
               <p>Scam Orders</p>
             </Link>
           </li>

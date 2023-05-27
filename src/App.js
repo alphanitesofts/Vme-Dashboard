@@ -36,6 +36,7 @@ import { AsyncStorage } from "AsyncStorage";
 import ReactModal from "react-modal";
 import AddCategory from "./components/Products/AddCategory";
 import GenerateOrder from "./components/Orders/GenerateOrder";
+import SearchOrders from "./components/Orders/SearchOrders";
 
 ReactModal.setAppElement("#root");
 function App() {
@@ -74,6 +75,7 @@ function App() {
           <Sidebar />
           <Routes>
             <Route path="/" element={<Content />} />
+            <Route path="/SearchOrders" element={<SearchOrders />} />
             <Route path="/Pendingorders" element={<Pendingorders />} />
             <Route path="/Inprogressorders" element={<Inprogressorders />} />
             <Route path="/Undermakingorders" element={<Undermakingorders />} />

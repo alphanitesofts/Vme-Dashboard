@@ -179,7 +179,7 @@ const UpdateNews = () => {
                     <div className="container-fluid">
                         <div className="row mb-2">
                             <div className="col-sm-6">
-                                <h4 className="m-0"><i class="fa-thin fa-clock-desk"></i>Update News</h4>
+                                <h4 className="m-0"><i className="fa-thin fa-clock-desk"/>Update News</h4>
                             </div>
                         </div>
                     </div>
