@@ -1,10 +1,7 @@
 import React from 'react';
 import 'moment-timezone';
 import axios from 'axios';
-import Moment from 'react-moment';
-import { AsyncStorage } from 'AsyncStorage';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
 import Baseurl from '../Sourcefiles/url';
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -26,12 +23,12 @@ const Inprogressorders = () => {
   const progressOrders = () => {
     setLoader(true)
     const pendObj = {
-      order_status: "in_progress",
+      status: "in_progress",
     }
-    axios.post(`${Baseurl}getinfo`, pendObj)
+    axios.post(`${Baseurl}getorder_withstatus`, pendObj)
       .then((res) => {
         setLoader(false)
-        setProgressOrder(res.data)
+        setProgressOrder(res.data.orders)
       })
       .catch((error) => {
         console.log(error)
@@ -40,13 +37,12 @@ const Inprogressorders = () => {
 
   const sendToInprogress = (id) => {
     const pendingObj = {
-      order_status: "under_making",
-      payment_status: "unpaid",
-      ready_to_review: 0
+      status: "under_making",
+      // payment_status: "unpaid",
     }
-    axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
+    axios.post(`${Baseurl}update_orderstatus/${id}`, pendingObj)
       .then((res) => {
-        toast.success('Order Sended to Under Making Table')
+        toast.success('Order Sended to undermaking Table')
         progressOrders()
         console.log(res.data)
       })
@@ -57,16 +53,13 @@ const Inprogressorders = () => {
 
   const deletedOrders = (id) => {
     const pendingObj = {
-      order_status: "deleted",
-      payment_status: "deleted",
-      ready_to_review: 0
+      status: "deleted",
+      // payment_status: "unpaid",
     }
-
-    axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
+    axios.post(`${Baseurl}update_orderstatus/${id}`, pendingObj)
       .then((res) => {
+        toast.success('Order Sended to deleted Table')
         progressOrders()
-        setWarningModal(false)
-        toast.warning('Order Sended to deleted Table')
         console.log(res.data)
       })
       .catch((error) => {
@@ -91,10 +84,10 @@ const Inprogressorders = () => {
   function Content({ items }) {
     return (
       <tr>
-        <td>{items.id}</td>
-        <td>{items.name}</td>
+     <td>{items.id}</td>
         <td>{items.address}</td>
-        <td>{items.phone_number}</td>
+        <td>{items.contact_address}</td>
+        <td>{items.quantity}</td>
         <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
@@ -288,13 +281,13 @@ const Inprogressorders = () => {
                         <thead>
                           <tr>
 
-                            <th>Orders ID</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Phone No.</th>
-                            <th>Date</th>
-                            <th>Info</th>
-                            <th>Status</th>
+                          <th>Order ID</th>
+                              <th>Address</th>
+                              <th>Phone No.</th>
+                              <th>Quantity</th>
+                              <th>Date</th>
+                              <th>Info</th>
+                              <th>Status</th>
                           </tr>
                         </thead>
                         <tbody >

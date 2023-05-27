@@ -28,65 +28,58 @@ const Undermakingorders = () => {
 
     setLoader(true)
     const orderObj = {
-      order_status: "under_making"
+      status: "under_making"
     }
 
-    axios.post(`${Baseurl}getinfo`, orderObj)
-      .then(res => {
-        setLoader(false)
-        setUnderMaking(res.data)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    axios.post(`${Baseurl}getorder_withstatus`, orderObj)
+    .then((res) => {
+      setLoader(false)
+      setUnderMaking(res.data.orders)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   }
 
   const sendtoUndermaking = (id) => {
     const pendingobj = {
-      order_status: "enroute",
-      payment_status: "unpaid",
-      ready_to_review: 1
+      status: "enroute",
+      // payment_status: "unpaid",
     }
-    axios.post(`${Baseurl}updatedata/${id}`, pendingobj)
+    axios.post(`${Baseurl}update_orderstatus/${id}`, pendingobj)
       .then((res) => {
-        console.log(res.data)
+        toast.success('Order Sended to enroute Table')
         showData()
-        toast.success("Order Sended to Enroute Orders")
+        console.log(res.data)
       })
       .catch((error) => {
         console.log(error)
-
       })
   }
 
   const deletedOrders = (id) => {
-
-    const pendingObj = {
-      order_status: "deleted",
-      payment_status: "deleted",
-      ready_to_review: 0
+    const pendingobj = {
+      status: "deleted",
+      // payment_status: "unpaid",
     }
-
-    axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
+    axios.post(`${Baseurl}update_orderstatus/${id}`, pendingobj)
       .then((res) => {
+        toast.success('Order Sended to deleted Table')
         showData()
-        setWarningModal(false)
-        toast.warning('Order Sended to deleted Table')
         console.log(res.data)
       })
       .catch((error) => {
         console.log(error)
       })
-
   }
 
   function Content({ items }) {
     return (
       <tr>
-        <td>{items.id}</td>
-        <td>{items.name}</td>
+       <td>{items.id}</td>
         <td>{items.address}</td>
-        <td>{items.phone_number}</td>
+        <td>{items.contact_address}</td>
+        <td>{items.quantity}</td>
         <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
@@ -304,10 +297,10 @@ const Undermakingorders = () => {
                         <table id="example2" className="table table-bordered table-hover">
                           <thead>
                             <tr>
-                              <th>Orders ID</th>
-                              <th>Name</th>
+                            <th>Order ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
+                              <th>Quantity</th>
                               <th>Date</th>
                               <th>Info</th>
                               <th>Status</th>

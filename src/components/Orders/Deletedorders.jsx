@@ -19,15 +19,14 @@ const Deletedorders = () => {
 
     setLoader(true)
     const userData = {
-      order_status: "deleted",
-      payment_status: "deleted",
-      ready_to_review: 0
+      status: "deleted"
+      // payment_status: "deleted",
     }
 
-    axios.post(`${Baseurl}getinfo`, userData)
+    axios.post(`${Baseurl}getorder_withstatus`, userData)
       .then(res => {
         setLoader(false)
-        setDelOrders(res.data)
+        setDelOrders(res.data.orders)
       })
       .catch(error => {
         console.log(error)
@@ -40,9 +39,9 @@ const Deletedorders = () => {
     return (
       <tr>
         <td>{items.id}</td>
-        <td>{items.name}</td>
         <td>{items.address}</td>
-        <td>{items.phone_number}</td>
+        <td>{items.contact_address}</td>
+        <td>{items.quantity}</td>
         <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
@@ -198,10 +197,10 @@ const Deletedorders = () => {
                           <thead>
                             <tr>
 
-                              <th>Orders ID</th>
-                              <th>Name</th>
+                              <th>Order ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
+                              <th>Quantity</th>
                               <th>Date</th>
                               <th>Info</th>
                             </tr>

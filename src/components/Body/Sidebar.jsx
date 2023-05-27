@@ -168,7 +168,7 @@ const Sidebar = () => {
           <li className="nav-item current">
             <Link to="/" className="nav-link">
               <i class="fa-solid fa-box-open"></i>&nbsp;&nbsp;
-              <p>Current Orders</p>
+              <p>All Orders</p>
             </Link>
           </li>
           <li className="nav-item current">

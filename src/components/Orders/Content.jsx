@@ -41,7 +41,7 @@ const Content = () => {
   const sendToPending = (id) => {
     setLoading(true)
     const pendingObj = {
-      order_status: "pending",
+      status: "pending"
       // payment_status: "unpaid",
     }
     axios.post(`${Baseurl}update_orderstatus/${id}`, pendingObj)
@@ -50,25 +50,6 @@ const Content = () => {
         recieveData()
         setLoading(false)
         toast.success("Order Sended to Pending Table")
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
-  const deletedOrders = (id) => {
-
-    const pendingObj = {
-      order_status: "deleted",
-      payment_status: "deleted",
-      ready_to_review: 0
-    }
-    axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
-      .then((res) => {
-        console.log(res.data)
-        setWarningModal(false)
-        toast.warning('Order Sended to deleted Table')
-        recieveData()
       })
       .catch((error) => {
         console.log(error)
@@ -94,10 +75,10 @@ const Content = () => {
                 <i className="fa-solid fa-check"></i>
             }
           </button>
-          <button className='btn btn-outline-danger m-1' onClick={() => {
+          {/* <button className='btn btn-outline-danger m-1' onClick={() => {
             setWarningModal(true)
             setUserID(items.id)
-          }}><i className="fa-solid fa-xmark"></i></button>
+          }}><i className="fa-solid fa-xmark"></i></button> */}
         </td>
       </tr>
     )
@@ -210,42 +191,7 @@ const Content = () => {
 
   return (
     <div>
-      {/* Warning Modal */}
-      <Modal
-        isOpen={warningModal}
-        contentLabel="Example Modal"
-      >
-        <div className='content-wrapper' >
-          <div className="modalBackground" >
-            <div className="modalContainer" >
-              <div className="titleCloseBtn">
-                <button
-                  onClick={() => {
-                    setWarningModal(false);
-                  }}
-                >
-                  <i className="fa-solid fa-xmark"></i>
-                </button>
-              </div>
-              <div className="title">
-                <h1>Are You Sure You Want to Delete this order?</h1>
-              </div>
-              <div className="footer">
-                <button
-                  onClick={() => {
-                    setWarningModal(false);
-                  }}
-                  id="cancelBtn"
-                >
-                  Cancel
-                </button>
-                <button onClick={() => deletedOrders(userID)}>Continue </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Modal>
-      {/* End of warning Modal */}
+
       {
         loader === true ?
           <>
@@ -290,7 +236,7 @@ const Content = () => {
                           <thead>
                             <tr>
                               {/* <th>Sr. No.</th>  */}
-                              <th>User ID</th>
+                              <th>Order ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
                               <th>Quantity</th>

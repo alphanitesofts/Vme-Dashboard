@@ -25,16 +25,18 @@ const ReturnOrders = () => {
 
     const getReturnOrders = () => {
         setLoader(true)
-        const pendObj = {
-            order_status: "return"
-        }
-        axios.post(`${Baseurl}getinfo`, pendObj)
-            .then((res) => {
-                setLoader(false)
-                setPendOrder(res.data)
+        const userData = {
+            status: "return"
+            // payment_status: "deleted",
+          }
+      
+          axios.post(`${Baseurl}getorder_withstatus`, userData)
+            .then(res => {
+              setLoader(false)
+              setPendOrder(res.data.orders)
             })
-            .catch((error) => {
-                console.log(error)
+            .catch(error => {
+              console.log(error)
             })
     }
 
@@ -43,10 +45,10 @@ const ReturnOrders = () => {
         return (
             <tr>
                 <td>{items.id}</td>
-                <td>{items.name}</td>
                 <td>{items.address}</td>
-                <td>{items.phone_number}</td>
-        <td>{items.Idate}</td>
+                <td>{items.contact_address}</td>
+                <td>{items.quantity}</td>
+                <td>{items.Idate}</td>
                 <td>Damaged</td>
                 <td><button className='btn btn-outline-primary m-1' onClick={() => {
                     oncloseModal()
@@ -199,13 +201,13 @@ const ReturnOrders = () => {
                                                 <table id="example2" className="table table-bordered table-hover">
                                                     <thead>
                                                         <tr>
-                                                            <th>Orders ID</th>
-                                                            <th>Name</th>
+                                                            <th>Order ID</th>
                                                             <th>Address</th>
                                                             <th>Phone No.</th>
+                                                            <th>Quantity</th>
                                                             <th>Date</th>
-                                                            <th>Reason</th>
                                                             <th>Info</th>
+                                                            <th>Status</th>
 
                                                         </tr>
                                                     </thead>

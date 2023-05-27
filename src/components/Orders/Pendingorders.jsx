@@ -42,7 +42,7 @@ const Pendingorders = () => {
 
   const sendToInprogress = (id) => {
     const pendingObj = {
-      status: "in_progress",
+      status: "in_progress"
       // payment_status: "unpaid",
     }
 
@@ -59,16 +59,13 @@ const Pendingorders = () => {
 
   const deletedOrders = (id) => {
     const pendingObj = {
-      order_status: "deleted",
-      payment_status: "deleted",
-      ready_to_review: 0
+      status: "deleted"
     }
 
-    axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
+    axios.post(`${Baseurl}update_orderstatus/${id}`, pendingObj)
       .then((res) => {
+        toast.success('Order Sended to deleted Table')
         getPendingOrders()
-        setWarningModal(false)
-        toast.warning('Order Sended to deleted Table')
         console.log(res.data)
       })
       .catch((error) => {
@@ -79,10 +76,10 @@ const Pendingorders = () => {
   const Content = ({ items }) => {
     return (
       <tr>
-        <td>{items.user_id}</td>
-        <td>{items.name}</td>
+        <td>{items.id}</td>
         <td>{items.address}</td>
-        <td>{items.phone_number}</td>
+        <td>{items.contact_address}</td>
+        <td>{items.quantity}</td>
         <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
@@ -275,10 +272,10 @@ const Pendingorders = () => {
                         <table id="example2" className="table table-bordered table-hover">
                           <thead>
                             <tr>
-                              <th>Orders ID</th>
-                              <th>Name</th>
+                              <th>Order ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
+                              <th>Quantity</th>
                               <th>Date</th>
                               <th>Info</th>
                               <th>Status</th>

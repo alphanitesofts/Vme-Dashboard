@@ -8,7 +8,6 @@
   margin: 2px;
   cursor: pointer;
   border-radius: 50%;
-
 }
 
 .loader {
@@ -74,7 +73,6 @@
   font-size: 25px;
   cursor: pointer;
 }
-
 
 .modalContainer .footer {
   flex: 10%;

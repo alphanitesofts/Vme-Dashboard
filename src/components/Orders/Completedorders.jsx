@@ -22,45 +22,28 @@ const Completedorders = () => {
   const CompletedData = () => {
     setLoader(true)
     const pendObj = {
-      order_status: "completed",
-      payment_status: "paid",
+      status: "completed",
+      // payment_status: "paid",
     }
 
-    axios.post(`${Baseurl}getinfo`, pendObj)
-      .then(res => {
+    axios.post(`${Baseurl}getorder_withstatus`, pendObj)
+      .then((res) => {
         setLoader(false)
-        setCompletedOrders(res.data)
+        setCompletedOrders(res.data.orders)
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       })
-    console.log(completedOrders)
   }
 
-  // const sendCompletedOrders = (id) => {
-
-  //   const pendingobj = {
-  //     order_status: "completed",
-  //     payment_status: "paid",
-  //     ready_to_review: 1
-  //   }
-  //   axios.post(`${Baseurl}updatedata/${id}`, pendingobj)
-  //     .then((res) => {
-  //       toast.info("order Completed")
-  //       console.log(res.data)
-  //     })
-  //     .catch((error => {
-  //       console.log(error)
-  //     }))
-  // }
 
   function Content({ items }) {
     return (
       <tr>
         <td>{items.id}</td>
-        <td>{items.name}</td>
         <td>{items.address}</td>
-        <td>{items.phone_number}</td>
+        <td>{items.contact_address}</td>
+        <td>{items.quantity}</td>
         <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
@@ -195,7 +178,7 @@ const Completedorders = () => {
                   <div className="col-sm-6">
                     <h1 className="m-0">Completed Orders</h1>
                   </div>{/* /.col */}
-               
+
                 </div>{/* /.row */}
               </div>{/* /.container-fluid */}
             </div>
@@ -219,10 +202,10 @@ const Completedorders = () => {
                           <thead>
                             <tr>
 
-                              <th>Orders ID</th>
-                              <th>Name</th>
+                            <th>Order ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
+                              <th>Quantity</th>
                               <th>Date</th>
                               <th>Info</th>
                               <th>Status</th>

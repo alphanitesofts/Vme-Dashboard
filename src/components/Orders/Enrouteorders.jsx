@@ -20,15 +20,15 @@ const Enrouteorders = () => {
   const recieveData = () => {
     setLoader(true)
     const userObj = {
-      order_status: "enroute"
+      status: "enroute"
     }
 
-    axios.post(`${Baseurl}getinfo`, userObj)
-      .then(res => {
+    axios.post(`${Baseurl}getorder_withstatus`, userObj)
+      .then((res) => {
         setLoader(false)
-        setEnrouteData(res.data)
+        setEnrouteData(res.data.orders)
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       })
   }
@@ -36,16 +36,15 @@ const Enrouteorders = () => {
 
   const sendToCompleted = (id) => {
     const statusInfo = {
-      order_status: "completed",
-      payment_status: "paid",
-      ready_to_review: 1
+      status: "completed",
+      // payment_status: "paid",
     }
 
-    axios.post(`${Baseurl}updatedata/${id}`, statusInfo)
+    axios.post(`${Baseurl}update_orderstatus/${id}`, statusInfo)
       .then((res) => {
-        console.log(res.data)
-        toast.success("Order Sended to Completed Table")
+        toast.success('Order Sended to completed Table')
         recieveData()
+        console.log(res.data)
       })
       .catch((error) => {
         console.log(error)
@@ -53,17 +52,15 @@ const Enrouteorders = () => {
   }
 
   const returnOrders = (id) => {
-
-    const pendingObj = {
-      order_status: "return",
-      payment_status: "return",
-      ready_to_review: 1
+    const statusInfo = {
+      status: "return",
+      // payment_status: "paid",
     }
 
-    axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
+    axios.post(`${Baseurl}update_orderstatus/${id}`, statusInfo)
       .then((res) => {
+        toast.success('Order Sended to returned Table')
         recieveData()
-        toast.warning('Order sended to return table')
         console.log(res.data)
       })
       .catch((error) => {
@@ -71,18 +68,18 @@ const Enrouteorders = () => {
       })
   }
   const scamOrders = (id) => {
-    const obj = {
-      order_status: "scam_orders",
-      payment_status: "scam_orders",
-      ready_to_review: 0
+    const statusInfo = {
+      status: "scam_orders",
+      // payment_status: "paid",
     }
-    axios.post(`${Baseurl}updatedata/${id}`, obj)
-      .then(res => {
+
+    axios.post(`${Baseurl}update_orderstatus/${id}`, statusInfo)
+      .then((res) => {
+        toast.success('Order Sended to scam Table')
         recieveData()
-        toast.warning('order sended to Scam Orders')
+        console.log(res.data)
       })
       .catch((error) => {
-        alert('!function')
         console.log(error)
       })
   }
@@ -90,10 +87,10 @@ const Enrouteorders = () => {
   function Content({ items }) {
     return (
       <tr>
-        <td>{items.id}</td>
-        <td>{items.name}</td>
+       <td>{items.id}</td>
         <td>{items.address}</td>
-        <td>{items.phone_number}</td>
+        <td>{items.contact_address}</td>
+        <td>{items.quantity}</td>
         <td>{items.Idate}</td>
         <td><button className='btn btn-outline-primary m-1' onClick={() => {
           oncloseModal()
@@ -281,11 +278,10 @@ const Enrouteorders = () => {
                         <table id="example2" className="table table-bordered table-hover ">
                           <thead>
                             <tr>
-
-                              <th>Orders ID</th>
-                              <th>Name</th>
+                            <th>Order ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
+                              <th>Quantity</th>
                               <th>Date</th>
                               <th>Info</th>
                               <th>Status</th>
