@@ -1,82 +1,36 @@
-import React, { useState } from 'react'
 import { Modal } from 'pretty-modal'
-import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
-import Baseurl from '../Sourcefiles/url';
-import axios from 'axios';
-
+import React from 'react'
+import randomImage from '../Sourcefiles/Images/error-image.jpg'
 const InfoItem = ({ closeModal, userData, shouldShow }) => {
-
-    const [itemName, setItemName] = useState('')
-    const [categoryDescription, setCategoryDescription] = useState('')
-    const [fieldStatus, setFieldStatus] = useState(false)
-    const userID = userData.id
-
-    console.log(userID)
-    const updateCategory = () => {
-        setFieldStatus(true)
-        if (itemName === "" && categoryDescription === "") {
-            toast.error("Please fill all the fields")
-        }
-        else {
-            axios.post(`${Baseurl}update_category/${userID}`)
-                .then((res) => {
-                    console.log(res)
-                    toast.warn('Successfully Updated the category')
-                })
-                .catch((err) => {
-                    console.log(err)
-                    toast.warn("error while updating")
-                })
-        }
-    }
-
-    return (
-        <Modal
-            open={shouldShow}
-        >
-            <div className=' '>
-                <div className="content-header">
-                    <div className="container-fluid">
-                        <div className="row mb-2">
-                            <div className="col-sm-6">
-                                <h1 className="m-0">Edit the Category Item</h1>
-                            </div>
-                            <div className='col-lg-1 mt-2 ms-auto'>
-                                <button onClick={() => closeModal()} className='btn btn-sm btn-outline-danger'>X</button>
-                            </div>
-                        </div>{/* /.row */}
-                    </div>{/* /.container-fluid */}
-                </div>
-                <div className="container pt-3">
-                    <div className='container'>
-                        <div className="card card-secondary">
-                            <div className="card-header">
-                                <h3 className="card-title">Add Category:</h3>
-                            </div>
-                            <div className="card-body">
-                                <div className='row'>
-                                    <div className="form-group col-12">
-                                        <label htmlFor="exampleInputEmail1">Item Name</label>
-                                        <input defaultValue={userData.category_name} style={{ borderColor: itemName === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setItemName(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter product itemName" />
-                                        <p >{itemName === "" && fieldStatus === true ? <span className='text-danger'> Please Add itemName for the item</span> : null}</p>
-                                    </div>
-
-                                    <div className="col-12 pb-3">
-                                        <label htmlFor="exampleFormControlTextarea1" className="form-label"><b>Description:</b></label>
-                                        <textarea defaultValue={userData.category_description} style={{ borderColor: categoryDescription === "" && fieldStatus === true ? "red" : '#ced4da' }} className="form-control" onChange={(e) => setCategoryDescription(e.target.value)} id="exampleFormControlTextarea1" rows={5} placeholder="Write short describtion about the product ..." />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-footer">
-                                <button type="submit" onClick={updateCategory} className="btn btn-outline-secondary">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <div>
+      <Modal open={shouldShow}>
+        <div className='content-header'>
+          <div className='float-right'>
+          <button className='btn btn-sm btn-outline-danger' onClick={() => closeModal()}>X</button>
+          </div> 
+          <div className='row'>
+            <div className='col-lg-6'>
+              <div>
+                <img src={randomImage} className='img-fluid' alt="" />
+              </div>
             </div>
-        </Modal>
-    )
+            <div className='col-lg-6'>
+              <h3>{userData.actual_price}</h3>
+              <p className='mt-0 mb-1'>{userData.item_price}</p>
+              <p className='mt-0 mb-1'>{userData.item_colour}</p>
+              <p className='mt-0 mb-1'>{userData.created_at}</p>
+              <p className='mt-0 mb-1'>{userData.category_name}</p>
+              <p className='mt-0 mb-1'>{userData.category_id}</p>
+              <p className='mt-0 mb-1'>{userData.is_hot}</p>
+              <p className='mt-0 mb-1'>{userData.availability}</p>
+              <p className='mt-0 mb-1'>{userData.description}</p>
+            </div>
+          </div>
+        </div>
+      </Modal>
+    </div>
+  )
 }
 
 export default InfoItem

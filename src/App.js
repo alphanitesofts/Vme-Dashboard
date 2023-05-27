@@ -11,13 +11,14 @@ import Deletedorders from "./components/Orders/Deletedorders";
 import Paidorders from "./components/Orders/Paidorders";
 import Unpaidorders from "./components/Orders/Unpaidorders";
 import Infoform from "./components/Modals/Infoform";
-import InfoItem from "./components/Modals/InfoItem";
+import InfoItem from "./components/Modals/InfoCategory";
 import Additemform from "./components/Products/Additemform";
-import Getitem from "./components/Products/Getitem";
+import Getitem from "./components/Products/GetCategory";
 import Scamorders from "./components/Orders/Scamorders";
 import ReturnOrders from "./components/Orders/ReturnOrders";
 import UpdateNews from "./components/News/UpdateNews";
 import AddNews from "./components/News/AddNews";
+import GetAllItems from "./components/Products/GetAllItems";
 //Structure
 import Navbar from "./components/Body/Navbar";
 import Sidebar from "./components/Body/Sidebar";
@@ -93,7 +94,8 @@ function App() {
             <Route path="/AddNews" element={<AddNews />} />
             <Route path="/UpdateNews" element={<UpdateNews />} />
             <Route path="/AddCategory" element={<AddCategory />} />
-            <Route path="/GenerateOrder" element={<GenerateOrder/>} />
+            <Route path="/GenerateOrder" element={<GenerateOrder />} />
+            <Route path="/GetAllItems" element={<GetAllItems />} />
 
             <Route path="*" element={<Error />} />
           </Routes>

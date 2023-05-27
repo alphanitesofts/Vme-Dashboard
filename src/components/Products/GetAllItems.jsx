@@ -6,10 +6,9 @@ import 'moment-timezone';
 import Moment from 'react-moment';
 import Infoform from '../Modals/Infoform';
 import Baseurl from '../Sourcefiles/url'
-import InfoItem from '../Modals/InfoItem'
+import InfoItem from '../Modals/InfoItem';
 
-
-const Getitem = () => {
+const GetAllItems = () => {
 
     const [getItems, setGetItems] = useState([])
     const [loader, setLoader] = useState(false)
@@ -18,9 +17,9 @@ const Getitem = () => {
 
     const showData = () => {
         setLoader(true)
-        axios.get(`${Baseurl}fetchAllcategory`)
+        axios.post(`${Baseurl}getallproducts`)
             .then(res => {
-                setGetItems(res.data.data)
+                setGetItems(res.data.Data)
                 console.log(res)
                 setLoader(false)
             })
@@ -63,7 +62,9 @@ const Getitem = () => {
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Category Description</th>
+                                                <th>Price</th>
+                                                <th>Color</th>
+                                                <th>Image</th>
                                                 <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
@@ -86,13 +87,16 @@ const Getitem = () => {
                                                         return (
                                                             <tr>
                                                                 <td>{items.category_name}</td>
-                                                                <td>{items.category_description}</td>
+                                                                <td>{items.actual_price}</td>
+                                                                <td>{items.item_colour}</td>
+                                                                <td>{items.item_images}</td>
+
                                                                 <td><Moment format='DD/MM/YYYY' >{items.created_at}</Moment></td>
                                                                 <td>
                                                                     <button className='btn btn-outline-primary m-1' onClick={() => {
                                                                         oncloseModal()
                                                                         setUserID(items)
-                                                                    }}>Edit</button>
+                                                                    }}>View</button>
                                                                 </td>
                                                             </tr>
                                                         )
@@ -126,4 +130,4 @@ const Getitem = () => {
     )
 }
 
-export default Getitem
+export default GetAllItems
