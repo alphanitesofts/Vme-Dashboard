@@ -27,19 +27,16 @@ const Pendingorders = () => {
   const getPendingOrders = () => {
     setLoader(true)
     const pendObj = {
-      order_status: "pending"
+      status: "pending"
     }
-    axios.post(`${Baseurl}getinfo`, pendObj)
+    axios.post(`${Baseurl}getorder_withstatus`, pendObj)
       .then((res) => {
         setLoader(false)
-        setPendOrder(res.data)
+        setPendOrder(res.data.orders)
       })
       .catch((error) => {
         console.log(error)
       })
-
-   
-
   }
 
 

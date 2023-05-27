@@ -36,16 +36,15 @@ const Content = () => {
       .catch((err) => {
         console.log(err)
       })
-
   }
 
   const sendToPending = (id) => {
     setLoading(true)
     const pendingObj = {
       order_status: "pending",
-      payment_status: "unpaid",
+      // payment_status: "unpaid",
     }
-    axios.post(`${Baseurl}updatedata/${id}`, pendingObj)
+    axios.post(`${Baseurl}update_orderstatus/${id}`, pendingObj)
       .then((res) => {
         console.log(res.data)
         recieveData()

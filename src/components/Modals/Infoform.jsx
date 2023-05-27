@@ -22,14 +22,11 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
             <div className="card card-widget widget-user" >
               <div className="widget-user-header text-white bg-secondary" >
                 <button className='btn btn-outline-danger backgroundblur' style={{ float: "left" }} onClick={() => closeModal()}><i className="fa-solid fa-xmark"></i></button>
-                <h3 className="widget-user-username text-right text-white"><b>{userData.name}</b></h3>
-                <h5 className="widget-user-desc text-right text-white"><b>{userData.phone_number}</b></h5>
               </div>
               {/* src={`${baseUrlforImages}${userData.cover_photo}`}  */}
-              <div className="widget-user-image"  >
+              {/* <div className="widget-user-image"  >
                 <img className="img-circle" style={{ height: "100px", width: "100px" }} src={`${baseUrlforImages}${userData.profile_pic}`} alt="User Avatar" />
-              </div>
-
+              </div> */}
               <div className="card-footer">
                 <div className="p-0">
                   <ul className="nav flex-column">
@@ -37,22 +34,7 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
 
                     <li className="nav-item">
                       <a href="#" className="nav-link">
-                        Address: <b className="float-right text-secondary">{userData.address}</b>
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a href="#" className="nav-link">
-                        Short Description: <b className="float-right text-secondary">{userData.email}</b>
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a href="#" className="nav-link">
-                        Secondary Contact: <b className="float-right text-secondary">{userData.contact_number}</b>
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a href="#" className="nav-link">
-                        Region: <b className="float-right text-secondary">{userData.region}</b>
+                        UserID: <b className="float-right text-secondary">{userData.user_id}</b>
                       </a>
                     </li>
                     <li className="nav-item">
@@ -62,28 +44,22 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
                     </li>
                     <li className="nav-item">
                       <a href="#" className="nav-link">
-                        Postal Code: <b className="float-right text-secondary">{userData.postal_code}</b>
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a href="#" className="nav-link">
-                        Date: <b className="float-right text-secondary">{userData.Idate}</b>
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a href="#" className="nav-link">
                         Quantity: <b className="float-right text-secondary">{userData.quantity}</b>
                       </a>
                     </li>
-
                     <li className="nav-item">
-                      {/* <a href="#" className="nav-link">
-                        CV: <b className="float-right text-secondary">{userData.cv}</b>
-                      </a> */}
                       <a href="#" className="nav-link">
-                        Profile Photo: <button className='btn btn-outline-secondary float-right ' onClick={saveFile}>
-                          Download
-                        </button>
+                        Phone Number: <b className="float-right text-secondary">{userData.contact_address}</b>
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a href="#" className="nav-link">
+                        Product ID: <b className="float-right text-secondary">{userData.product_id}</b>
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a href="#" className="nav-link">
+                        DATE: <b className="float-right text-secondary">{userData.Idate}</b>
                       </a>
                     </li>
                   </ul>
