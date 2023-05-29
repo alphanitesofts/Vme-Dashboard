@@ -1,9 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React,{useState, useEffect} from "react";
 import axios from "axios";
-import { useState } from "react";
 import Baseurl from "../Sourcefiles/url";
-import { useEffect } from "react";
 import Infoform from "../Modals/Infoform";
 
 const Scamorders = () => {
@@ -14,6 +11,10 @@ const Scamorders = () => {
   const [loader, setLoader] = useState(false);
   const [shouldShow, setShouldShow] = useState(false);
   const [userID, setUserID] = useState();
+
+  useEffect(() => {
+    scamData();
+  }, []);
 
   const scamData = () => {
     setLoader(true);
@@ -124,10 +125,6 @@ const Scamorders = () => {
       <p>no data</p>;
     }
   };
-
-  useEffect(() => {
-    scamData();
-  }, []);
 
   return (
     <div>

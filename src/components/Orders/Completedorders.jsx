@@ -1,11 +1,6 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import 'moment-timezone';
 import axios from 'axios';
-import Moment from 'react-moment';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 import Baseurl from '../Sourcefiles/url';
 import Infoform from '../Modals/Infoform';
 
@@ -18,6 +13,10 @@ const Completedorders = () => {
   const [shouldShow, setShouldShow] = useState(false)
   const [userID, setUserID] = useState()
   const [loader, setLoader] = useState(false)
+
+  useEffect(() => {
+    CompletedData()
+  }, [])
 
   const CompletedData = () => {
     setLoader(true)
@@ -149,13 +148,6 @@ const Completedorders = () => {
 
   }
 
-
-  useEffect(() => {
-    CompletedData()
-  }, [])
-
-
-
   return (
     <div>
       {
@@ -169,20 +161,16 @@ const Completedorders = () => {
               </div>
             </div>
           </> :
-
           <div className="content-wrapper">
-            {/* Content Header (Page header) */}
             <div className="content-header">
               <div className="container-fluid">
                 <div className="row mb-2">
                   <div className="col-sm-6">
                     <h1 className="m-0">Completed Orders</h1>
-                  </div>{/* /.col */}
-
-                </div>{/* /.row */}
-              </div>{/* /.container-fluid */}
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* /.content-header */}
             <section className="content">
               <div className="container-fluid">
                 <div className="row">
@@ -191,7 +179,6 @@ const Completedorders = () => {
                       <div className="card-header">
                         <h3 className="card-title">DataTable with minimal features &amp; hover style</h3>
                       </div>
-                      {/* /.card-header */}
                       <div className="card-body table-responsive">
                         <div className="form-group d-flex" >
                           <input className="form-control" type="number" placeholder="Search with order ID" onChange={(e) => { setOrderID(e.target.value) }} aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp;
@@ -201,15 +188,13 @@ const Completedorders = () => {
                         <table id="example2" className="table table-bordered table-hover ">
                           <thead>
                             <tr>
-
-                            <th>Order ID</th>
+                              <th>Order ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
                               <th>Quantity</th>
                               <th>Date</th>
                               <th>Info</th>
                               <th>Status</th>
-
                             </tr>
                           </thead>
                           <tbody >
@@ -221,14 +206,10 @@ const Completedorders = () => {
                           </tbody>
                         </table>
                       </div>
-                      {/* /.card-body */}
                     </div>
                   </div>
-                  {/* /.col */}
                 </div>
-                {/* /.row */}
               </div>
-              {/* /.container-fluid */}
             </section>
             {
               userID ?
@@ -238,7 +219,6 @@ const Completedorders = () => {
                   userData={userID}
                 />
                 : null}
-            {/* /.content */}
           </div>
       }
     </div>

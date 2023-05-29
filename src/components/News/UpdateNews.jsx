@@ -5,7 +5,6 @@ import Baseurl from '../Sourcefiles/url'
 import Modal from 'react-modal'
 import UpdateNewsModal from './UpdateNewsModal'
 
-
 const UpdateNews = () => {
 
     const [data, setData] = useState([])
@@ -15,6 +14,9 @@ const UpdateNews = () => {
     const [loader, setLoader] = useState(false)
     const [searchTitle, setSearchTitle] = useState('')
     const [searchDate, setSearchDate] = useState('')
+
+    useEffect(() => { recieveData() }, [])
+    
     const recieveData = () => {
         setLoader(true)
         axios.get(`${Baseurl}fetchNews`)
@@ -143,7 +145,6 @@ const UpdateNews = () => {
     function oncloseModal() {
         setShouldShow((prev) => !prev)
     }
-    useEffect(() => { recieveData() }, [])
 
     return (
         <div>

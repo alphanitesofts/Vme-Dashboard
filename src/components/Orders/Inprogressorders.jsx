@@ -84,7 +84,7 @@ const Inprogressorders = () => {
   function Content({ items }) {
     return (
       <tr>
-     <td>{items.id}</td>
+        <td>{items.id}</td>
         <td>{items.address}</td>
         <td>{items.contact_address}</td>
         <td>{items.quantity}</td>
@@ -111,7 +111,6 @@ const Inprogressorders = () => {
   }
 
   const DataRender = () => {
-
     if (!orderID && !phoneNo & !orderDate) {
       return (
         getProgressOrder.map((items) => {
@@ -250,18 +249,15 @@ const Inprogressorders = () => {
           </div>
         </> :
         <div className="content-wrapper">
-          {/* Content Header (Page header) */}
           <div className="content-header">
             <div className="container-fluid">
               <div className="row mb-2">
                 <div className="col-sm-6">
                   <h1 className="m-0">In Progress Orders </h1>
-                </div>{/* /.col */}
-
-              </div>{/* /.row */}
-            </div>{/* /.container-fluid */}
+                </div>
+              </div>
+            </div>
           </div>
-          {/* /.content-header */}
           <section className="content">
             <div className="container-fluid">
               <div className="row">
@@ -270,7 +266,6 @@ const Inprogressorders = () => {
                     <div className="card-header">
                       <h3 className="card-title">DataTable with minimal features &amp; hover style</h3>
                     </div>
-                    {/* /.card-header */}
                     <div className="card-body table-responsive">
                       <div className="form-group d-flex" >
                         <input className="form-control" type="number" placeholder="Search with order ID" onChange={(e) => { setOrderID(e.target.value) }} aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp;
@@ -281,13 +276,13 @@ const Inprogressorders = () => {
                         <thead>
                           <tr>
 
-                          <th>Order ID</th>
-                              <th>Address</th>
-                              <th>Phone No.</th>
-                              <th>Quantity</th>
-                              <th>Date</th>
-                              <th>Info</th>
-                              <th>Status</th>
+                            <th>Order ID</th>
+                            <th>Address</th>
+                            <th>Phone No.</th>
+                            <th>Quantity</th>
+                            <th>Date</th>
+                            <th>Info</th>
+                            <th>Status</th>
                           </tr>
                         </thead>
                         <tbody >
@@ -299,14 +294,10 @@ const Inprogressorders = () => {
                         </tbody>
                       </table>
                     </div>
-                    {/* /.card-body */}
                   </div>
                 </div>
-                {/* /.col */}
               </div>
-              {/* /.row */}
             </div>
-            {/* /.container-fluid */}
           </section>
           {
             userID ?
@@ -316,7 +307,6 @@ const Inprogressorders = () => {
                 userData={userID}
               />
               : null}
-          {/* /.content */}
         </div>
       }
     </div>

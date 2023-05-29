@@ -1,18 +1,9 @@
-import React from 'react'
-
-import "react-toastify/dist/ReactToastify.css";
-import { useState, useEffect } from 'react';
-import { toast } from "react-toastify";
-import { Link } from 'react-router-dom'
+import React,{ useState, useEffect } from 'react'
 import Baseurl from '../Sourcefiles/url';
 import axios from 'axios';
 import Infoform from '../Modals/Infoform';
-import { useLocation } from 'react-router-dom';
-import Modal from 'react-modal'
-
 
 const ReturnOrders = () => {
-
 
     const [getPendOrder, setPendOrder] = useState([])
     const [orderID, setOrderID] = useState()
@@ -23,23 +14,25 @@ const ReturnOrders = () => {
     const [userID, setUserID] = useState()
     const [warningModal, setWarningModal] = useState(false)
 
+    useEffect(() => {
+        getReturnOrders()
+    }, [])
+
     const getReturnOrders = () => {
         setLoader(true)
         const userData = {
             status: "return"
             // payment_status: "deleted",
-          }
-      
-          axios.post(`${Baseurl}getorder_withstatus`, userData)
+        }
+        axios.post(`${Baseurl}getorder_withstatus`, userData)
             .then(res => {
-              setLoader(false)
-              setPendOrder(res.data.orders)
+                setLoader(false)
+                setPendOrder(res.data.orders)
             })
             .catch(error => {
-              console.log(error)
+                console.log(error)
             })
     }
-
 
     const Content = ({ items }) => {
         return (
@@ -152,11 +145,6 @@ const ReturnOrders = () => {
         setShouldShow((prev) => !prev)
     }
 
-
-    useEffect(() => {
-        getReturnOrders()
-    }, [])
-
     return (
         <div>
             {
@@ -171,18 +159,15 @@ const ReturnOrders = () => {
                         </div>
                     </> :
                     <div className="content-wrapper">
-                        {/* Content Header (Page header) */}
                         <div className="content-header">
                             <div className="container-fluid">
                                 <div className="row mb-2">
                                     <div className="col-sm-6">
                                         <h1 className="m-0">Return Orders</h1>
-                                    </div>{/* /.col */}
-
-                                </div>{/* /.row */}
-                            </div>{/* /.container-fluid */}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        {/* /.content-header */}
                         <section className="content">
                             <div className="container-fluid">
                                 <div className="row">
@@ -191,7 +176,6 @@ const ReturnOrders = () => {
                                             <div className="card-header">
                                                 <h3 className="card-title">DataTable with minimal features &amp; hover style</h3>
                                             </div>
-                                            {/* /.card-header */}
                                             <div className="card-body table-responsive">
                                                 <div className="form-group d-flex" >
                                                     <input className="form-control" type="number" onChange={(e) => { setOrderID(e.target.value) }} placeholder="Search with order ID" aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp;
@@ -212,7 +196,6 @@ const ReturnOrders = () => {
                                                         </tr>
                                                     </thead>
                                                     <tbody >
-                                                        {/* (sort function) .sort((a,b)=> new Date(...b.created_at.split("/").reverse()) - new Date(...a.created_at.split("/").reverse())) */}
                                                         {
                                                             getPendOrder.length < 1 ?
                                                                 <h4 className='text-center'>No data availabe</h4> :
@@ -221,16 +204,11 @@ const ReturnOrders = () => {
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            {/* /.card-body */}
                                         </div>
                                     </div>
-                                    {/* /.col */}
                                 </div>
-                                {/* /.row */}
                             </div>
-                            {/* /.container-fluid */}
                         </section>
-                        {/* /.content */}
                         {
                             userID ?
                                 <Infoform
@@ -240,7 +218,6 @@ const ReturnOrders = () => {
                                 />
                                 : null}
                     </div>
-
             }
         </div>
     )

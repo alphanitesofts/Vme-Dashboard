@@ -1,6 +1,7 @@
 import { Modal } from 'pretty-modal'
 import React from 'react'
 import randomImage from '../Sourcefiles/Images/error-image.jpg'
+
 const InfoItem = ({ closeModal, userData, shouldShow }) => {
   return (
     <div>

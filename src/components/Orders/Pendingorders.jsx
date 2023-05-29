@@ -1,13 +1,10 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React,{ useState, useEffect } from 'react';
 import axios from 'axios';
 import Baseurl from '../Sourcefiles/url';
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import Infoform from '../Modals/Infoform';
 import Modal from 'react-modal'
-
 
 const Pendingorders = () => {
 
@@ -191,8 +188,6 @@ const Pendingorders = () => {
     setShouldShow((prev) => !prev)
   }
 
-
-
   return (
     <div>
       <Modal
@@ -242,18 +237,15 @@ const Pendingorders = () => {
           </> :
 
           <div className="content-wrapper">
-            {/* Content Header (Page header) */}
             <div className="content-header">
               <div className="container-fluid">
                 <div className="row mb-2">
                   <div className="col-sm-6">
                     <h1 className="m-0">Pending Orders</h1>
-                  </div>{/* /.col */}
-
-                </div>{/* /.row */}
-              </div>{/* /.container-fluid */}
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* /.content-header */}
             <section className="content">
               <div className="container-fluid">
                 <div className="row">
@@ -262,7 +254,6 @@ const Pendingorders = () => {
                       <div className="card-header">
                         <h3 className="card-title">DataTable with minimal features &amp; hover style</h3>
                       </div>
-                      {/* /.card-header */}
                       <div className="card-body table-responsive">
                         <div className="form-group d-flex" >
                           <input className="form-control" type="number" onChange={(e) => { setOrderID(e.target.value) }} placeholder="Search with order ID" aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp;
@@ -282,10 +273,9 @@ const Pendingorders = () => {
                             </tr>
                           </thead>
                           <tbody >
-                            {/* (sort function) .sort((a,b)=> new Date(...b.created_at.split("/").reverse()) - new Date(...a.created_at.split("/").reverse())) */}
                             {
                               getPendOrder.length < 1 ?
-                                <tbody className='text-center'>No data availabe</tbody> :
+                                <tbody className='text-center'>No data available</tbody> :
                                 <DataRender />
                             }
                           </tbody>

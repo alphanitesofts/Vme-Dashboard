@@ -32,20 +32,19 @@ import Error from "./components/Body/Error";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { AsyncStorage } from "AsyncStorage";
-
 import ReactModal from "react-modal";
 import AddCategory from "./components/Items/AddCategory";
 import GenerateOrder from "./components/Orders/GenerateOrder";
 import SearchOrders from "./components/Orders/SearchOrders";
 
 ReactModal.setAppElement("#root");
+
 function App() {
   const [login, SetLogin] = useState(true);
 
   const SetLocalLogin = async () => {
     try {
-      let userLogin = await AsyncStorage.getItem("logIN");
+      let userLogin = await localStorage.getItem("logIN");
       let parsed = JSON.parse(userLogin);
       if (parsed !== null) {
         SetLogin(parsed);

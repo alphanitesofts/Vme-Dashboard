@@ -50,10 +50,7 @@ const AddNews = () => {
         if (quill) {
             quill.on('text-change', () => {
                 console.log('Text change!');
-                // console.log(quill.getText()); // Get text only
-                // console.log(quill.getContents()); // Get delta contents
-                // console.log(quill.root.innerHTML); // Get innerHTML using quill
-                console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
+                console.log(quillRef.current.firstChild.innerHTML);
                 setValue(quillRef.current.firstChild.innerHTML)
             });
         }
@@ -77,7 +74,6 @@ const AddNews = () => {
                             <div className="col-12">
                                 <div className="card p-4">
                                     <h3 className="">Add the News for the Coustomers here please!</h3>
-
                                     <div>
                                         <h4> Title for News</h4>
                                         <p >{title === "" && fieldStatus === true ? <span className='text-danger'> Please Add Title for your news</span> : console.log(".-.")}</p>
@@ -85,12 +81,9 @@ const AddNews = () => {
                                             <input type="email" className="form-control form-control-lg" onChange={(e) => setTitle(e.target.value)} style={{ borderColor: "white", fontSize: "30px" }} name='titleNews' id="exampleInputEmail1" aria-describedby="emailHelp" />
                                         </div>
                                     </div>
-
                                     <h4 className='mt-3'> Body for News</h4>
                                     <p>{value === "" && fieldStatus === true ? <span className='text-danger'>Please Add body to your news!</span> : console.log(".-.")}</p>
                                     <div className="" style={{ borderColor: value === "" && fieldStatus === true ? "red" : '#ced4da', border: "1px solid #ced4da", borderRadius: "5px", padding: '2px', minHeight: '400px' }}>
-
-
                                         <div >
                                             <StrictMode>
                                                 <div ref={quillRef} />

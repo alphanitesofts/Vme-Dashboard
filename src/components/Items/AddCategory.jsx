@@ -15,8 +15,6 @@ const AddCategory = () => {
     const [itemName, setItemName] = useState('')
     const [categoryDescription, setCategoryDescription] = useState('')
     const [fieldStatus, setFieldStatus] = useState(false)
-
-
     //add category
 
     const addCategory = () => {

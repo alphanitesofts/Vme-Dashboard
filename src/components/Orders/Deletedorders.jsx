@@ -1,10 +1,7 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
 import Baseurl from '../Sourcefiles/url';
 import Infoform from '../Modals/Infoform';
-
 
 const Deletedorders = () => {
   const [delOrders, setDelOrders] = useState([])
@@ -15,14 +12,16 @@ const Deletedorders = () => {
   const [shouldShow, setShouldShow] = useState(false)
   const [userID, setUserID] = useState()
 
-  const recieveData = () => {
+  useEffect(() => {
+    recieveData()
+  }, [])
 
+  const recieveData = () => {
     setLoader(true)
     const userData = {
       status: "deleted"
       // payment_status: "deleted",
     }
-
     axios.post(`${Baseurl}getorder_withstatus`, userData)
       .then(res => {
         setLoader(false)
@@ -52,7 +51,6 @@ const Deletedorders = () => {
   }
 
   const DataRender = () => {
-
     if (!orderID && !phoneNo & !orderDate) {
       return (
         delOrders.map((items) => {
@@ -144,10 +142,6 @@ const Deletedorders = () => {
     setShouldShow((prev) => !prev)
   }
 
-  useEffect(() => {
-    recieveData()
-  }, [])
-
   return (
     <div>
       {
@@ -162,22 +156,15 @@ const Deletedorders = () => {
             </div>
           </> :
           <div className="content-wrapper">
-            {/* Content Header (Page header) */}
             <div className="content-header">
               <div className="container-fluid">
                 <div className="row mb-2">
                   <div className="col-sm-6">
                     <h1 className="m-0">Deleted Orders</h1>
-                  </div>{/* /.col */}
-                  <div className="col-sm-6">
-                    <ol className="breadcrumb float-sm-right">
-
-                    </ol>
-                  </div>{/* /.col */}
-                </div>{/* /.row */}
-              </div>{/* /.container-fluid */}
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* /.content-header */}
             <section className="content">
               <div className="container-fluid">
                 <div className="row">
@@ -186,7 +173,6 @@ const Deletedorders = () => {
                       <div className="card-header">
                         <h3 className="card-title">DataTable with minimal features &amp; hover style</h3>
                       </div>
-                      {/* /.card-header */}
                       <div className="card-body table-responsive">
                         <div className="form-group d-flex" >
                           <input className="form-control" type="number" placeholder="Search with order ID" onChange={(e) => { setOrderID(e.target.value) }} aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp;
@@ -196,7 +182,6 @@ const Deletedorders = () => {
                         <table id="example2" className="table table-bordered table-hover ">
                           <thead>
                             <tr>
-
                               <th>Order ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
@@ -211,19 +196,13 @@ const Deletedorders = () => {
                                 <h4>No data Available</h4> :
                                 <DataRender />
                             }
-
                           </tbody>
-
                         </table>
                       </div>
-                      {/* /.card-body */}
                     </div>
                   </div>
-                  {/* /.col */}
                 </div>
-                {/* /.row */}
               </div>
-              {/* /.container-fluid */}
             </section>
             {
               userID ?
@@ -233,7 +212,6 @@ const Deletedorders = () => {
                   userData={userID}
                 />
                 : null}
-            {/* /.content */}
           </div>
       }
     </div>

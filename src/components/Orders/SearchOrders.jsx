@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import Baseurl from '../Sourcefiles/url';
@@ -71,7 +71,6 @@ const SearchOrders = () => {
         setShouldShow((prev) => !prev)
     }
 
-
     return (
         <div>
             <div className="content-wrapper">
@@ -92,7 +91,6 @@ const SearchOrders = () => {
                                     <div className="card-header">
                                         <h3 className="card-title"><b>All Orders</b></h3>
                                     </div>
-
                                     <div className="card-body table-responsive">
                                         <div className="form-group row" >
                                             <div className='col-lg-6'>
@@ -152,16 +150,11 @@ const SearchOrders = () => {
                                                     </tbody>
                                                 </table>
                                         }
-
                                     </div>
-                                    {/* /.card-body */}
                                 </div>
                             </div>
-                            {/* /.col */}
                         </div>
-
                     </div>
-
                 </section>
                 {
                     userID ?

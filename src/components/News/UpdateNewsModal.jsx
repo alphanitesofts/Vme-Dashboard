@@ -13,8 +13,15 @@ const UpdateNewsModal = ({ shouldShow, closeModal, userData }) => {
     const [updateTitle, setUpdateTitle] = useState(userData.title)
     const [fieldStatus, setFieldStatus] = useState(false)
 
-    const UpdatePublishNews = () => {
+    useEffect(() => {
+        if (quill) {
+            quill.clipboard.dangerouslyPasteHTML(`${userData.body}`);
+            console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
+            setValue(quillRef.current.firstChild.innerHTML);
+        }
+    }, [quill]);
 
+    const UpdatePublishNews = () => {
         setFieldStatus(true)
         if (!updateTitle || !value) {
             toast.warn("Please fill all Fields")
@@ -25,7 +32,6 @@ const UpdateNewsModal = ({ shouldShow, closeModal, userData }) => {
                 body: value
             }
             axios.post(`${Baseurl}updateNews/${userData.id}`, userObj)
-
                 .then(res => {
                     console.log(res)
                     toast.info("News updated successfully")
@@ -40,25 +46,6 @@ const UpdateNewsModal = ({ shouldShow, closeModal, userData }) => {
                 })
         }
     }
-    // React.useEffect(() => {
-    //     if (quill) {
-    //         quill.on('text-change', (delta, oldDelta, source) => {
-    //             setValue(quill.getContents()); // Get text only
-    //             // console.log(quill.getContents()); // Get delta contents
-    //             // console.log(quill.root.innerHTML); // Get innerHTML using quill
-    //             console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
-    //             setValue(quillRef.current.firstChild.innerHTML);
-    //         });
-    //     }
-    // }, [quill]);
-
-    useEffect(() => {
-        if (quill) {
-            quill.clipboard.dangerouslyPasteHTML(`${userData.body}`);
-            console.log(quillRef.current.firstChild.innerHTML); // Get innerHTML using quillRef
-            setValue(quillRef.current.firstChild.innerHTML);
-        }
-    }, [quill]);
 
     return (
         <Modal
@@ -85,7 +72,6 @@ const UpdateNewsModal = ({ shouldShow, closeModal, userData }) => {
                                     <h4 className='mt-3'> Body for News</h4>
                                     <p>{value === "" && fieldStatus === true ? <span className='text-danger'>Please Add body to your news!</span> : console.log(".-.")}</p>
                                     <div className="" style={{ borderColor: value === "" && fieldStatus === true ? "red" : 'black', border: "1px solid", padding: '2px', minHeight: '400px' }}>
-
                                         <div>
                                             <div ref={quillRef} />
                                         </div>

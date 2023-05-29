@@ -1,12 +1,9 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useEffect } from 'react';
 import { toast } from "react-toastify";
 import Baseurl from '../Sourcefiles/url';
 import axios from 'axios';
 import Infoform from '../Modals/Infoform';
-import Modal from 'react-modal'
 
 toast.configure()
 const Content = () => {
@@ -75,10 +72,6 @@ const Content = () => {
                 <i className="fa-solid fa-check"></i>
             }
           </button>
-          {/* <button className='btn btn-outline-danger m-1' onClick={() => {
-            setWarningModal(true)
-            setUserID(items.id)
-          }}><i className="fa-solid fa-xmark"></i></button> */}
         </td>
       </tr>
     )
@@ -187,7 +180,7 @@ const Content = () => {
 
   const current = new Date();
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-  const time = `${current.getHours()}:${current.getMinutes()}`
+  const time = `${current.getHours()}:${current.getMinutes()}`;
 
   return (
     <div>
@@ -205,18 +198,15 @@ const Content = () => {
           </>
           :
           <div className="content-wrapper">
-            {/* Content Header (Page header) */}
             <div className="content-header">
               <div className="container-fluid">
                 <div className="row mb-2">
                   <div className="col-sm-6">
-                    <h4 className="m-0"><i className="fa-thin fa-clock-desk"/>&nbsp;{time} {date}</h4>
-                  </div>{/* /.col */}
-
+                    <h4 className="m-0"><i className="fa-thin fa-clock-desk" />&nbsp;{time} {date}</h4>
+                  </div>
                 </div>
               </div>
             </div>
-            {/* /.content-header */}
             <section className="content">
               <div className="container-fluid">
                 <div className="row">
@@ -225,7 +215,6 @@ const Content = () => {
                       <div className="card-header">
                         <h3 className="card-title"><b>All Orders</b></h3>
                       </div>
-
                       <div className="card-body table-responsive">
                         <div className="form-group d-flex" >
                           <input className="form-control" type="number" placeholder="Search with order ID" onChange={(e) => { setOrderID(e.target.value) }} aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp;
@@ -249,18 +238,13 @@ const Content = () => {
                             {
                               loadingSection()
                             }
-
                           </tbody>
                         </table>
                       </div>
-                      {/* /.card-body */}
                     </div>
                   </div>
-                  {/* /.col */}
                 </div>
-
               </div>
-
             </section>
             {
               userID ?

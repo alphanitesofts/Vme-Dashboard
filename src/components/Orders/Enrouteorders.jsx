@@ -1,12 +1,9 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
 import Baseurl from '../Sourcefiles/url';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Infoform from '../Modals/Infoform';
-
 
 const Enrouteorders = () => {
   const [enrouteData, setEnrouteData] = useState([])
@@ -16,13 +13,26 @@ const Enrouteorders = () => {
   const [loader, setLoader] = useState(false)
   const [shouldShow, setShouldShow] = useState(false)
   const [userID, setUserID] = useState()
+  const [roleID, setoleID] = useState()
+
+  useEffect(() => { SetLocalLogin(); recieveData() }, [])
+  const SetLocalLogin = async () => {
+    try {
+      let roleID = await localStorage.getItem('roleID');
+      if (roleID !== null) {
+        setoleID(roleID)
+      }
+    } catch {
+      return null;
+    }
+    console.log(roleID)
+  }
 
   const recieveData = () => {
     setLoader(true)
     const userObj = {
       status: "enroute"
     }
-
     axios.post(`${Baseurl}getorder_withstatus`, userObj)
       .then((res) => {
         setLoader(false)
@@ -39,7 +49,6 @@ const Enrouteorders = () => {
       status: "completed",
       // payment_status: "paid",
     }
-
     axios.post(`${Baseurl}update_orderstatus/${id}`, statusInfo)
       .then((res) => {
         toast.success('Order Sended to completed Table')
@@ -70,9 +79,7 @@ const Enrouteorders = () => {
   const scamOrders = (id) => {
     const statusInfo = {
       status: "scam_orders",
-      // payment_status: "paid",
     }
-
     axios.post(`${Baseurl}update_orderstatus/${id}`, statusInfo)
       .then((res) => {
         toast.success('Order Sended to scam Table')
@@ -87,7 +94,7 @@ const Enrouteorders = () => {
   function Content({ items }) {
     return (
       <tr>
-       <td>{items.id}</td>
+        <td>{items.id}</td>
         <td>{items.address}</td>
         <td>{items.contact_address}</td>
         <td>{items.quantity}</td>
@@ -97,7 +104,7 @@ const Enrouteorders = () => {
           setUserID(items)
         }}>Info</button></td>
         <td>
-          <button className='btn btn-outline-primary m-1' onClick={() => sendToCompleted(items.id)}>Deleivered</button>
+          <button className='btn btn-outline-primary m-1' onClick={() => sendToCompleted(items.id)}>Delivered</button>
           <button className='btn btn-outline-secondary m-1' onClick={() => returnOrders(items.id)}>Return</button>
           {/* {
             roleID === "2" || roleID === "0" ?
@@ -110,20 +117,6 @@ const Enrouteorders = () => {
       </tr>
     )
   }
-  // Importing RoleID from Async Storage to apply admin employe conditions
-  const [roleID, setoleID] = useState()
-  const SetLocalLogin = async () => {
-    try {
-      let roleID = await localStorage.getItem('roleID');
-      if (roleID !== null) {
-        setoleID(roleID)
-      }
-    } catch {
-      return null;
-    }
-    console.log(roleID)
-  }
-  useEffect(() => { SetLocalLogin() }, [])
 
   function oncloseModal() {
     setShouldShow((prev) => !prev)
@@ -227,12 +220,6 @@ const Enrouteorders = () => {
     }
   }
 
-  useEffect(() => {
-    recieveData()
-  }, [])
-
-
-
   return (
     <div>
       {
@@ -247,19 +234,15 @@ const Enrouteorders = () => {
             </div>
           </> :
           <div className="content-wrapper">
-            {/* Content Header (Page header) */}
             <div className="content-header">
               <div className="container-fluid">
                 <div className="row mb-2">
                   <div className="col-sm-6">
                     <h1 className="m-0">Enroute Orders</h1>
-                  </div>{/* /.col */}
-
-
-                </div>{/* /.row */}
-              </div>{/* /.container-fluid */}
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* /.content-header */}
             <section className="content">
               <div className="container-fluid">
                 <div className="row">
@@ -268,7 +251,6 @@ const Enrouteorders = () => {
                       <div className="card-header">
                         <h3 className="card-title">DataTable with minimal features &amp; hover style</h3>
                       </div>
-                      {/* /.card-header */}
                       <div className="card-body table-responsive">
                         <div className="form-group d-flex" >
                           <input className="form-control" type="number" placeholder="Search with order ID" onChange={(e) => { setOrderID(e.target.value) }} aria-label="Search" style={{ borderRadius: "10em" }} />&nbsp;&nbsp;&nbsp;
@@ -278,7 +260,7 @@ const Enrouteorders = () => {
                         <table id="example2" className="table table-bordered table-hover ">
                           <thead>
                             <tr>
-                            <th>Order ID</th>
+                              <th>Order ID</th>
                               <th>Address</th>
                               <th>Phone No.</th>
                               <th>Quantity</th>
@@ -294,14 +276,10 @@ const Enrouteorders = () => {
                           </tbody>
                         </table>
                       </div>
-                      {/* /.card-body */}
                     </div>
                   </div>
-                  {/* /.col */}
                 </div>
-                {/* /.row */}
               </div>
-              {/* /.container-fluid */}
             </section>
             {
               userID ?

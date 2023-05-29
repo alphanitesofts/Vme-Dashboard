@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
 import 'moment-timezone';
 import Moment from 'react-moment';
-import Infoform from '../Modals/Infoform';
 import Baseurl from '../Sourcefiles/url'
 import InfoItem from '../Modals/InfoItem';
 
@@ -39,24 +36,20 @@ const GetAllItems = () => {
 
     return (
         <div className="content-wrapper">
-            {/* Content Header (Page header) */}
             <div className="content-header">
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
                             <h1 className="m-0">Available Items</h1>
-                        </div>{/* /.col */}
-
-                    </div>{/* /.row */}
-                </div>{/* /.container-fluid */}
+                        </div>
+                    </div>
+                </div>
             </div>
-            {/* /.content-header */}
             <section className="content">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
                             <div className="card">
-                                {/* /.card-header */}
                                 <div className="card-body table-responsive">
                                     <table id="example2" className="table table-bordered table-hover">
                                         <thead>
@@ -83,14 +76,13 @@ const GetAllItems = () => {
                                                         </div>
                                                     </>
                                                     :
-                                                    // getItems.map((items) => {
                                                     getItems.sort((a, b) => new Date(...b.created_at.split("/").reverse()) - new Date(...a.created_at.split("/").reverse())).map((items) => {
                                                         return (
                                                             <tr>
                                                                 <td>{items.category_id}</td>
                                                                 <td>{items.category_name}</td>
                                                                 <td>{items.actual_price}</td>
-                                                                <td><button className='round-circle' style={{backgroundColor:items.item_colour}}></button></td>
+                                                                <td><button className='round-circle' style={{ backgroundColor: items.item_colour }}></button></td>
                                                                 <td>{items.item_images}</td>
 
                                                                 <td><Moment format='DD/MM/YYYY' >{items.created_at}</Moment></td>
@@ -104,20 +96,13 @@ const GetAllItems = () => {
                                                         )
                                                     })
                                             }
-
                                         </tbody>
-
                                     </table>
                                 </div>
-                                {/* /.card-body */}
                             </div>
-
                         </div>
-                        {/* /.col */}
                     </div>
-                    {/* /.row */}
                 </div>
-                {/* /.container-fluid */}
                 {
                     userID ?
                         <InfoItem
@@ -127,7 +112,6 @@ const GetAllItems = () => {
                         />
                         : null}
             </section>
-            {/* /.content */}
         </div>
     )
 }
