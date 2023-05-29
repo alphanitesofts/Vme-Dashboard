@@ -88,7 +88,7 @@ const GetAllItems = () => {
                                                             <tr>
                                                                 <td>{items.category_name}</td>
                                                                 <td>{items.actual_price}</td>
-                                                                <td>{items.item_colour}</td>
+                                                                <td><button className='round-circle' style={{backgroundColor:items.item_colour}}></button></td>
                                                                 <td>{items.item_images}</td>
 
                                                                 <td><Moment format='DD/MM/YYYY' >{items.created_at}</Moment></td>

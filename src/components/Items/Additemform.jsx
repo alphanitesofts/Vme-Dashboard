@@ -42,8 +42,6 @@ const Additemform = () => {
             })
     }
 
-  
-
     // add product
     const addProduct = () => {
         setFieldStatus(true)
