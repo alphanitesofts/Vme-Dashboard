@@ -62,6 +62,7 @@ const Getitem = () => {
                                     <table id="example2" className="table table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Category Description</th>
                                                 <th>Date</th>
@@ -85,6 +86,7 @@ const Getitem = () => {
                                                     getItems.sort((a, b) => new Date(...b.created_at.split("/").reverse()) - new Date(...a.created_at.split("/").reverse())).map((items) => {
                                                         return (
                                                             <tr>
+                                                                <td>{items.id}</td>
                                                                 <td>{items.category_name}</td>
                                                                 <td>{items.category_description}</td>
                                                                 <td><Moment format='DD/MM/YYYY' >{items.created_at}</Moment></td>

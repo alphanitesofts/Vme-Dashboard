@@ -26,8 +26,13 @@ const SearchOrders = () => {
             axios.post(`${Baseurl}fetch_orders_by_phone/${phoneNo}`)
                 .then((res) => {
                     setLoader(false)
-                    console.log(res.data.orders)
-                    setSearchOrder(res.data.orders)
+                    if (res.data.status === 200) {
+                        console.log(res.data.orders)
+                        setSearchOrder(res.data.orders)
+                    }
+                    else {
+                        toast.warn('No Data Found')
+                    }
                 })
                 .catch((err) => {
                     console.log(err)
@@ -75,8 +80,7 @@ const SearchOrders = () => {
                         <div className="row mb-2">
                             <div className="col-sm-6">
                                 <h4 className="m-0">Search in all orders</h4>
-                            </div>{/* /.col */}
-
+                            </div>
                         </div>
                     </div>
                 </div>

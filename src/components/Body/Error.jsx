@@ -13,7 +13,7 @@ const Error = () => {
                             </div>
                             <div className="col-sm-6">
                                 <ol className="breadcrumb float-sm-right">
-                                    <li className="breadcrumb-item"><Link to='/Login'>Home</Link></li>
+                                    <li className="breadcrumb-item"><Link to='/'>Home</Link></li>
                                 </ol>
                             </div>
                         </div>
@@ -26,7 +26,7 @@ const Error = () => {
                             <h3><i className="fas fa-exclamation-triangle text-secondary" /> Oops! Page not found.</h3>
                             <p>
                                 We could not find the page you were looking for.
-                                Meanwhile, you may <Link to="/Login">return to dashboard</Link> or try using the search form.
+                                Meanwhile, you may <Link to="/">return to dashboard</Link> or try using the search form.
                             </p>
                             <form className="search-form">
                                 <div className="input-group">

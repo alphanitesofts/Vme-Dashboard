@@ -61,6 +61,7 @@ const GetAllItems = () => {
                                     <table id="example2" className="table table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th>Category ID</th>
                                                 <th>Name</th>
                                                 <th>Price</th>
                                                 <th>Color</th>
@@ -86,6 +87,7 @@ const GetAllItems = () => {
                                                     getItems.sort((a, b) => new Date(...b.created_at.split("/").reverse()) - new Date(...a.created_at.split("/").reverse())).map((items) => {
                                                         return (
                                                             <tr>
+                                                                <td>{items.category_id}</td>
                                                                 <td>{items.category_name}</td>
                                                                 <td>{items.actual_price}</td>
                                                                 <td><button className='round-circle' style={{backgroundColor:items.item_colour}}></button></td>

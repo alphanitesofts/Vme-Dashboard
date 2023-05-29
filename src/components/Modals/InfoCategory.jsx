@@ -11,8 +11,7 @@ const InfoCategory = ({ closeModal, userData, shouldShow }) => {
     const [categoryDescription, setCategoryDescription] = useState('')
     const [fieldStatus, setFieldStatus] = useState(false)
     const userID = userData.id
-
-    console.log(userID)
+    
     const updateCategory = () => {
         setFieldStatus(true)
         if (itemName === "" && categoryDescription === "") {
@@ -22,7 +21,7 @@ const InfoCategory = ({ closeModal, userData, shouldShow }) => {
             axios.post(`${Baseurl}update_category/${userID}`)
                 .then((res) => {
                     console.log(res)
-                    toast.warn('Successfully Updated the category')
+                    toast.success('Successfully Updated the category')
                 })
                 .catch((err) => {
                     console.log(err)

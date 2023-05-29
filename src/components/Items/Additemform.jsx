@@ -16,7 +16,7 @@ const Additemform = () => {
     // for getting id of the product
     const [data, setData] = useState([])
     const [productId, setProductId] = useState()
- 
+
     // products
     const [picture, setPicture] = useState('')
     const [actualPrice, setActualPrice] = useState('')
@@ -88,43 +88,6 @@ const Additemform = () => {
                     toast.warn("Error while submitting data")
 
                 });
-
-
-
-
-
-
-
-
-            // var formdata = new FormData();
-            // formdata.append("item_name", itemName);
-            // formdata.append("item_price", actualPrice);
-            // formdata.append("is_hot", hot);
-            // formdata.append("describtion", productDes);
-            // formdata.append("quantity", addCount);
-            // formdata.append("item_color", getColor);
-            // formdata.append("item_pic", picture);
-
-            // var requestOptions = {
-            //     method: 'POST',
-            //     body: formdata,
-            //     redirect: 'follow'
-            // };
-
-            // fetch(`${Baseurl}additem`, requestOptions)
-            //     .then(response => response.json())
-            //     .then(result => {
-            //         console.log(result)
-            //         toast.success("Item added successfully")
-            //         setInterval(() => {
-            //             window.location.reload(true)
-            //         }, 2000)
-            //     })
-            //     .catch(error => {
-            //         console.log('error', error)
-            //         toast.warn("Error while submitting data")
-
-            //     });
         }
     }
 
