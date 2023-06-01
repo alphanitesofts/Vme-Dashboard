@@ -40,24 +40,20 @@ const Getitem = () => {
 
     return (
         <div className="content-wrapper">
-            {/* Content Header (Page header) */}
             <div className="content-header">
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
                             <h1 className="m-0">Available Items</h1>
-                        </div>{/* /.col */}
-
-                    </div>{/* /.row */}
-                </div>{/* /.container-fluid */}
+                        </div>
+                    </div>
+                </div>
             </div>
-            {/* /.content-header */}
             <section className="content">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
                             <div className="card">
-                                {/* /.card-header */}
                                 <div className="card-body table-responsive">
                                     <table id="example2" className="table table-bordered table-hover">
                                         <thead>
@@ -100,20 +96,13 @@ const Getitem = () => {
                                                         )
                                                     })
                                             }
-
                                         </tbody>
-
                                     </table>
                                 </div>
-                                {/* /.card-body */}
                             </div>
-
                         </div>
-                        {/* /.col */}
                     </div>
-                    {/* /.row */}
                 </div>
-                {/* /.container-fluid */}
                 {
                     userID ?
                         <InfoCategory
@@ -123,7 +112,6 @@ const Getitem = () => {
                         />
                         : null}
             </section>
-            {/* /.content */}
         </div>
     )
 }
