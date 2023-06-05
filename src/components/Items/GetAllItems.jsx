@@ -11,18 +11,26 @@ const GetAllItems = () => {
     const [loader, setLoader] = useState(false)
     const [userID, setUserID] = useState()
     const [shouldShow, setShouldShow] = useState(false)
+    const [images, setImage] = useState()
 
     const showData = () => {
         setLoader(true)
         axios.post(`${Baseurl}getallproducts`)
             .then(res => {
                 setGetItems(res.data.Data)
+                setImage(res.data.Data.item_images)
                 console.log(res)
                 setLoader(false)
             })
             .catch(error => {
                 console.log(error)
             })
+    }
+
+    function convertBase64ToImage(base64Data) {
+        const image = new Image();
+        image.src = base64Data;
+        return image;
     }
 
     function oncloseModal() {
@@ -77,6 +85,7 @@ const GetAllItems = () => {
                                                     </>
                                                     :
                                                     getItems.sort((a, b) => new Date(...b.created_at.split("/").reverse()) - new Date(...a.created_at.split("/").reverse())).map((items) => {
+                                                        const imageElement = convertBase64ToImage(items.item_images);
 
                                                         const image = items.item_images[0];
                                                         const colors = items.item_colour.split(",");
@@ -115,7 +124,8 @@ const GetAllItems = () => {
                                                                                 </div>
                                                                             ))} */}
 
-                                                                <td>{items.item_images}</td>
+                                                                {/* <td><img src={`${items.item_images}`} alt="" /></td> */}
+                                                                <td><img src={images} alt="" /></td>
                                                                 <td><Moment format='DD/MM/YYYY' >{items.created_at}</Moment></td>
                                                                 <td>
                                                                     <button className='btn btn-outline-primary m-1' onClick={() => {

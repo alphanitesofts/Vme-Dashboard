@@ -14,17 +14,16 @@ toast.configure()
 const Additemform = () => {
 
     const [data, setData] = useState([])
-    const [productId, setProductId] = useState()
-    const [error, setError] = useState()
+    const [productId, setProductId] = useState("Select any Category")
 
     // products
-    const [picture, setPicture] = useState('')
+    const [picture, setPicture] = useState([])
     const [actualPrice, setActualPrice] = useState('')
     const [previousPrice, setPreviousPrice] = useState('')
     const [productDes, setProductDesc] = useState('')
-    const [getColor, setColor] = useState('')
-    const [available, setAvailable] = useState('Card')
-    const [hot, setHot] = useState(false)
+    const [colors, setColors] = useState([]);
+    const [available, setAvailable] = useState("true")
+    const [hot, setHot] = useState("false")
     const [fieldStatus, setFieldStatus] = useState(false)
 
     useEffect(() => {
@@ -43,7 +42,7 @@ const Additemform = () => {
 
 
     const convertImageToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
+        const pic = new Promise((resolve, reject) => {
             const reader = new FileReader();
 
             reader.onload = () => {
@@ -56,23 +55,25 @@ const Additemform = () => {
 
             reader.readAsDataURL(file);
         });
+        setPicture(pic)
+
     };
 
+    const setColor = (color) => {
+        if (colors.includes(color)) {
+            setColors(colors.filter((c) => c !== color));
+        } else {
+            setColors([...colors, color]);
+        }
+    };
 
     // add product
     const addProduct = async () => {
         setFieldStatus(true)
-
-        if (!actualPrice || !picture || !productDes || !productId) {
+        if (!actualPrice || !previousPrice || !picture || !productDes || !productId || !colors) {
             toast.warning("Please fill all fields")
         }
-
-        if (!picture) {
-            toast.warning("Please add a picture for the item");
-            return;
-        }
         else {
-
             const base64Image = await convertImageToBase64(picture);
 
             var myHeaders = new Headers();
@@ -85,83 +86,32 @@ const Additemform = () => {
                 "is_hot": hot,
                 "category_id": productId,
                 "availability": available,
-                "item_images": base64Image,
-                "item_colour": getColor
+                "item_images": [
+                    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAA…AJBKJRCKRSCQSSdH4/wH6unjHvbSEcQAAAABJRU5ErkJggg=="
+                ],
+                "item_colour": colors
             });
 
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-
-            fetch(`${Baseurl}Addproducts`, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    console.log(result)
-                    setFieldStatus(false)
-                    if (result.status === "401") {
-                        toast.error('Something went wrong')
-                        // setError(result.message)
+            console.log(raw)
+            axios.post(`${Baseurl}Addproducts`, raw)
+                .then((res) => {
+                    console.log(res)
+                    if (res.status === "401") {
+                        toast.warn('Something went wrong')
+                    }
+                    else if (res.status === "200") {
+                        toast.success('Item added successfully')
                     }
                     else {
-                        toast.success('Data added successfully')
+                        return null
                     }
                 })
-                .catch(error => {
-                    console.log('error', error)
-                    toast.warn("Error while submitting data")
-
-                });
-            console.log(raw)
+                .catch((Err) => {
+                    toast.warn('Opss')
+                    console.log(Err)
+                })
         }
     }
-
-    const colorStyles = {
-        control: (styles) => ({ ...styles, backgroundColor: "white" }),
-        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-            return { ...styles, color: data.color };
-        },
-        multiValue: (styles, { data }) => {
-            return {
-                ...styles,
-                backgroundColor: data.color,
-                color: "#fff",
-            };
-        },
-        multiValueLabel: (styles, { data }) => {
-            return {
-                ...styles,
-                color: "#fff",
-            };
-        },
-        multiValueRemove: (styles, { data }) => {
-            return {
-                ...styles,
-                color: "#fff",
-                cursor: "pointer",
-                ":hover": {
-                    color: "#fff",
-                },
-            };
-        },
-    };
-    const handleChange = (selectedOption, actionMeta) => {
-        setColor(selectedOption)
-        console.log("handleChange", selectedOption, actionMeta);
-    };
-    const handleInputChange = (inputValue, actionMeta) => {
-        console.log("handleInputChange", inputValue, actionMeta);
-    };
-
-    // const options = [
-    //     { label: 'black', value: 'black' },
-    //     { label: 'red', value: 'red' },
-    //     { label: 'blue', value: 'blue' },
-    //     { label: 'pink', value: 'pink' },
-    //     { label: 'green', value: 'green' },
-    // ]
 
     return (
         <div className='content-wrapper '>
@@ -184,7 +134,7 @@ const Additemform = () => {
                             <div className='row'>
                                 <div className='form-group col-6'>
                                     <label htmlFor="exampleInputFile">Category</label>
-                                    <select onChange={(e) => setProductId(e.target.value)} className="form-select" aria-label="Default select example">
+                                    <select onChange={(e) => setProductId(e.target.value)} className="form-select" style={{ borderColor: productId === "Select any Category" && fieldStatus === true ? "red" : '#ced4da' }} aria-label="Default select example">
                                         <option value={"Select any Category"}>Select any Category</option>
                                         {
                                             data.map((items) => {
@@ -203,7 +153,7 @@ const Additemform = () => {
                                         <div className="custom-file">
                                             {/* <input onChange={(e) => setPicture(e.target.files[0])} className="form-control" style={{ borderColor: picture === "" && fieldStatus === true ? "red" : '#ced4da' }} type="file" id="formFileMultiple"  multiple/> */}
 
-                                            <input onChange={(e) => setPicture(e.target.files[0])} className="form-control" style={{ borderColor: picture === "" && fieldStatus === true ? "red" : '#ced4da' }} type="file" id="formFileMultiple" multiple />
+                                            <input onChange={(e) => convertImageToBase64(e.target.files[0])} className="form-control" style={{ borderColor: picture === "" && fieldStatus === true ? "red" : '#ced4da' }} type="file" id="formFileMultiple" multiple />
 
                                         </div>
 
@@ -250,31 +200,73 @@ const Additemform = () => {
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Item Color</label>
                                 <div className='d-flex justify-content-start'>
-                                    <button className={getColor === "black" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('black')} style={{ backgroundColor: 'black' }}></button>
-                                    <button className={getColor === "red" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('red')} style={{ backgroundColor: 'red' }}></button>
-                                    <button className={getColor === "blue" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('blue')} style={{ backgroundColor: 'blue' }}></button>
-                                    <button className={getColor === "pink" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('pink')} style={{ backgroundColor: 'pink' }}></button>
-                                    <button className={getColor === "yellow" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('yellow')} style={{ backgroundColor: 'yellow' }}></button>
-                                    <button className={getColor === "green" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('green')} style={{ backgroundColor: 'green' }}></button>
-                                    <button className={getColor === "grey" ? "colorsbutton border border-info" : "colorsbutton"} onClick={() => setColor('grey')} style={{ backgroundColor: 'grey' }}></button>
+                                    <button
+                                        className={colors.includes("black") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("black")}
+                                        style={{ backgroundColor: 'black' }}
+                                    ></button>
+                                    <button
+                                        className={colors.includes("white") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("white")}
+                                        style={{ backgroundColor: 'white' }}
+                                    ></button>
+                                    <button
+                                        className={colors.includes("red") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("red")}
+                                        style={{ backgroundColor: 'red' }}
+                                    ></button>
+                                    <button
+                                        className={colors.includes("green") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("green")}
+                                        style={{ backgroundColor: 'green' }}
+                                    ></button>
+                                    <button
+                                        className={colors.includes("yellow") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("yellow")}
+                                        style={{ backgroundColor: 'yellow' }}
+                                    ></button>
+                                    <button
+                                        className={colors.includes("blue") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("blue")}
+                                        style={{ backgroundColor: 'blue' }}
+                                    ></button>
+                                    <button
+                                        className={colors.includes("pink") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("pink")}
+                                        style={{ backgroundColor: 'pink' }}
+                                    ></button>
+                                    <button
+                                        className={colors.includes("gray") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("gray")}
+                                        style={{ backgroundColor: 'gray' }}
+                                    ></button>
+                                    <button
+                                        className={colors.includes("brown") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("brown")}
+                                        style={{ backgroundColor: 'brown' }}
+                                    ></button>
+                                    <button
+                                        className={colors.includes("orange") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("orange")}
+                                        style={{ backgroundColor: 'orange' }}
+                                    ></button>
+                                    <button
+
+                                        className={colors.includes("purple") ? "colorsbutton tick-mark" : "colorsbutton"}
+                                        onClick={() => setColor("purple")}
+                                        style={{ backgroundColor: 'purple' }}
+                                    ></button>
+                                    {/* <input
+                                        type="color"
+                                        onChange={(e) => setColor(e.target.value)}
+                                        value={colors[colors.length - 1] || '#000000'}
+                                    /> */}
+
                                 </div>
-
-                                {/* <CreatableSelect
-                                    options={colorOptions}
-                                    onChange={handleChange}
-                                    onInputChange={handleInputChange}
-                                    isMulti
-                                styles={colorStyles}
-                                /> */}
                             </div>
-
                         </div>
                         <div className="card-footer">
                             <button type="submit" onClick={addProduct} className="btn btn-outline-secondary">Submit</button>
-                            {/* {
-                                error !== '' ?
-                                    <p>{error}</p> : null
-                            } */}
 
                         </div>
                     </div>
