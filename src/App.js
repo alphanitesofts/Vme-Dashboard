@@ -40,14 +40,14 @@ import SearchOrders from "./components/Orders/SearchOrders";
 ReactModal.setAppElement("#root");
 
 function App() {
-  const [login, SetLogin] = useState(true);
+  const [login, setLogin] = useState(true);
 
   const SetLocalLogin = async () => {
     try {
       let userLogin = await localStorage.getItem("logIN");
       let parsed = JSON.parse(userLogin);
       if (parsed !== null) {
-        SetLogin(parsed);
+        setLogin(parsed);
       }
     } catch {
       return null;

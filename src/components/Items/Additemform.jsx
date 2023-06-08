@@ -4,9 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import 'moment-timezone';
 import Baseurl from '../Sourcefiles/url';
-import Select from 'react-select';
-import CreatableSelect from "react-select/creatable";
-import colorOptions from '../Sourcefiles/color'
 import axios from 'axios';
 
 
@@ -17,7 +14,6 @@ const Additemform = () => {
     const [productId, setProductId] = useState("Select any Category")
 
     // products
-    const [picture, setPicture] = useState([])
     const [actualPrice, setActualPrice] = useState('')
     const [previousPrice, setPreviousPrice] = useState('')
     const [productDes, setProductDesc] = useState('')
@@ -25,6 +21,8 @@ const Additemform = () => {
     const [available, setAvailable] = useState("true")
     const [hot, setHot] = useState("false")
     const [fieldStatus, setFieldStatus] = useState(false)
+    const [pictureOne, setPictureOne] = useState('')
+    const [pictureTwo, setPictureTwo] = useState('')
 
     useEffect(() => {
         fetchCategory()
@@ -40,25 +38,6 @@ const Additemform = () => {
             })
     }
 
-
-    const convertImageToBase64 = (file) => {
-        const pic = new Promise((resolve, reject) => {
-            const reader = new FileReader();
-
-            reader.onload = () => {
-                resolve(reader.result);
-            };
-
-            reader.onerror = (error) => {
-                reject(error);
-            };
-
-            reader.readAsDataURL(file);
-        });
-        setPicture(pic)
-
-    };
-
     const setColor = (color) => {
         if (colors.includes(color)) {
             setColors(colors.filter((c) => c !== color));
@@ -68,50 +47,45 @@ const Additemform = () => {
     };
 
     // add product
-    const addProduct = async () => {
-        setFieldStatus(true)
-        if (!actualPrice || !previousPrice || !picture || !productDes || !productId || !colors) {
-            toast.warning("Please fill all fields")
-        }
-        else {
-            const base64Image = await convertImageToBase64(picture);
+    const addProduct = () => {
+        setFieldStatus(true);
+        if (!actualPrice || !previousPrice || !productDes || !productId || !colors) {
+            toast.warning("Please fill in all fields");
+        } else {
+            var formdata = new FormData();
+            formdata.append("item_price", previousPrice);
+            formdata.append("actual_price", actualPrice);
+            formdata.append("item_colour", colors);
+            formdata.append("description", productDes);
+            formdata.append("is_hot", hot);
+            formdata.append("category_id", productId);
+            formdata.append("availability", available);
+            formdata.append("image_1", pictureOne, "[PROXY]");
+            formdata.append("image_2", pictureTwo, "[PROXY]");
 
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
+            var requestOptions = {
+                method: 'POST',
+                body: formdata,
+                redirect: 'follow'
+            };
 
-            var raw = JSON.stringify({
-                "item_price": previousPrice,
-                "actual_price": actualPrice,
-                "description": productDes,
-                "is_hot": hot,
-                "category_id": productId,
-                "availability": available,
-                "item_images": [
-                    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAA…AJBKJRCKRSCQSSdH4/wH6unjHvbSEcQAAAABJRU5ErkJggg=="
-                ],
-                "item_colour": colors
-            });
-
-            console.log(raw)
-            axios.post(`${Baseurl}Addproducts`, raw)
-                .then((res) => {
-                    console.log(res)
-                    if (res.status === "401") {
-                        toast.warn('Something went wrong')
+            fetch(`${Baseurl}Addproducts`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    if (result.status === "200") {
+                        toast.success("Product added successfully")
                     }
-                    else if (res.status === "200") {
-                        toast.success('Item added successfully')
-                    }
-                    else {
-                        return null
+                    else if (result.status === "401") {
+                        toast.error("Something went wrong")
                     }
                 })
-                .catch((Err) => {
-                    toast.warn('Opss')
-                    console.log(Err)
-                })
+                .catch(error => {
+                    console.log('error', error)
+                    toast.warn('Oppss... something went wrong')
+                });
         }
-    }
+    };
 
     return (
         <div className='content-wrapper '>
@@ -132,7 +106,7 @@ const Additemform = () => {
                         </div>
                         <div className="card-body">
                             <div className='row'>
-                                <div className='form-group col-6'>
+                                <div className='form-group col-12'>
                                     <label htmlFor="exampleInputFile">Category</label>
                                     <select onChange={(e) => setProductId(e.target.value)} className="form-select" style={{ borderColor: productId === "Select any Category" && fieldStatus === true ? "red" : '#ced4da' }} aria-label="Default select example">
                                         <option value={"Select any Category"}>Select any Category</option>
@@ -151,27 +125,31 @@ const Additemform = () => {
                                     <label htmlFor="exampleInputFile">Item Picture</label>
                                     <div className="input-group">
                                         <div className="custom-file">
-                                            {/* <input onChange={(e) => setPicture(e.target.files[0])} className="form-control" style={{ borderColor: picture === "" && fieldStatus === true ? "red" : '#ced4da' }} type="file" id="formFileMultiple"  multiple/> */}
-
-                                            <input onChange={(e) => convertImageToBase64(e.target.files[0])} className="form-control" style={{ borderColor: picture === "" && fieldStatus === true ? "red" : '#ced4da' }} type="file" id="formFileMultiple" multiple />
-
+                                            <input onChange={(e) => setPictureOne(e.target.files[0])} className="form-control" style={{ borderColor: pictureOne === "" && fieldStatus === true ? "red" : '#ced4da' }} type="file" />
                                         </div>
-
                                     </div>
-                                    <p className='mt-0 mb-0'>{picture === "" && fieldStatus === true ? <span className='text-danger'> Please Add picture for the item</span> : null}</p>
+                                    {/* <p className='mt-0 mb-0'>{baseImage === "" && fieldStatus === true ? <span className='text-danger'> Please Add picture for the item</span> : null}</p> */}
+                                </div>
+
+                                <div className="form-group col-6">
+                                    <label htmlFor="exampleInputFile">Item Picture</label>
+                                    <div className="input-group">
+                                        <div className="custom-file">
+                                            <input onChange={(e) => setPictureTwo(e.target.files[0])} className="form-control" type="file" />
+                                        </div>
+                                    </div>
+                                    {/* <p className='mt-0 mb-0'>{baseImage === "" && fieldStatus === true ? <span className='text-danger'> Please Add picture for the item</span> : null}</p> */}
                                 </div>
                             </div>
                             <div className='row'>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Actual Price</label>
                                     <input value={actualPrice} style={{ borderColor: actualPrice === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setActualPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
-                                    {/* <p >{actualPrice === "" && fieldStatus === true ? <span className='text-danger'> Please Add actualPrice for the item</span> : null}</p> */}
                                 </div>
 
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputPassword1">Previous Price</label>
                                     <input style={{ borderColor: previousPrice === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setPreviousPrice(e.target.value)} type="number" className="form-control" id="exampleInputPassword1" placeholder="Item Price as given" />
-                                    {/* <p >{previousPrice === "" && fieldStatus === true ? <span className='text-danger'> Please Add Previous for the item</span> : null}</p> */}
 
                                 </div>
 

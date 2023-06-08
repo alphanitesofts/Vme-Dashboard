@@ -73,7 +73,7 @@ const AddNews = () => {
                         <div className="row">
                             <div className="col-12">
                                 <div className="card p-4">
-                                    <h3 className="">Add the News for the Coustomers here please!</h3>
+                                    <h3 className="">Add the News for the Customers here please!</h3>
                                     <div>
                                         <h4> Title for News</h4>
                                         <p >{title === "" && fieldStatus === true ? <span className='text-danger'> Please Add Title for your news</span> : console.log(".-.")}</p>
