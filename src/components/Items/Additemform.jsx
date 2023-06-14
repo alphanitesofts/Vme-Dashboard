@@ -23,6 +23,7 @@ const Additemform = () => {
     const [fieldStatus, setFieldStatus] = useState(false)
     const [pictureOne, setPictureOne] = useState('')
     const [pictureTwo, setPictureTwo] = useState('')
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         fetchCategory()
@@ -52,6 +53,7 @@ const Additemform = () => {
         if (!actualPrice || !previousPrice || !productDes || !productId || !colors) {
             toast.warning("Please fill in all fields");
         } else {
+            setLoading(true)
             var formdata = new FormData();
             formdata.append("item_price", previousPrice);
             formdata.append("actual_price", actualPrice);
@@ -74,15 +76,17 @@ const Additemform = () => {
                 .then(result => {
                     console.log(result)
                     if (result.status === "200") {
+                        setLoading(false)
                         toast.success("Product added successfully")
                     }
                     else if (result.status === "401") {
+                        setLoading(false)
                         toast.error("Something went wrong")
                     }
                 })
                 .catch(error => {
                     console.log('error', error)
-                    toast.warn('Oppss... something went wrong')
+                    toast.warn('Error while updating category')
                 });
         }
     };
@@ -122,7 +126,7 @@ const Additemform = () => {
                                     </select>
                                 </div>
                                 <div className="form-group col-6">
-                                    <label htmlFor="exampleInputFile">Item Picture</label>
+                                    <label htmlFor="exampleInputFile">Primary Image</label>
                                     <div className="input-group">
                                         <div className="custom-file">
                                             <input onChange={(e) => setPictureOne(e.target.files[0])} className="form-control" style={{ borderColor: pictureOne === "" && fieldStatus === true ? "red" : '#ced4da' }} type="file" />
@@ -132,7 +136,7 @@ const Additemform = () => {
                                 </div>
 
                                 <div className="form-group col-6">
-                                    <label htmlFor="exampleInputFile">Item Picture</label>
+                                    <label htmlFor="exampleInputFile">Secondary Image</label>
                                     <div className="input-group">
                                         <div className="custom-file">
                                             <input onChange={(e) => setPictureTwo(e.target.files[0])} className="form-control" type="file" />
@@ -244,7 +248,12 @@ const Additemform = () => {
                             </div>
                         </div>
                         <div className="card-footer">
-                            <button type="submit" onClick={addProduct} className="btn btn-outline-secondary">Submit</button>
+
+                            {
+                                loading === true ?
+                                    <button className="btn btn-outline-secondary"><i className="fa-solid fa-spinner fa-spin-pulse" /> Loading...</button> :
+                                    <button type="submit" onClick={addProduct} className="btn btn-outline-secondary">Submit</button>
+                            }
 
                         </div>
                     </div>

@@ -11,17 +11,31 @@ const InfoCategory = ({ closeModal, userData, shouldShow }) => {
     const [categoryDescription, setCategoryDescription] = useState('')
     const [fieldStatus, setFieldStatus] = useState(false)
     const userID = userData.id
-    
+
     const updateCategory = () => {
         setFieldStatus(true)
         if (itemName === "" && categoryDescription === "") {
             toast.error("Please fill all the fields")
         }
         else {
-            axios.post(`${Baseurl}update_category/${userID}`)
+
+            const userObj = {
+                category_name: itemName,
+                category_description: categoryDescription
+            }
+
+            axios.post(`${Baseurl}update_category/${userID}`, userObj)
                 .then((res) => {
                     console.log(res)
-                    toast.success('Successfully Updated the category')
+                    if (res.data.status === "201") {
+                        toast.warn('Something went wrong')
+                    }
+                    else if (res.data.status === "200") {
+                        toast.success('Category Updated Successfully')
+                        setInterval(() => {
+                            window.location.reload()
+                        }, 1000);
+                    }
                 })
                 .catch((err) => {
                     console.log(err)

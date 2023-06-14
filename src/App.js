@@ -40,7 +40,11 @@ import SearchOrders from "./components/Orders/SearchOrders";
 ReactModal.setAppElement("#root");
 
 function App() {
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
+
+  useEffect(() => {
+    SetLocalLogin();
+  }, []);
 
   const SetLocalLogin = async () => {
     try {
@@ -53,10 +57,6 @@ function App() {
       return null;
     }
   };
-
-  useEffect(() => {
-    SetLocalLogin();
-  }, []);
 
   return (
     <div className="wrapper">

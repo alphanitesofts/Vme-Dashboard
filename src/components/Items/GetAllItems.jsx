@@ -60,12 +60,11 @@ const GetAllItems = () => {
                                                 <th>Name</th>
                                                 <th>Price</th>
                                                 <th>Color</th>
-                                                <th>Image 1</th>
+                                                <th>Primary Image</th>
                                                 {
                                                     picture2 ?
-                                                        <th>Image 2</th> : null
+                                                        <th>Secondary Image</th> : null
                                                 }
-
                                                 <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
