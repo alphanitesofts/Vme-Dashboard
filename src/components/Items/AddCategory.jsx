@@ -68,7 +68,15 @@ const AddCategory = () => {
                             <div className='row'>
                                 <div className="form-group col-12">
                                     <label htmlFor="exampleInputEmail1">Item Name</label>
-                                    <input style={{ borderColor: itemName === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setItemName(e.target.value)} type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter product itemName" />
+                                    <input
+                                        style={{ borderColor: itemName === "" && fieldStatus === true ? "red" : '#ced4da' }}
+                                        onChange={(e) => setItemName(e.target.value)}
+                                        onKeyPress={(e) => {
+                                            if (e.key === ' ') {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        type="text" className="form-control" id="exampleInputEmail1" placeholder="Enter product itemName" />
                                     <p >{itemName === "" && fieldStatus === true ? <span className='text-danger'> Please Add itemName for the item</span> : null}</p>
                                 </div>
 

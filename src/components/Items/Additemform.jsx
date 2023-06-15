@@ -14,6 +14,7 @@ const Additemform = () => {
     const [productId, setProductId] = useState("Select any Category")
 
     // products
+    const [productName, setProductName] = useState('')
     const [actualPrice, setActualPrice] = useState('')
     const [previousPrice, setPreviousPrice] = useState('')
     const [productDes, setProductDesc] = useState('')
@@ -50,11 +51,12 @@ const Additemform = () => {
     // add product
     const addProduct = () => {
         setFieldStatus(true);
-        if (!actualPrice || !previousPrice || !productDes || !productId || !colors) {
+        if (!actualPrice || !productName || !previousPrice || !productDes || !productId || !colors) {
             toast.warning("Please fill in all fields");
         } else {
             setLoading(true)
             var formdata = new FormData();
+            formdata.append("name", productName);
             formdata.append("item_price", previousPrice);
             formdata.append("actual_price", actualPrice);
             formdata.append("item_colour", colors);
@@ -110,7 +112,7 @@ const Additemform = () => {
                         </div>
                         <div className="card-body">
                             <div className='row'>
-                                <div className='form-group col-12'>
+                                <div className='form-group col-6'>
                                     <label htmlFor="exampleInputFile">Category</label>
                                     <select onChange={(e) => setProductId(e.target.value)} className="form-select" style={{ borderColor: productId === "Select any Category" && fieldStatus === true ? "red" : '#ced4da' }} aria-label="Default select example">
                                         <option value={"Select any Category"}>Select any Category</option>
@@ -124,6 +126,10 @@ const Additemform = () => {
                                             })
                                         }
                                     </select>
+                                </div>
+                                <div className="form-group col-6">
+                                    <label htmlFor="exampleInputPassword1">Prodcut Name</label>
+                                    <input style={{ borderColor: productName === "" && fieldStatus === true ? "red" : '#ced4da' }} onChange={(e) => setProductName(e.target.value)} type="text" className="form-control" id="exampleInputPassword1" placeholder="Enter the product name" />
                                 </div>
                                 <div className="form-group col-6">
                                     <label htmlFor="exampleInputFile">Primary Image</label>
