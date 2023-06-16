@@ -54,7 +54,7 @@ const Infoform = ({ shouldShow, closeModal, userData }) => {
                     </li>
                     <li className="nav-item">
                       <a href="#" className="nav-link">
-                        Product ID: <b className="float-right text-secondary">{userData.product_id}</b>
+                        Product ID: <b className="float-right text-secondary">{userData.id}</b>
                       </a>
                     </li>
                     <li className="nav-item">
