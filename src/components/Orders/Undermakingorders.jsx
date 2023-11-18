@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Baseurl from '../Sourcefiles/url';
 import { toast } from 'react-toastify';
@@ -18,6 +18,7 @@ const Undermakingorders = () => {
   const [userID, setUserID] = useState()
   const [warningModal, setWarningModal] = useState(false)
   const [roleID, setoleID] = useState()
+  const [printModal, setPrintModal] = useState(true)
 
   useEffect(() => { SetLocalLogin(); showData(); }, [])
 
@@ -30,9 +31,7 @@ const Undermakingorders = () => {
     } catch {
       return null;
     }
-    console.log(roleID)
   }
-
 
   const showData = () => {
 
@@ -111,9 +110,12 @@ const Undermakingorders = () => {
     )
   }
 
-
   function oncloseModal() {
     setShouldShow((prev) => !prev)
+  }
+
+  function openPrintModal() {
+    setPrintModal((prev) => !prev)
   }
 
   const DataRender = () => {
@@ -241,6 +243,7 @@ const Undermakingorders = () => {
           </div>
         </div>
       </Modal>
+      
       {
         loader === true ?
           <>
@@ -269,6 +272,7 @@ const Undermakingorders = () => {
                     <div className="card">
                       <div className="card-header">
                         <h3 className="card-title">DataTable with minimal features &amp; hover style</h3>
+                        <button className='float-end btn btn-outline-secondary' onClick={openPrintModal}>Print Slip</button>
                       </div>
                       <div className="card-body table-responsive">
                         <div className="form-group d-flex" >
@@ -302,6 +306,9 @@ const Undermakingorders = () => {
                 </div>
               </div>
             </section>
+
+        
+
             {
               userID ?
                 <Infoform

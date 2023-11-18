@@ -4,11 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import 'moment-timezone';
 import Baseurl from '../Sourcefiles/url';
-import Select from 'react-select';
-import CreatableSelect from "react-select/creatable";
-import colorOptions from '../Sourcefiles/color'
-import axios from 'axios';
-
 
 const AddCategory = () => {
     //category

@@ -12,8 +12,6 @@ const AddNews = () => {
     const [title, setTitle] = useState('')
     const [fieldStatus, setFieldStatus] = useState(false)
 
-    console.log(value)
-
     const publishNews = () => {
 
         setFieldStatus(true)

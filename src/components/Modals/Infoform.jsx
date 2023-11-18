@@ -5,12 +5,6 @@ import { saveAs } from "file-saver";
 
 const Infoform = ({ shouldShow, closeModal, userData }) => {
 
-  const saveFile = () => {
-    saveAs(`${baseUrlforImages}${userData.profile_pic}`);
-  };
-
-  console.log(`${baseUrlforImages}${userData.profile_pic}`)
-
   return (
     <Modal
       isOpen={shouldShow}

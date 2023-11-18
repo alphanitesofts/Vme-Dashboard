@@ -20,7 +20,6 @@ const Content = () => {
   const [userID, setUserID] = useState()
   const [shouldShow, setShouldShow] = useState(false)
   // Warning Model
-  const [warningModal, setWarningModal] = useState(false)
 
   const recieveData = () => {
     setLoader(true)
@@ -163,7 +162,7 @@ const Content = () => {
     }
 
   }
-
+  
   //Output for Data for Tables
   const loadingSection = () => {
     if (userData.length < 1) {

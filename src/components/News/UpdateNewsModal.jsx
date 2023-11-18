@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios, { Axios, AxiosError } from 'axios'
+import axios from 'axios'
 import { toast } from 'react-toastify'
 import Baseurl from '../Sourcefiles/url'
 import Modal from 'react-modal'

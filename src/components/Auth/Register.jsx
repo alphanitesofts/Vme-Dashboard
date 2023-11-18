@@ -9,12 +9,15 @@ toast.configure()
 const Register = () => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
-  const [userName, setUserName] = useState("")
+  const [username, setUserName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [phone, setPhone] = useState("")
-  const [roleID, setRoleID] = useState()
+  const [roleID, setRoleID] = useState("2")
+  const [profilePic, setProfilePic] = useState('')
+
+  const [loader, setLoader] = useState(false)
   const [fieldStatus, setFieldStatus] = useState(false)
 
   const registerAdmin = () => {
@@ -22,7 +25,7 @@ const Register = () => {
     if (
       firstName === "" ||
       lastName === "" ||
-      userName === "" ||
+      username === "" ||
       email === "" ||
       password === "" ||
       confirmPassword === "" ||
@@ -42,28 +45,53 @@ const Register = () => {
   }
 
   const checkRegister = () => {
+    setLoader(true)
     var formdata = new FormData();
-    formdata.append("firstname", firstName);
-    formdata.append("lastname", lastName);
-    formdata.append("username", userName);
+    formdata.append("username", username);
     formdata.append("email", email);
     formdata.append("password", password);
     formdata.append("password_confirmation", confirmPassword);
-    formdata.append("phone", phone);
     formdata.append("role_id", roleID);
+    formdata.append("phone", phone);
+    formdata.append("firstname", firstName);
+    formdata.append("lastname", lastName);
+    {
+      profilePic === "" ?
+        console.log('hello') :
+        formdata.append("profile_pic", profilePic, "[PROXY]")
+    }
 
-    axios.post(`${Baseurl}register`, formdata)
-      .then((res) => {
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch(`${Baseurl}register`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result)
+        if (result.status === "200") {
+          setLoader(false)
+          setFieldStatus(false)
+          toast.info('Registered')
+          setInterval(() => {
+            window.location.reload(true)
+          }, 2000)
+        }
+        else if (result.status === "401") {
+          setLoader(false)
+          setFieldStatus(false)
+          toast.warn(result.message)
+        }
+
+      })
+      .catch(error => {
+        setLoader(false)
         setFieldStatus(false)
-        toast.info('Registered')
-        setInterval(() => {
-          window.location.reload(true)
-        }, 2000)
-      })
-      .catch((err) => {
-        console.log(err)
-        toast.warning('Error while submitting details')
-      })
+        toast.danger('Error while submitting details')
+        console.log('error', error)
+      });
   }
 
 
@@ -89,11 +117,11 @@ const Register = () => {
                 </div>
               </div>
 
-              <div className="form-control formStyle d-flex" style={{ borderColor: userName === "" && fieldStatus === true ? "red" : '#ced4da', marginTop: "20px" }}>
+              <div className="form-control formStyle d-flex" style={{ borderColor: username === "" && fieldStatus === true ? "red" : '#ced4da', marginTop: "20px" }}>
                 <input type="text" className=' placeHolderStyle' placeholder="Username" onChange={(e) => setUserName(e.target.value)} />
                 <span className="fas fa-user" />
               </div>
-              {/* <p>{userName === "" && fieldStatus === true ? <span className='text-danger'>Input field is empty</span> : ""}</p> */}
+              {/* <p>{username === "" && fieldStatus === true ? <span className='text-danger'>Input field is empty</span> : ""}</p> */}
 
               <div className="mt-3 form-control formStyle d-flex" style={{ borderColor: email === "" && fieldStatus === true ? "red" : '#ced4da' }} >
                 <input type="email" className="placeHolderStyle " placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
@@ -119,6 +147,11 @@ const Register = () => {
               </div>
               {/* <p>{phone === "" && fieldStatus === true ? <span className='text-danger'>Input field is empty</span> : ""}</p> */}
 
+              <div className="mb-3">
+                <p htmlFor="formFile" className="form-text mb-0">Your Profile Picture</p>
+                <input onChange={(e) => setProfilePic(e.target.files[0])} className="form-control" type="file" id="formFile" />
+              </div>
+
               <div className='input-group mt-3 mb-3'>
                 <select className="form-select textColor" style={{ color: "black" }} onChange={(e) => setRoleID(e.target.value)} aria-label="Default select example">
                   <option value="3">Admin</option>
@@ -134,14 +167,20 @@ const Register = () => {
               <div className="row mt-1">
                 <div className="col-8">
                   <div className="icheck-primary">
-                    &nbsp;<input type="checkbox" id="agreeTerms" userName="terms" defaultValue="agree" />
+                    &nbsp;<input type="checkbox" id="agreeTerms" username="terms" defaultValue="agree" />
                     &nbsp;<label htmlFor="agreeTerms">
                       I agree to the <a href="#">terms</a>
                     </label>
                   </div>
                 </div>
                 <div className="col-4">
-                  <button className='btn btn-secondary btn-block' onClick={registerAdmin}>Register</button>
+                  {
+                    loader === true ?
+                      <button className='btn btn-secondary btn-block'>Loading ...</button>
+                      :
+                      <button className='btn btn-secondary btn-block' onClick={registerAdmin}>Register</button>
+
+                  }
                 </div>
               </div>
             </div>

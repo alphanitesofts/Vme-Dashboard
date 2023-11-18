@@ -1,4 +1,7 @@
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import ReactModal from "react-modal";
 
 // Tables and infoforms
 import Content from "./components/Orders/Content";
@@ -30,9 +33,6 @@ import Register from "./components/Auth/Register";
 import Forgotpassword from "./components/Auth/Forgotpassword";
 import Error from "./components/Body/Error";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import ReactModal from "react-modal";
 import AddCategory from "./components/Items/AddCategory";
 import GenerateOrder from "./components/Orders/GenerateOrder";
 import SearchOrders from "./components/Orders/SearchOrders";
